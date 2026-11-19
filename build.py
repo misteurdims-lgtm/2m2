@@ -337,9 +337,9 @@ QUIZ = """<div class="quiz" id="quizbox">
     if (pick.goal === "muscle") ids.push("pot", "shaker");
     ids = [...new Set(ids)];
     const names = {forme: "te remettre en forme", muscle: "te muscler", poids: "perdre du poids"};
-    const body = ["Abdos", "Pectoraux", "Dos", "Épaules", "Bras", "Biceps", "Triceps", "Cuisses", "Fessiers", "Mollets", "Cardio", "Souplesse"];
+    const body = ["Abdos", "Pectoraux", "Dos", "Épaules", "Biceps", "Triceps", "Cuisses", "Fessiers", "Mollets", "Cardio", "Souplesse"];
     const all = new Set(ids.flatMap(id => P.find(x => x.icon === id).mus));
-    const covered = body.filter(m => [...all].some(x => x.toLowerCase().includes(m.toLowerCase()) || (m === "Bras" && /biceps|triceps|bras/i.test(x))));
+    const covered = body.filter(m => [...all].some(x => x.toLowerCase().includes(m.toLowerCase())));
     out.innerHTML = `<h3>Ton kit pour ${names[pick.goal]} : ${ids.length} objets</h3>
       <div class="qsum"><b>Avec ce kit, tu fais travailler :</b> ${all.has("Tout le corps") ? "<i>Tout le corps</i>" : ""}${covered.map(m => `<i>${m}</i>`).join("")}</div>
       <p>Dans l'ordre où les acheter. Ajoute tout au panier en un clic : tu verras les prix exacts sur Amazon avant de valider.</p>
