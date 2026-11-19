@@ -151,6 +151,18 @@ GICON = {"salle-de-sport-petit-appartement": "tapis", "halteres-reglables": "hal
 BUDGET = {"€": "Petit budget", "€€": "Budget moyen", "€€€": "Gros budget"}
 
 
+def choices(p):
+    """Les deux modèles proposés pour un produit (ou un seul bouton s'il n'y a pas de choix précis)."""
+    if not p.get("asin"):
+        return f'<a class="btn go" href="{link(p)}" rel="sponsored nofollow noopener" target="_blank">Voir le prix du jour</a>'
+    opts = [(1, p.get("label", ""), p["pick"], link(p))]
+    if p.get("alt"):
+        a = p["alt"]
+        opts.append((2, a["label"], a["pick"], f"https://www.amazon.fr/dp/{a['asin']}?tag={SITE['amazon_tag']}"))
+    items = "".join(f'<a class="choice" href="{u}" rel="sponsored nofollow noopener" target="_blank"><small>Choix {n} · {e(l)}</small><b>{e(name)}</b><span>Voir le prix</span></a>' for n, l, name, u in opts)
+    return f'<div class="choices">{items}<a class="others" href="{aff(p["query"])}" rel="sponsored nofollow noopener" target="_blank">Comparer d&#39;autres modèles</a></div>'
+
+
 def product_card(i, p):
     tier = p["tier"]
     kind = "start" if tier == "Essentiel" else "nut" if tier.startswith("Nutrition") else ""
@@ -161,8 +173,8 @@ def product_card(i, p):
 <div class="art">{icon(p['icon'])}</div>
 <h3>{e(p['name'])}</h3>
 <p>{e(p['why'])}</p>
-<div class="facts"><span><b>Place :</b> {e(p['compare'])}</span><span><b>Rangement :</b> {e(p['storage'].lower())}</span><span><b>Prix :</b> {BUDGET[p['budget']].lower()}</span>{f'<span class="pick"><b>Notre choix :</b> {e(p["pick"])} · <a href="{aff(p["query"])}" rel="sponsored nofollow noopener" target="_blank">autres modèles</a></span>' if p.get("pick") else ""}</div>
-<a class="btn go" href="{link(p)}" rel="sponsored nofollow noopener" target="_blank">Voir le prix du jour</a>
+<div class="facts"><span><b>Place :</b> {e(p['compare'])}</span><span><b>Rangement :</b> {e(p['storage'].lower())}</span><span><b>Prix :</b> {BUDGET[p['budget']].lower()}</span></div>
+{choices(p)}
 <p class="pair">Va bien avec : <a href="{link(mate)}" rel="sponsored nofollow noopener" target="_blank">{e(mate['name'].lower())}</a></p>
 {guide}
 </article>"""
