@@ -337,9 +337,13 @@ QUIZ = """<div class="quiz" id="quizbox">
     if (pick.goal === "muscle") ids.push("pot", "shaker");
     ids = [...new Set(ids)];
     const names = {forme: "te remettre en forme", muscle: "te muscler", poids: "perdre du poids"};
+    const body = ["Abdos", "Pectoraux", "Dos", "Épaules", "Bras", "Biceps", "Triceps", "Cuisses", "Fessiers", "Mollets", "Cardio", "Souplesse"];
+    const all = new Set(ids.flatMap(id => P.find(x => x.icon === id).mus));
+    const covered = body.filter(m => [...all].some(x => x.toLowerCase().includes(m.toLowerCase()) || (m === "Bras" && /biceps|triceps|bras/i.test(x))));
     out.innerHTML = `<h3>Ton kit pour ${names[pick.goal]} : ${ids.length} objets</h3>
+      <div class="qsum"><b>Avec ce kit, tu fais travailler :</b> ${all.has("Tout le corps") ? "<i>Tout le corps</i>" : ""}${covered.map(m => `<i>${m}</i>`).join("")}</div>
       <p>Dans l'ordre où les acheter. Ajoute tout au panier en un clic : tu verras les prix exacts sur Amazon avant de valider.</p>
-      <ol>${ids.map(id => { const p = P.find(x => x.icon === id); return `<li><span><b>${p.name}</b><small>${p.pick}</small></span><button type="button" class="btn add" data-add="${p.asin}">Ajouter</button></li>`; }).join("")}</ol>
+      <ol>${ids.map(id => { const p = P.find(x => x.icon === id); return `<li><span><b>${p.name}</b><small>${p.pick}</small><span class="qmus"><em>${p.icon === "pot" || p.icon === "shaker" ? "Pour :" : "Tu travailles :"}</em> ${p.mus.map(m => `<i>${m}</i>`).join("")}</span></span><button type="button" class="btn add" data-add="${p.asin}">Ajouter</button></li>`; }).join("")}</ol>
       <p><button type="button" class="btn add kit-add" data-add="${ids.map(id => P.find(x => x.icon === id).asin).join(",")}">Tout ajouter au panier</button></p>
       <p class="next"><button type="button" class="reset" id="reset">Recommencer</button> Ensuite : <a href="programme-musculation-maison-debutant.html">ton programme de 3 séances par semaine →</a></p>${pick.goal === "muscle" ? '<p class="small">Compléments : réservés aux adultes en bonne santé. <a href="creatine-proteines-complements.html">Ce qu&apos;en disent les experts →</a></p>' : ""}`;
     out.hidden = false; document.getElementById("ph").hidden = true;
@@ -399,7 +403,7 @@ def build_index():
 
 <section class="section dark" id="quiz"><div class="wrap">
 <div class="section-head"><span class="eyebrow">30 secondes, 3 questions</span><h2>Trouve ton kit idéal</h2><p>Réponds à 3 questions : on te dit exactement quoi acheter, et dans quel ordre.</p></div>
-{QUIZ.replace("__TAG__", SITE['amazon_tag']).replace("__PRODUCTS__", json.dumps([{**{k: p[k] for k in ("icon", "name", "why", "asin", "pick")}, "url": link(p)} for p in PRODUCTS], ensure_ascii=False))}
+{QUIZ.replace("__TAG__", SITE['amazon_tag']).replace("__PRODUCTS__", json.dumps([{**{k: p[k] for k in ("icon", "name", "why", "asin", "pick")}, "url": link(p), "mus": MUSCLES.get(p["icon"], [])} for p in PRODUCTS], ensure_ascii=False))}
 </div></section>
 
 <section class="section" id="excuses"><div class="wrap">

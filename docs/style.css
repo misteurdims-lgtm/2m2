@@ -262,6 +262,11 @@ button.btn { border: 0; cursor: pointer; font-family: inherit; }
 .card .pair, .card .guide-link { display: none; }
 .card { grid-template-areas: "num art title facts cta" "num art text facts cta" "num exos exos exos exos"; }
 .works { margin-bottom: 6px; }
+.qmus { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; margin-top: 6px; }
+.qmus em { font-style: normal; font-size: 12px; font-weight: 700; color: var(--ink); margin-right: 2px; }
+.qmus i, .qsum i { font-style: normal; font-size: 12px; font-weight: 600; color: var(--ink); background: rgba(255, 90, 31, .1); border: 1px solid rgba(194, 65, 12, .25); padding: 1px 7px; border-radius: 12px; }
+.qsum { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 4px 0 16px; padding: 12px 14px; background: #fff; border-left: 3px solid var(--ember); font-size: 15px; }
+.qsum b { margin-right: 4px; }
 .works .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; }
 .works i { font-style: normal; font-size: 12.5px; font-weight: 600; color: var(--ink); background: rgba(255, 90, 31, .1); border: 1px solid rgba(194, 65, 12, .25); padding: 2px 8px; border-radius: 12px; }
 .exos { grid-area: exos; margin-top: 14px; }
