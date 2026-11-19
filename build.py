@@ -112,7 +112,7 @@ def footer():
 <div><span class="brand-mark">2M<span class="sq">²</span></span><p>{e(SITE['description'])}</p>
 <p>En tant que Partenaire Amazon, nous réalisons un bénéfice sur les achats remplissant les conditions requises.</p></div>
 <div><h3>Guides</h3><ul>{guides}</ul></div>
-<div><h3>Le site</h3><ul><li><a href="a-propos.html">Qui suis-je ?</a></li><li><a href="mentions-legales.html">Mentions légales</a></li><li><a href="mentions-legales.html#affiliation">Liens affiliés</a></li></ul>
+<div><h3>Le site</h3><ul><li><a href="a-propos.html">Qui sommes-nous ?</a></li><li><a href="mentions-legales.html">Mentions légales</a></li><li><a href="mentions-legales.html#affiliation">Liens affiliés</a></li></ul>
 <p>Conseils généraux, qui ne remplacent pas l'avis d'un professionnel de santé.</p></div>
 </div></footer>
 </body></html>"""
@@ -323,7 +323,7 @@ def org_ld():
     return {"@context": "https://schema.org", "@graph": [
         {"@type": "WebSite", "@id": url("#site"), "name": SITE["name"], "url": url(""), "description": SITE["description"], "inLanguage": "fr-FR",
          "publisher": {"@id": url("#org")}},
-        {"@type": "Organization", "@id": url("#org"), "name": SITE["name"], "url": url(""), "logo": url("favicon.svg"), "sameAs": ["https://www.pinterest.com/sport2m2/"], "founder": {"@type": "Person", "name": "Mehdi"}}]}
+        {"@type": "Organization", "@id": url("#org"), "name": SITE["name"], "url": url(""), "logo": url("favicon.svg"), "sameAs": ["https://www.pinterest.com/sport2m2/"]}]}
 
 
 def build_index():
@@ -404,7 +404,7 @@ def build_guide(g):
               "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in g["faq"]]}
     art_ld = {"@context": "https://schema.org", "@type": "Article", "headline": g["title"], "description": g["desc"],
               "datePublished": g["date"], "dateModified": TODAY, "inLanguage": "fr-FR",
-              "author": {"@type": "Person", "name": "Mehdi", "url": url("a-propos.html")}, "publisher": {"@type": "Organization", "name": SITE["name"]},
+              "author": {"@type": "Organization", "name": SITE["name"], "url": url("a-propos.html")}, "publisher": {"@type": "Organization", "name": SITE["name"]},
               "image": url("og.png"), "mainEntityOfPage": url(g["slug"] + ".html")}
     crumb_ld = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
         {"@type": "ListItem", "position": 1, "name": "Accueil", "item": url("")},
@@ -428,7 +428,7 @@ def build_guide(g):
 <div><span class="tag">{e(g['kicker'])}</span>
 <h1>{e(g['title'])}</h1>
 <p class="lead">{e(g['desc'])}</p>
-<p class="meta">Par <a href="a-propos.html#qui">Mehdi</a> · Mis à jour le {datetime.date.today().strftime('%d/%m/%Y')} · {g['minutes']} min de lecture</p>{DISCLOSE}</div>
+<p class="meta">Par <a href="a-propos.html#qui">l'équipe 2 m²</a> · Mis à jour le {datetime.date.today().strftime('%d/%m/%Y')} · {g['minutes']} min de lecture</p>{DISCLOSE}</div>
 <div class="big-ico">{icon(GICON.get(g['slug'], 'tapis'), 120)}</div>
 </header>
 </div></div>
@@ -480,16 +480,16 @@ def build_simple(slug, title, desc, inner):
     return page
 
 
-ABOUT = """<h2 id="qui">Qui suis-je ?</h2>
-<p>Salut, moi c'est <strong>Mehdi</strong>. Je m'entraîne en musculation et je cours avec un petit groupe : on prépare ensemble des courses où l'allure monte à chaque tour. Je note toutes mes séances dans un carnet d'entraînement que j'ai moi-même mis en application sur mon téléphone.</p>
-<p>J'ai créé <strong>2 m²</strong> pour une raison simple : quand on débute, on se retrouve noyé sous les fiches produits, les avis douteux et les programmes trop compliqués. Moi, j'aurais voulu qu'on me dise juste quoi acheter en premier, combien de place ça prend, et quoi faire avec.</p>
-<p>Je ne suis ni coach diplômé ni médecin. Ce que tu lis ici, ce sont des critères de choix concrets, des programmes simples pour débuter, et, pour la nutrition, uniquement ce qui est confirmé par des sources officielles (autorités de santé, études reconnues), avec les liens pour vérifier.</p>
-<h2>La méthode</h2>
-<p>La plupart des gens n'ont ni la place ni le budget pour une vraie salle de sport. Ils ont un bout de salon, de chambre ou de couloir. C'est suffisant, à condition de bien choisir. Pour chaque équipement, je regarde trois choses : l'utilité (combien d'exercices il permet), l'emprise au sol (la place réellement occupée) et le rangement (où il va quand on ne s'en sert pas).</p>
-<p>J'explique les critères pour que tu puisses comparer toi-même. Je n'invente ni tests, ni avis, ni notes. Quand je donne des mesures, ce sont des moyennes à vérifier sur la fiche du produit.</p>
+ABOUT = """<h2 id="qui">Qui sommes-nous ?</h2>
+<p><strong>2 m²</strong> est un site indépendant consacré au sport à la maison quand on a peu de place. On s'entraîne nous-mêmes, en musculation comme en course à pied, et on a créé ce site pour une raison simple : quand on débute, on se retrouve noyé sous les fiches produits, les avis douteux et les programmes trop compliqués.</p>
+<p>Notre but : te dire quoi acheter en premier, combien de place ça prend, et quoi faire avec.</p>
+<p>Nous ne sommes ni coachs diplômés ni médecins. Ce que tu lis ici, ce sont des critères de choix concrets, des programmes simples pour débuter, et, pour la nutrition, uniquement ce qui est confirmé par des sources officielles (autorités de santé, études reconnues), avec les liens pour vérifier.</p>
+<h2>Notre méthode</h2>
+<p>La plupart des gens n'ont ni la place ni le budget pour une vraie salle de sport. Ils ont un bout de salon, de chambre ou de couloir. C'est suffisant, à condition de bien choisir. Pour chaque équipement, on regarde trois choses : l'utilité (combien d'exercices il permet), l'emprise au sol (la place réellement occupée) et le rangement (où il va quand on ne s'en sert pas).</p>
+<p>On explique les critères pour que tu puisses comparer toi-même. On n'invente ni tests, ni avis, ni notes. Quand on donne des mesures, ce sont des moyennes à vérifier sur la fiche du produit.</p>
 <h2>Comment le site est financé</h2>
-<p>Certains liens sont des liens affiliés, notamment vers Amazon. Si tu achètes après avoir cliqué, je touche une petite commission. Le prix reste le même pour toi. Ça ne change pas mes conseils : je recommande aussi du matériel qui ne coûte presque rien, comme les élastiques.</p>
-<h2>Me suivre</h2>
+<p>Certains liens sont des liens affiliés, notamment vers Amazon. Si tu achètes après avoir cliqué, on touche une petite commission. Le prix reste le même pour toi. Ça ne change pas nos conseils : on recommande aussi du matériel qui ne coûte presque rien, comme les élastiques.</p>
+<h2>Nous suivre</h2>
 <p>Retrouve les guides en images sur <a href="https://www.pinterest.com/sport2m2/" rel="noopener" target="_blank">Pinterest</a>.</p>"""
 
 
@@ -508,7 +508,7 @@ def build():
     pages = {"index.html": build_index()}
     for g in GUIDES:
         pages[g["slug"] + ".html"] = build_guide(g)
-    pages["a-propos.html"] = build_simple("a-propos", "À propos de 2 m²", "Qui écrit 2 m², comment le matériel est choisi et comment le site est financé.", ABOUT)
+    pages["a-propos.html"] = build_simple("a-propos", "À propos de 2 m²", "Qui est derrière 2 m², comment le matériel est choisi et comment le site est financé.", ABOUT)
     pages["404.html"] = build_simple("404", "Page introuvable", "Cette page n'existe pas ou a été déplacée.",
         '<p>Cette page n\'existe pas ou a été déplacée.</p><p><a class="btn" href="index.html">Retour à l\'accueil</a></p>')
     pages["mentions-legales.html"] = build_simple("mentions-legales", "Mentions légales", "Mentions légales, liens affiliés et données personnelles du site 2 m².", LEGAL)
