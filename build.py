@@ -7,7 +7,7 @@ from urllib.parse import quote_plus
 from content import SITE, PRODUCTS, GUIDES
 from iso import scene
 
-OUT = os.path.join(os.path.dirname(__file__), "public")
+OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "docs")
 SRC = os.path.join(os.path.dirname(__file__), "src")
 TODAY = datetime.date.today().isoformat()
 import hashlib
@@ -508,6 +508,7 @@ def build():
                       for n in pages if n not in ("mentions-legales.html", "404.html"))
     with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
         f.write(f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{sitemap}</urlset>')
+    open(os.path.join(OUT, ".nojekyll"), "w").close()
     with open(os.path.join(OUT, "robots.txt"), "w") as f:
         f.write(f"User-agent: *\nAllow: /\nSitemap: {url('sitemap.xml')}\n")
     print("OK :", ", ".join(sorted(os.listdir(OUT))))
