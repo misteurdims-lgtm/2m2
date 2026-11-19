@@ -325,3 +325,15 @@ EXOS = {'tapis': [('La planche (gainage)', 'Abdos, dos', 'En appui sur les avant
     'corde': [('Les sauts de base', 'Cardio, mollets', 'Petits sauts sur la pointe des pieds, les coudes près du corps. Commence par 30 secondes.'), ('Le pas de course', 'Cardio', "Alterne un pied puis l'autre, comme si tu courais sur place. Moins fatigant pour démarrer."), ('Les intervalles', 'Cardio', "30 secondes de corde, 30 secondes de repos, 8 fois : 8 minutes et c'est fait.")],
     'rouleau': [('Les mollets', 'Récupération', 'Assis, le rouleau sous les mollets : roule doucement de la cheville au genou pendant 1 minute.'), ('Les cuisses', 'Récupération', 'Allongé sur le ventre, le rouleau sous les cuisses : roule lentement de la hanche au genou.'), ('Le haut du dos', 'Récupération', 'Le rouleau sous les omoplates, les mains derrière la tête : roule doucement, jamais sur le bas du dos.')],
     'banc': [('Le développé incliné', 'Haut des pectoraux, épaules', 'Le dossier relevé, un haltère dans chaque main : pousse vers le haut, puis redescends lentement.'), ('La fente bulgare', 'Cuisses, fessiers', 'Un pied posé derrière toi sur le banc : descends sur la jambe avant, puis remonte.'), ('Le rowing appuyé', 'Dos', "Un genou et une main sur le banc : tire l'haltère vers la hanche.")]}
+
+# Ce qu'on travaille avec chaque objet (affiché sur la fiche)
+MUSCLES = {'tapis': ['Abdos', 'Gainage', 'Souplesse', 'Fessiers', 'Pectoraux', 'Bras', 'Dos (bas du dos)', 'Équilibre'],
+    'elastiques': ['Tout le corps', 'Dos', 'Épaules', 'Pectoraux', 'Biceps', 'Triceps', 'Cuisses', 'Fessiers', 'Mobilité des épaules'],
+    'halteres': ['Pectoraux', 'Dos', 'Épaules', 'Biceps', 'Triceps', 'Cuisses', 'Fessiers', 'Mollets'],
+    'barre': ['Dos (grand dorsal)', 'Biceps', 'Avant-bras et poigne', 'Abdos', 'Épaules', 'Triceps et pectoraux (dips, avec la Power Tower)'],
+    'kettlebell': ['Fessiers', 'Cuisses', 'Arrière des cuisses', 'Dos', 'Abdos', 'Épaules', 'Cardio', 'Poigne'],
+    'corde': ['Cardio', 'Mollets', 'Coordination', 'Épaules', 'Endurance', 'Brûle-calories'],
+    'rouleau': ['Récupération', 'Souplesse', 'Mollets', 'Cuisses', 'Fessiers', 'Haut du dos'],
+    'banc': ['Pectoraux (haut et milieu)', 'Épaules', 'Dos', 'Triceps', 'Cuisses', 'Fessiers', 'Abdos'],
+    'pot': ['Force', 'Efforts courts et intenses'],
+    'shaker': ['Construction musculaire', 'Récupération']}

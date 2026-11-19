@@ -4,7 +4,7 @@ Ajouter un guide = ajouter une entrée dans content.py (GUIDES), puis relancer :
 """
 import html, json, os, shutil, datetime
 from urllib.parse import quote_plus
-from content import SITE, PRODUCTS, GUIDES, EXOS
+from content import SITE, PRODUCTS, GUIDES, EXOS, MUSCLES
 from iso import scene
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "docs")
@@ -196,7 +196,7 @@ def product_card(i, p):
 <div class="art">{icon(p['icon'])}</div>
 <h3>{e(p['name'])}</h3>
 <p>{e(p['why'])}</p>
-<div class="facts"><span><b>Place :</b> {e(p['compare'])}</span><span><b>Rangement :</b> {e(p['storage'].lower())}</span><span><b>Prix :</b> {BUDGET[p['budget']].lower()}</span></div>
+<div class="facts">{f'<span class="works"><b>{"Pour quoi :" if p["tier"].startswith("Nutrition") else "Tu travailles :"}</b><span class="tags">{"".join(f"<i>{e(m)}</i>" for m in MUSCLES.get(p["icon"], []))}</span></span>' if MUSCLES.get(p["icon"]) else ""}<span><b>Place :</b> {e(p['compare'])}</span><span><b>Rangement :</b> {e(p['storage'].lower())}</span><span><b>Prix :</b> {BUDGET[p['budget']].lower()}</span></div>
 {choices(p)}
 {exos(p)}
 <p class="pair">Va bien avec : <a href="{link(mate)}" rel="sponsored nofollow noopener" target="_blank">{e(mate['name'].lower())}</a></p>
