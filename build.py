@@ -4,7 +4,7 @@ Ajouter un guide = ajouter une entrée dans content.py (GUIDES), puis relancer :
 """
 import html, json, os, shutil, datetime
 from urllib.parse import quote_plus
-from content import SITE, PRODUCTS, GUIDES
+from content import SITE, PRODUCTS, GUIDES, EXOS
 from iso import scene
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "docs")
@@ -178,6 +178,14 @@ def choices(p):
     return f'<div class="choices">{items}<a class="others" href="{aff(p["query"])}" rel="sponsored nofollow noopener" target="_blank">Comparer d&#39;autres modèles</a></div>'
 
 
+def exos(p):
+    lst = EXOS.get(p["icon"])
+    if not lst:
+        return ""
+    items = "".join(f'<li><b>{e(n)}</b><em>{e(z)}</em><span>{e(h)}</span></li>' for n, z, h in lst)
+    return f'<details class="exos"><summary>Voir 3 exercices à faire avec</summary><ol>{items}</ol><a href="programme-musculation-maison-debutant.html">Le programme complet pour débutants →</a></details>'
+
+
 def product_card(i, p):
     tier = p["tier"]
     kind = "start" if tier == "Essentiel" else "nut" if tier.startswith("Nutrition") else ""
@@ -190,6 +198,7 @@ def product_card(i, p):
 <p>{e(p['why'])}</p>
 <div class="facts"><span><b>Place :</b> {e(p['compare'])}</span><span><b>Rangement :</b> {e(p['storage'].lower())}</span><span><b>Prix :</b> {BUDGET[p['budget']].lower()}</span></div>
 {choices(p)}
+{exos(p)}
 <p class="pair">Va bien avec : <a href="{link(mate)}" rel="sponsored nofollow noopener" target="_blank">{e(mate['name'].lower())}</a></p>
 {guide}
 </article>"""
