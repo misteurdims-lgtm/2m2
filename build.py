@@ -133,8 +133,8 @@ def footer():
     return f"""<footer><div class="wrap">
 <div><span class="brand-mark">2M<span class="sq">²</span></span><p>{e(SITE['description'])}</p>
 <p>En tant que Partenaire Amazon, nous réalisons un bénéfice sur les achats remplissant les conditions requises.</p></div>
-<div><h3>Guides</h3><ul>{guides}</ul></div>
-<div><h3>Le site</h3><ul><li><a href="a-propos.html">Qui sommes-nous ?</a></li><li><a href="mentions-legales.html">Mentions légales</a></li><li><a href="mentions-legales.html#affiliation">Liens affiliés</a></li></ul>
+<div><h2>Guides</h2><ul>{guides}</ul></div>
+<div><h2>Le site</h2><ul><li><a href="a-propos.html">Qui sommes-nous ?</a></li><li><a href="mentions-legales.html">Mentions légales</a></li><li><a href="mentions-legales.html#affiliation">Liens affiliés</a></li></ul>
 <p>Conseils généraux, qui ne remplacent pas l'avis d'un professionnel de santé.</p></div>
 </div></footer>
 </body></html>"""
@@ -197,7 +197,7 @@ def product_card(i, p):
 <div class="art">{icon(p['icon'])}</div>
 <h3>{e(p['name'])}</h3>
 <p>{e(p['why'])}</p>
-<div class="facts">{f'<span class="works"><b>{"Pour quoi :" if p["tier"].startswith("Nutrition") else "Tu travailles :"}</b><span class="tags">{"".join(f"<i>{e(m)}</i>" for m in MUSCLES.get(p["icon"], []))}</span></span>' if MUSCLES.get(p["icon"]) else ""}<span><b>Place :</b> {e(p['compare'])}</span><span><b>Rangement :</b> {e(p['storage'].lower())}</span><span><b>Prix :</b> {BUDGET[p['budget']].lower()}</span></div>
+<div class="facts">{f'<span class="works"><b>{"Pour quoi :" if p["tier"].startswith("Nutrition") else "Tu travailles :"}</b><span class="tags">{"".join(f"<i>{e(m)}</i>" for m in MUSCLES.get(p["icon"], []))}</span></span>' if MUSCLES.get(p["icon"]) else ""}<span><b>Place :</b> {e(p['compare'])}</span><span><b>Rangement :</b> {e(p['storage'].lower())}</span><span><b>Prix :</b> {"au choix, selon le modèle" if p.get("alt") else BUDGET[p['budget']].lower()}</span></div>
 {choices(p)}
 {exos(p)}
 <p class="pair">Va bien avec : <a href="{link(mate)}" rel="sponsored nofollow noopener" target="_blank">{e(mate['name'].lower())}</a></p>
