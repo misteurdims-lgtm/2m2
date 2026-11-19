@@ -371,7 +371,7 @@ QUIZ = """<div class="quiz" id="quizbox">
     out.innerHTML = `<h3>Ton kit pour ${names[pick.goal]} : ${ids.length} objets</h3>
       <p class="tiernote">${tierTxt[tier]}${pick.space === "petit" ? " Sans banc, pour garder ton petit coin libre." : ""}</p>
       <div class="qsum"><b>Avec ce kit, tu fais travailler :</b> ${all.has("Tout le corps") ? "<i>Tout le corps</i>" : ""}${covered.map(m => `<i>${m}</i>`).join("")}</div>
-      <p>Dans l'ordre où les acheter. Ajoute tout au panier en un clic : tu verras les prix exacts sur Amazon avant de valider.</p>
+      <p>Dans l'ordre le plus utile pour ton objectif. Ajoute tout au panier en un clic : tu verras les prix exacts sur Amazon avant de valider.</p>
       <ol>${ids.map(id => { const p = P.find(x => x.icon === id); const m = model(p), o = (p.other[tier] || [])[0];
         return `<li><span><b>${p.name}</b><small>${m.pick}</small><span class="qmus"><em>${p.icon === "pot" || p.icon === "shaker" ? "Pour :" : "Tu travailles :"}</em> ${p.mus.map(m => `<i>${m}</i>`).join("")}</span>${o && o.asin !== m.asin && !(pick.space === "petit" && p.icon === "barre") ? `<span class="qalt">ou ${o.asin === p.t[1].asin ? "moins cher" : "plus haut de gamme"} : ${o.pick} <button type="button" class="mini add" data-add="${o.asin}">+ panier</button></span>` : ""}</span><button type="button" class="btn add" data-add="${m.asin}">Ajouter</button></li>`; }).join("")}</ol>
       <p><button type="button" class="btn add kit-add" data-add="${ids.map(id => model(P.find(x => x.icon === id)).asin).join(",")}">Tout ajouter au panier (${ids.length} objets)</button></p>
