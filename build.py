@@ -100,6 +100,8 @@ ICONS = {
     "kettlebell": '<path d="M36 34 C36 14 64 14 64 34"/><circle cx="50" cy="55" r="22"/>',
     "corde": '<rect x="14" y="14" width="10" height="24" rx="5"/><rect x="76" y="14" width="10" height="24" rx="5"/><path d="M19 38 C19 90 81 90 81 38"/>',
     "rouleau": '<rect x="18" y="32" width="64" height="24" rx="4"/><ellipse cx="18" cy="44" rx="6" ry="12"/><line x1="34" y1="32" x2="34" y2="56"/><line x1="50" y1="32" x2="50" y2="56"/><line x1="66" y1="32" x2="66" y2="56"/>',
+    "pot": '<rect x="28" y="24" width="44" height="50" rx="8"/><rect x="32" y="12" width="36" height="12" rx="3"/><line x1="36" y1="44" x2="64" y2="44"/><line x1="36" y1="54" x2="56" y2="54"/>',
+    "shaker": '<path d="M32 26 L36 78 H64 L68 26 Z"/><rect x="30" y="16" width="40" height="10" rx="3"/><line x1="46" y1="8" x2="54" y2="8"/><line x1="50" y1="8" x2="50" y2="16"/>',
     "banc": '<rect x="12" y="34" width="76" height="12" rx="4"/><line x1="24" y1="46" x2="24" y2="72"/><line x1="76" y1="46" x2="76" y2="72"/><line x1="16" y1="72" x2="32" y2="72"/><line x1="68" y1="72" x2="84" y2="72"/>',
 }
 
@@ -265,12 +267,13 @@ QUIZ = """<div class="quiz" id="quizbox">
     if (+pick.budget === 3) ids.push("barre", "kettlebell", "rouleau");
     if (+pick.budget === 3 && pick.space === "grand") ids.push("banc");
     if (pick.space === "petit") ids = ids.filter(i => i !== "banc");
+    if (pick.goal === "muscle") ids.push("pot", "shaker");
     ids = [...new Set(ids)];
     const names = {forme: "te remettre en forme", muscle: "te muscler", poids: "perdre du poids"};
     out.innerHTML = `<h3>Ton kit pour ${names[pick.goal]} : ${ids.length} objets</h3>
       <p>Dans l'ordre où les acheter. Les prix changent souvent : compare-les sur la page du vendeur.</p>
       <ol>${ids.map(id => { const p = P.find(x => x.icon === id); return `<li><span><b>${p.name}</b><small>${p.why}</small></span><a class="btn" href="https://www.amazon.fr/s?k=${encodeURIComponent(p.query)}&tag=${TAG}" rel="sponsored nofollow noopener" target="_blank">Voir le prix</a></li>`; }).join("")}</ol>
-      <p class="next">Ensuite : <a href="programme-musculation-maison-debutant.html">ton programme de 3 séances par semaine →</a></p>`;
+      <p class="next">Ensuite : <a href="programme-musculation-maison-debutant.html">ton programme de 3 séances par semaine →</a></p>${pick.goal === "muscle" ? '<p class="small">Compléments : réservés aux adultes en bonne santé. <a href="creatine-proteines-complements.html">Ce qu&apos;en disent les experts →</a></p>' : ""}`;
     out.hidden = false; out.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "nearest"});
   }
 })();

@@ -153,6 +153,7 @@ h3 { font-size: 22px; }
 .answer li small { color: var(--muted); font-size: 15px; }
 .answer li .btn { padding: 10px 18px; font-size: 15px; }
 .answer .next { margin: 16px 0 0; font-weight: 700; }
+.answer .small { margin: 8px 0 0; font-size: 15px; color: var(--muted); }
 .oms { margin: 28px 0 0; padding: 16px 20px; background: var(--green-soft); border-radius: 14px; max-width: 860px; }
 
 /* --- guides --- */

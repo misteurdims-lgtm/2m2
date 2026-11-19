@@ -41,6 +41,14 @@ PRODUCTS = [
      "w": 125, "d": 50, "storage": "Plié contre un mur",
      "why": "Pour plus tard, quand tu as pris l'habitude. Il ajoute beaucoup d'exercices.",
      "query": "banc de musculation pliable"},
+    {"icon": "pot", "tier": "Nutrition (en option)", "pair": "shaker", "name": "De la créatine", "budget": "€", "compare": "un petit pot sur une étagère",
+     "w": 0, "d": 0, "storage": "Dans un placard",
+     "why": "Le complément le plus étudié en sport. 3 g par jour, pour les efforts courts et intenses comme la musculation.",
+     "query": "créatine monohydrate pure", "guide": "creatine-proteines-complements"},
+    {"icon": "shaker", "tier": "Nutrition (en option)", "pair": "pot", "name": "Des protéines en poudre", "budget": "€€", "compare": "un pot sur une étagère",
+     "w": 0, "d": 0, "storage": "Dans un placard",
+     "why": "Pratique pour atteindre ses besoins en protéines quand on se muscle, sans cuisiner plus.",
+     "query": "protéine whey", "guide": "creatine-proteines-complements"},
 ]
 
 GUIDES = [
@@ -222,8 +230,8 @@ GUIDES = [
         "title": "Programme de musculation à la maison pour débutant",
         "desc": "Trois séances de 40 minutes par semaine avec un tapis, des élastiques et des haltères : le programme complet, et comment progresser.",
         "date": "2026-11-19", "minutes": 6,
-        "toc": ["Le principe", "Les trois séances", "Comment progresser", "Échauffement et récupération"],
-        "links": {"halt": "haltères réglables", "elast": "élastiques de résistance musculation lot", "kb": "kettlebell fonte"},
+        "toc": ["Le principe", "Les trois séances", "Comment progresser", "Échauffement et récupération", "Et côté alimentation ?"],
+        "links": {"halt": "haltères réglables", "elast": "élastiques de résistance musculation lot", "kb": "kettlebell fonte", "crea": "créatine monohydrate pure", "whey": "protéine whey"},
         "body": """
 <p>Trois séances par semaine, environ 40 minutes chacune, avec le matériel du kit 2 m². C'est assez pour progresser nettement pendant plusieurs mois, et assez court pour tenir sur la durée.</p>
 <h2>Le principe</h2>
@@ -244,12 +252,61 @@ GUIDES = [
 <p>Commence chaque séance par 5 minutes d'échauffement : rotations des épaules et des hanches, squats sans poids, une série légère du premier exercice. Termine par quelques minutes de mobilité ou de rouleau de massage.</p>
 <div class="buy"><div><strong>Lot d'élastiques</strong><span>Pour le tirage et l'échauffement des épaules.</span></div><a class="btn" href="{{elast}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
 <div class="buy"><div><strong>Kettlebell</strong><span>Pour le squat gobelet et le swing de la séance C.</span></div><a class="btn" href="{{kb}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
-<p>Ces conseils sont généraux. En cas de douleur, de blessure ou de problème de santé, demande l'avis d'un médecin avant de commencer.</p>
+<h2>Et côté alimentation ?</h2>
+<p>Pour progresser, l'entraînement ne suffit pas : il faut aussi assez de protéines et de sommeil. Deux compléments sont validés par les experts pour la musculation : <strong>la créatine</strong> (3 g par jour) et <strong>les protéines en poudre</strong>, pratiques pour atteindre ses besoins. On explique tout, avec les précautions, dans <a href="creatine-proteines-complements.html">notre guide créatine et protéines</a>.</p>
+<div class="buy"><div><strong>Créatine monohydrate</strong><span>Le complément le plus étudié pour les efforts courts et intenses.</span></div><a class="btn" href="{{crea}}" rel="sponsored nofollow noopener" target="_blank">Voir le prix du jour</a></div>
+<div class="buy"><div><strong>Protéine whey</strong><span>Un shaker après la séance pour atteindre tes besoins en protéines.</span></div><a class="btn" href="{{whey}}" rel="sponsored nofollow noopener" target="_blank">Voir le prix du jour</a></div>
+<p>Ces conseils sont généraux. En cas de douleur, de blessure ou de problème de santé, demande l'avis d'un médecin avant de commencer, et avant de prendre un complément.</p>
 """,
         "faq": [
             ("Combien de séances par semaine pour débuter la musculation ?", "Trois séances par semaine, avec un jour de repos entre chaque, suffisent pour progresser au début."),
             ("Peut-on prendre du muscle à la maison ?", "Oui, avec des haltères et des élastiques et en augmentant progressivement la difficulté."),
             ("Combien de temps avant de voir des résultats ?", "Les gains de force arrivent souvent en quelques semaines. Les changements visibles prennent généralement plusieurs mois de régularité."),
+        ],
+    },
+    {
+        "slug": "creatine-proteines-complements",
+        "short": "Créatine et protéines",
+        "kicker": "Nutrition",
+        "title": "Créatine et protéines : les 2 compléments validés par la science",
+        "desc": "Ce que disent vraiment les experts sur la créatine et les protéines en poudre, comment les prendre, et les compléments à éviter.",
+        "date": "2026-11-19", "minutes": 6,
+        "toc": ["La créatine", "Les protéines", "Les compléments à éviter", "Qui doit demander l'avis d'un médecin"],
+        "links": {"crea": "créatine monohydrate pure", "whey": "protéine whey", "vegan": "protéine végétale poudre", "shaker": "shaker protéine"},
+        "body": """
+<p>Les compléments ne remplacent ni l'entraînement ni une alimentation équilibrée. Mais deux d'entre eux sont solidement étudiés et utiles quand on fait de la musculation : <strong>la créatine</strong> et <strong>les protéines en poudre</strong>. Le reste est souvent du marketing.</p>
+<h2>La créatine</h2>
+<p>C'est le complément le plus étudié du sport. En Europe, une seule allégation est autorisée : la créatine augmente les performances physiques lors de séries successives d'exercices très intenses et de courte durée, pour un apport de <strong>3 g par jour</strong>. Elle ne vaut que pour les adultes qui font des efforts intenses, comme la musculation (<a href="https://www.vidal.fr/parapharmacie/complements-alimentaires/creatine.html" rel="noopener" target="_blank">Vidal</a>).</p>
+<p>Côté sécurité, la Société internationale de nutrition sportive (ISSN) a passé en revue les études en 2017 : la supplémentation, à court et à long terme, est jugée sûre et bien tolérée chez les personnes en bonne santé (<a href="https://read.qxmd.com/read/28615996/international-society-of-sports-nutrition-position-stand-safety-and-efficacy-of-creatine-supplementation-in-exercise-sport-and-medicine" rel="noopener" target="_blank">ISSN, 2017</a>).</p>
+<h3>Comment la prendre</h3>
+<ul>
+<li><strong>3 g par jour</strong>, tous les jours, même les jours sans séance. La régularité compte plus que l'heure.</li>
+<li>Dans un verre d'eau ou un shaker. Pas besoin de « phase de charge ».</li>
+<li>Une légère prise de poids peut arriver au début : c'est de l'eau stockée dans les muscles.</li>
+<li>Choisis de la <strong>créatine monohydrate</strong> pure : c'est la forme la plus étudiée.</li>
+</ul>
+<div class="buy"><div><strong>Créatine monohydrate</strong><span>Pure, sans additif. Un pot dure plusieurs mois à 3 g par jour.</span></div><a class="btn" href="{{crea}}" rel="sponsored nofollow noopener" target="_blank">Voir le prix du jour</a></div>
+<h2>Les protéines</h2>
+<p>Quand on se muscle, on a besoin de plus de protéines. Selon l'ISSN, un apport de <strong>1,4 à 2,0 g de protéines par kilo de poids de corps et par jour</strong> suffit à la plupart des personnes qui s'entraînent pour construire et garder leur muscle (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5477153/" rel="noopener" target="_blank">ISSN, 2017</a>). Pour une personne de 70 kg, cela fait environ 100 à 140 g par jour.</p>
+<p>L'alimentation peut suffire (viande, poisson, œufs, laitages, légumineuses). La poudre est simplement <strong>pratique</strong> : un shaker après la séance ou au petit-déjeuner, et l'objectif est plus facile à atteindre.</p>
+<div class="buy"><div><strong>Protéine whey</strong><span>Issue du lait, se mélange facilement à l'eau ou au lait.</span></div><a class="btn" href="{{whey}}" rel="sponsored nofollow noopener" target="_blank">Voir le prix du jour</a></div>
+<div class="buy"><div><strong>Protéine végétale</strong><span>Sans lactose, pour les végétariens ou les estomacs sensibles.</span></div><a class="btn" href="{{vegan}}" rel="sponsored nofollow noopener" target="_blank">Voir le prix du jour</a></div>
+<div class="buy"><div><strong>Un shaker</strong><span>Pour la créatine et les protéines, sans grumeaux.</span></div><a class="btn" href="{{shaker}}" rel="sponsored nofollow noopener" target="_blank">Voir le prix du jour</a></div>
+<h2>Les compléments à éviter</h2>
+<p>L'Anses, l'agence française de sécurité sanitaire, met en garde contre les compléments vendus pour « prendre du muscle » ou « brûler les graisses ». Entre 2016 et février 2024, elle a recensé 154 cas d'effets indésirables, dont 18 très graves (<a href="https://www.anses.fr/fr/content/complements-alimentaires-et-aliments-enrichis-pour-sportifs-des-consommations-risque" rel="noopener" target="_blank">Anses</a>). Évite donc :</p>
+<ul>
+<li>les « brûleurs de graisse » et les produits minceur miracles ;</li>
+<li>les boosters riches en caféine avant ou pendant le sport : l'Anses les déconseille ;</li>
+<li>le cumul de plusieurs compléments, ou leur association avec des médicaments.</li>
+</ul>
+<div class="note"><span class="label">Bon réflexe</span>Préfère les produits qui affichent la norme AFNOR NF V 94-001, un repère de sécurité recommandé par l'Anses pour les sportifs.</div>
+<h2>Qui doit demander l'avis d'un médecin</h2>
+<p>Parle à ton médecin ou à ton pharmacien avant de prendre un complément si tu as moins de 18 ans, si tu es enceinte ou allaitante, si tu as un problème de reins, de foie ou de cœur, ou si tu prends un traitement. Ces conseils sont généraux et ne remplacent pas un avis médical.</p>
+""",
+        "faq": [
+            ("La créatine est-elle dangereuse ?", "Chez l'adulte en bonne santé, la créatine est jugée sûre et bien tolérée par la Société internationale de nutrition sportive. Demande un avis médical en cas de problème rénal, de grossesse ou de traitement."),
+            ("Combien de créatine par jour ?", "3 g par jour, c'est la dose retenue par l'allégation européenne pour les efforts courts et intenses."),
+            ("Les protéines en poudre sont-elles obligatoires ?", "Non. L'alimentation peut couvrir les besoins. La poudre est simplement pratique pour atteindre 1,4 à 2 g de protéines par kilo et par jour."),
         ],
     },
 ]
