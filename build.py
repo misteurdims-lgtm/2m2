@@ -565,7 +565,7 @@ def build_materiel():
     jump = "".join(f'<a href="#p-{p["icon"]}">{e(p["name"])}</a>' for p in PRODUCTS)
     page = head("Le matériel pour faire du sport à la maison : 2 modèles par objet",
                 "Tapis, élastiques, haltères, barre de traction, kettlebell… Pour chaque objet : les muscles travaillés, 3 exercices, et 2 modèles expliqués simplement.",
-                "materiel.html", [org_ld(), itemlist, crumb_ld], seo_title="Matériel de sport à la maison : le guide simple | 2 m²")
+                "materiel.html", [org_ld(), itemlist, crumb_ld], seo_title="Matériel de sport à la maison : le guide simple")
     page += header("materiel.html")
     page += f"""<main id="contenu">
 <div class="article-band"><div class="wrap"><div class="crumbs"><a href="index.html">Accueil</a> / Matériel</div>
