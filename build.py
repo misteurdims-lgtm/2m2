@@ -39,7 +39,7 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="
          '<link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">')
 
 
-GV = (f'<meta name="google-site-verification" content="{SITE["google_verif"]}">' if SITE.get("google_verif") else "")
+GV = (f'<meta name="google-site-verification" content="{SITE["google_verif"]}">' if SITE.get("google_verif") else "") + (f'<meta name="msvalidate.01" content="{SITE["bing_verif"]}">' if SITE.get("bing_verif") else "")
 
 
 def head(title, desc, path, jsonld, og_type="website", seo_title=None):

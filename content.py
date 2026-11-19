@@ -7,6 +7,7 @@ SITE = {
     "base_url": "https://misteurdims-lgtm.github.io/2m2",   # à remplacer par le nom de domaine quand il sera acheté
     "amazon_tag": "deuxm2-21",                # à remplacer par ton identifiant Amazon Partenaires
     "google_verif": "",                          # code de vérification Google Search Console
+    "bing_verif": "A4175F93088D15A445960A9478274A40",
     "goatcounter": "",                           # code GoatCounter (statistiques sans cookie), vide = désactivé
 }
 
