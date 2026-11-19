@@ -18,7 +18,7 @@
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Instrument+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=e9bcbbe1">
+<link rel="stylesheet" href="style.css?v=263fdbf9">
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://misteurdims-lgtm.github.io/2m2/#site", "name": "2 m²", "url": "https://misteurdims-lgtm.github.io/2m2/", "description": "Le guide du matériel pour s'entraîner chez soi dans un petit espace : emprise au sol, rangement, critères de choix et programmes.", "inLanguage": "fr-FR", "publisher": {"@id": "https://misteurdims-lgtm.github.io/2m2/#org"}}, {"@type": "Organization", "@id": "https://misteurdims-lgtm.github.io/2m2/#org", "name": "2 m²", "url": "https://misteurdims-lgtm.github.io/2m2/", "logo": "https://misteurdims-lgtm.github.io/2m2/favicon.svg", "sameAs": ["https://www.pinterest.com/sport2m2/"]}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Le matériel pour s'entraîner chez soi", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Un tapis de sol"}, {"@type": "ListItem", "position": 2, "name": "Des élastiques"}, {"@type": "ListItem", "position": 3, "name": "Des haltères réglables"}, {"@type": "ListItem", "position": 4, "name": "Une barre de traction"}, {"@type": "ListItem", "position": 5, "name": "Un kettlebell"}, {"@type": "ListItem", "position": 6, "name": "Une corde à sauter"}, {"@type": "ListItem", "position": 7, "name": "Un rouleau de massage"}, {"@type": "ListItem", "position": 8, "name": "Un banc pliable"}, {"@type": "ListItem", "position": 9, "name": "De la créatine"}, {"@type": "ListItem", "position": 10, "name": "Des protéines en poudre"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Je n'ai jamais fait de sport. Je peux commencer à la maison ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, c'est même l'endroit idéal pour débuter : pas de regard des autres, pas de trajet, et tu vas à ton rythme. Commence par 2 ou 3 séances courtes par semaine."}}, {"@type": "Question", "name": "Combien ça coûte pour s'équiper ?", "acceptedAnswer": {"@type": "Answer", "text": "Pour commencer, un tapis et un lot d'élastiques suffisent : c'est un petit budget. Les haltères réglables viennent ensuite, quand tu as pris l'habitude."}}, {"@type": "Question", "name": "J'ai très peu de place, c'est possible ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui. Un espace de 2 mètres sur 1 mètre suffit, et tout le matériel du début se range sous un lit ou dans un tiroir."}}, {"@type": "Question", "name": "Combien de temps par séance ?", "acceptedAnswer": {"@type": "Answer", "text": "30 à 40 minutes suffisent, trois fois par semaine. Mieux vaut des séances courtes et régulières que longues et rares."}}]}</script>
 </head>
@@ -35,7 +35,7 @@
 <p class="cart-empty" id="cartEmpty">Ton panier est vide. Ajoute du matériel depuis les fiches, un kit ou le quiz.</p>
 <div class="cart-foot" id="cartFoot" hidden>
 <p class="cart-note">Tu verras les prix exacts et tu confirmeras ta commande sur Amazon. Rien n'est payé ici.</p>
-<button type="button" class="btn cart-go" id="cartGo">Commander sur Amazon <span id="cartN"></span></button>
+<a class="btn cart-go" id="cartGo" href="#" rel="sponsored nofollow noopener" target="_blank">Commander sur Amazon<small id="cartN"></small></a>
 <button type="button" class="cart-clear" id="cartClear">Vider le panier</button>
 </div>
 </aside>
@@ -55,7 +55,8 @@
       <span class="qty"><button type="button" data-q="-1" data-a="${i.a}" aria-label="Retirer un">−</button><b>${i.q}</b><button type="button" data-q="1" data-a="${i.a}" aria-label="Ajouter un">+</button></span>
       <button type="button" class="rm" data-rm="${i.a}" aria-label="Supprimer">Supprimer</button></li>`).join("");
     $("cartEmpty").hidden = cart.length > 0; $("cartFoot").hidden = cart.length === 0;
-    $("cartN").textContent = `(${count()} article${count() > 1 ? "s" : ""})`;
+    $("cartN").textContent = `${count()} article${count() > 1 ? "s" : ""}`;
+    $("cartGo").href = `https://www.amazon.fr/gp/aws/cart/add.html?${cart.map((i, n) => `ASIN.${n + 1}=${i.a}&Quantity.${n + 1}=${i.q}`).join("&")}&AssociateTag=${TAG}`;
   }
   function add(asins) {
     asins.forEach(a => { if (!NAMES[a]) return; const it = cart.find(i => i.a === a); it ? it.q++ : cart.push({a, q: 1}); });
@@ -77,12 +78,7 @@
     save(); render();
   });
   $("cartClear").onclick = () => { cart = []; save(); render(); };
-  $("cartGo").onclick = () => {
-    if (!cart.length) return;
-    const p = cart.map((i, n) => `ASIN.${n + 1}=${i.a}&Quantity.${n + 1}=${i.q}`).join("&");
-    if (window.goatcounter && goatcounter.count) goatcounter.count({path: "panier-commande", event: true});
-    window.open(`https://www.amazon.fr/gp/aws/cart/add.html?${p}&AssociateTag=${TAG}`, "_blank", "noopener");
-  };
+  $("cartGo").addEventListener("click", () => { if (window.goatcounter && goatcounter.count) goatcounter.count({path: "panier-commande", event: true}); });
   document.addEventListener("click", e => {
     const b = e.target.closest("[data-add]"); if (!b) return;
     e.preventDefault(); add(b.dataset.add.split(","));

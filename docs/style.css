@@ -248,9 +248,11 @@ button.btn { border: 0; cursor: pointer; font-family: inherit; }
 #cartList .qty button { font: inherit; width: 30px; height: 30px; border: 1px solid var(--hair); background: #fff; cursor: pointer; font-size: 16px; }
 #cartList .rm { grid-column: 1; justify-self: start; font: inherit; font-size: 13px; background: none; border: 0; padding: 0; color: var(--ink-soft); text-decoration: underline; cursor: pointer; }
 .cart-empty { color: var(--ink-soft); }
-.cart-foot { margin-top: auto; padding-top: 20px; display: grid; gap: 10px; }
+.cart-foot { margin-top: auto; padding: 20px 0 4px; display: grid; gap: 10px; position: sticky; bottom: -24px; background: var(--paper); }
 .cart-note { font-size: 14px; color: var(--ink-soft); margin: 0; }
-.cart-go { width: 100%; border: 0; cursor: pointer; font: inherit; }
+.cart-go { display: grid !important; justify-items: center; gap: 2px; text-align: center; width: 100%; box-sizing: border-box; }
+.cart-go::after { display: none !important; }
+.cart-go small { font-size: 12px; letter-spacing: .08em; opacity: .85; }
 .cart-clear { font: inherit; font-size: 13px; background: none; border: 0; color: var(--ink-soft); text-decoration: underline; cursor: pointer; }
 .toast { position: fixed; left: 50%; bottom: 80px; transform: translateX(-50%); z-index: 70; background: var(--night, #111); color: #fff; padding: 12px 16px; font-size: 14px; display: flex; gap: 12px; align-items: center; box-shadow: 0 8px 30px rgba(0, 0, 0, .3); max-width: calc(100% - 24px); }
 .toast button { font: inherit; font-weight: 700; background: var(--ember-btn); color: #fff; border: 0; padding: 6px 10px; cursor: pointer; white-space: nowrap; }

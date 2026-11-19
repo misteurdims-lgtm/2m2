@@ -10,7 +10,7 @@ CART_PANEL = """<div class="cart-veil" id="cartVeil" hidden></div>
 <p class="cart-empty" id="cartEmpty">Ton panier est vide. Ajoute du matériel depuis les fiches, un kit ou le quiz.</p>
 <div class="cart-foot" id="cartFoot" hidden>
 <p class="cart-note">Tu verras les prix exacts et tu confirmeras ta commande sur Amazon. Rien n'est payé ici.</p>
-<button type="button" class="btn cart-go" id="cartGo">Commander sur Amazon <span id="cartN"></span></button>
+<a class="btn cart-go" id="cartGo" href="#" rel="sponsored nofollow noopener" target="_blank">Commander sur Amazon<small id="cartN"></small></a>
 <button type="button" class="cart-clear" id="cartClear">Vider le panier</button>
 </div>
 </aside>
@@ -30,7 +30,8 @@ CART_PANEL = """<div class="cart-veil" id="cartVeil" hidden></div>
       <span class="qty"><button type="button" data-q="-1" data-a="${i.a}" aria-label="Retirer un">−</button><b>${i.q}</b><button type="button" data-q="1" data-a="${i.a}" aria-label="Ajouter un">+</button></span>
       <button type="button" class="rm" data-rm="${i.a}" aria-label="Supprimer">Supprimer</button></li>`).join("");
     $("cartEmpty").hidden = cart.length > 0; $("cartFoot").hidden = cart.length === 0;
-    $("cartN").textContent = `(${count()} article${count() > 1 ? "s" : ""})`;
+    $("cartN").textContent = `${count()} article${count() > 1 ? "s" : ""}`;
+    $("cartGo").href = `https://www.amazon.fr/gp/aws/cart/add.html?${cart.map((i, n) => `ASIN.${n + 1}=${i.a}&Quantity.${n + 1}=${i.q}`).join("&")}&AssociateTag=${TAG}`;
   }
   function add(asins) {
     asins.forEach(a => { if (!NAMES[a]) return; const it = cart.find(i => i.a === a); it ? it.q++ : cart.push({a, q: 1}); });
@@ -52,12 +53,7 @@ CART_PANEL = """<div class="cart-veil" id="cartVeil" hidden></div>
     save(); render();
   });
   $("cartClear").onclick = () => { cart = []; save(); render(); };
-  $("cartGo").onclick = () => {
-    if (!cart.length) return;
-    const p = cart.map((i, n) => `ASIN.${n + 1}=${i.a}&Quantity.${n + 1}=${i.q}`).join("&");
-    if (window.goatcounter && goatcounter.count) goatcounter.count({path: "panier-commande", event: true});
-    window.open(`https://www.amazon.fr/gp/aws/cart/add.html?${p}&AssociateTag=${TAG}`, "_blank", "noopener");
-  };
+  $("cartGo").addEventListener("click", () => { if (window.goatcounter && goatcounter.count) goatcounter.count({path: "panier-commande", event: true}); });
   document.addEventListener("click", e => {
     const b = e.target.closest("[data-add]"); if (!b) return;
     e.preventDefault(); add(b.dataset.add.split(","));
