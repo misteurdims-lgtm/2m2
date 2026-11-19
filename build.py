@@ -39,6 +39,9 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="
          '<link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">')
 
 
+GV = (f'<meta name="google-site-verification" content="{SITE["google_verif"]}">' if SITE.get("google_verif") else "")
+
+
 def head(title, desc, path, jsonld, og_type="website", seo_title=None):
     title_tag = seo_title or title
     full_title = title_tag if title_tag.startswith(SITE["name"]) else f"{title_tag} | {SITE['name']}"
@@ -49,7 +52,7 @@ def head(title, desc, path, jsonld, og_type="website", seo_title=None):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(full_title)}</title>
-<meta name="description" content="{e(desc)}">
+<meta name="description" content="{e(desc)}">{GV}
 <link rel="canonical" href="{url(path)}">
 <meta property="og:type" content="{og_type}">
 <meta property="og:site_name" content="{e(SITE['name'])}">
@@ -509,6 +512,9 @@ def build():
     with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
         f.write(f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{sitemap}</urlset>')
     open(os.path.join(OUT, ".nojekyll"), "w").close()
+    # fichier de vérification Google Search Console (ne pas supprimer)
+    gsc = "google4ff7b37beb931c1d.html"
+    open(os.path.join(OUT, gsc), "w").write(f"google-site-verification: {gsc}")
     with open(os.path.join(OUT, "robots.txt"), "w") as f:
         f.write(f"User-agent: *\nAllow: /\nSitemap: {url('sitemap.xml')}\n")
     print("OK :", ", ".join(sorted(os.listdir(OUT))))
