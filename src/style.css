@@ -265,6 +265,12 @@ button.btn { border: 0; cursor: pointer; font-family: inherit; }
 .answer .qmus { display: flex !important; flex-wrap: wrap; gap: 4px; }
 .answer .qmus i, .answer .qmus em { display: inline-block; width: auto; }
 .answer .qalt { display: block; }
+.choices .diff { font-size: 13.5px; line-height: 1.5; color: var(--ink-soft); margin: 2px 0 0; background: rgba(255, 255, 255, .6); border-left: 3px solid var(--blue); padding: 8px 10px; }
+.choices .diff b { color: var(--ink); }
+.qdiff { margin-top: 4px; font-size: 13px; line-height: 1.5; color: var(--ink-soft); }
+.qdiff summary { cursor: pointer; font-weight: 700; color: var(--ember-text); display: inline; }
+.bhelp { font-size: 14px; line-height: 1.55; color: #c9c7c1; margin: 14px 0 0; max-width: 60ch; }
+.bhelp b { color: #fff; }
 .tiernote { font-weight: 600; color: var(--ink); }
 .qalt { display: block; margin-top: 6px; font-size: 13px; color: var(--ink-soft); }
 .kmus { display: block; font-size: 13px; color: #b9b6ae; font-weight: 400; margin-top: 2px; }

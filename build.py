@@ -4,7 +4,7 @@ Ajouter un guide = ajouter une entrée dans content.py (GUIDES), puis relancer :
 """
 import html, json, os, shutil, datetime
 from urllib.parse import quote_plus
-from content import SITE, PRODUCTS, GUIDES, EXOS, MUSCLES
+from content import SITE, PRODUCTS, GUIDES, EXOS, MUSCLES, DIFF
 from iso import scene
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "docs")
@@ -175,7 +175,8 @@ def choices(p):
         a = p["alt"]
         opts.append((2, a["label"], a["pick"], a["asin"]))
     items = "".join(f'<div class="choice"><small>Choix {n} · {e(l)}</small><b>{e(name)}</b><span class="acts"><button type="button" class="add" data-add="{asin}">Ajouter au panier</button><a href="https://www.amazon.fr/dp/{asin}?tag={SITE["amazon_tag"]}" rel="sponsored nofollow noopener" target="_blank">Voir la fiche</a></span></div>' for n, l, name, asin in opts)
-    return f'<div class="choices">{items}<a class="others" href="{aff(p["query"])}" rel="sponsored nofollow noopener" target="_blank">Comparer d&#39;autres modèles</a></div>'
+    d = f'<p class="diff"><b>Quelle différence ?</b> {e(DIFF[p["icon"]])}</p>' if DIFF.get(p["icon"]) and p.get("alt") else ""
+    return f'<div class="choices">{items}{d}<a class="others" href="{aff(p["query"])}" rel="sponsored nofollow noopener" target="_blank">Comparer d&#39;autres modèles</a></div>'
 
 
 def exos(p):
@@ -340,7 +341,8 @@ QUIZ = """<div class="quiz" id="quizbox">
 <div class="q" data-q="space"><h3><span>2.</span>Ta place ?</h3><div class="opts">
 <button type="button" aria-pressed="false" data-v="petit">Un petit coin</button><button type="button" aria-pressed="false" data-v="moyen">Un bout de pièce</button><button type="button" aria-pressed="false" data-v="grand">Une pièce libre</button></div></div>
 <div class="q" data-q="budget"><h3><span>3.</span>Ton budget pour démarrer ?</h3><div class="opts">
-<button type="button" aria-pressed="false" data-v="1">Petit budget</button><button type="button" aria-pressed="false" data-v="2">Équilibré</button><button type="button" aria-pressed="false" data-v="3">Haut de gamme</button></div></div>
+<button type="button" aria-pressed="false" data-v="1">Petit budget</button><button type="button" aria-pressed="false" data-v="2">Équilibré</button><button type="button" aria-pressed="false" data-v="3">Haut de gamme</button></div>
+<p class="bhelp">Dans les 3 cas, tu as <b>tout l'équipement</b>. Seule la gamme change. <b>Petit budget</b> : les modèles les moins chers, qui font très bien le travail. <b>Équilibré</b> : petits prix sur le gros matériel, un cran au-dessus là où ça change le confort. <b>Haut de gamme</b> : plus pratiques (réglage en quelques secondes), plus d'exercices possibles, et ils durent plus longtemps.</p></div>
 </div>
 <div class="answer-slot"><div class="placeholder" id="ph"><b>Ton kit<br>apparaît ici.</b>Réponds aux 3 questions. Ça prend 30 secondes.</div><div class="answer" id="answer" hidden></div></div>
 </div>
@@ -373,7 +375,7 @@ QUIZ = """<div class="quiz" id="quizbox">
       <div class="qsum"><b>Avec ce kit, tu fais travailler :</b> ${all.has("Tout le corps") ? "<i>Tout le corps</i>" : ""}${covered.map(m => `<i>${m}</i>`).join("")}</div>
       <p>Dans l'ordre le plus utile pour ton objectif. Ajoute tout au panier en un clic : tu verras les prix exacts sur Amazon avant de valider.</p>
       <ol>${ids.map(id => { const p = P.find(x => x.icon === id); const m = model(p), o = (p.other[tier] || [])[0];
-        return `<li><span><b>${p.name}</b><small>${m.pick}</small><span class="qmus"><em>${p.icon === "pot" || p.icon === "shaker" ? "Pour :" : "Tu travailles :"}</em> ${p.mus.map(m => `<i>${m}</i>`).join("")}</span>${o && o.asin !== m.asin && !(pick.space === "petit" && p.icon === "barre") ? `<span class="qalt">ou ${o.asin === p.t[1].asin ? "moins cher" : "plus haut de gamme"} : ${o.pick} <button type="button" class="mini add" data-add="${o.asin}">+ panier</button></span>` : ""}</span><button type="button" class="btn add" data-add="${m.asin}">Ajouter</button></li>`; }).join("")}</ol>
+        return `<li><span><b>${p.name}</b><small>${m.pick}</small><span class="qmus"><em>${p.icon === "pot" || p.icon === "shaker" ? "Pour :" : "Tu travailles :"}</em> ${p.mus.map(m => `<i>${m}</i>`).join("")}</span>${o && o.asin !== m.asin && !(pick.space === "petit" && p.icon === "barre") ? `<span class="qalt">ou ${o.asin === p.t[1].asin ? "moins cher" : "plus haut de gamme"} : ${o.pick} <button type="button" class="mini add" data-add="${o.asin}">+ panier</button><details class="qdiff"><summary>Quelle différence ?</summary>${p.diff}</details></span>` : ""}</span><button type="button" class="btn add" data-add="${m.asin}">Ajouter</button></li>`; }).join("")}</ol>
       <p><button type="button" class="btn add kit-add" data-add="${ids.map(id => model(P.find(x => x.icon === id)).asin).join(",")}">Tout ajouter au panier (${ids.length} objets)</button></p>
       <p class="next"><button type="button" class="reset" id="reset">Recommencer</button> Ensuite : <a href="programme-musculation-maison-debutant.html">ton programme de 3 séances par semaine →</a></p>${pick.goal === "muscle" ? '<p class="small">Compléments : réservés aux adultes en bonne santé. <a href="creatine-proteines-complements.html">Ce qu&apos;en disent les experts →</a></p>' : ""}`;
     out.hidden = false; document.getElementById("ph").hidden = true;
@@ -433,7 +435,7 @@ def build_index():
 
 <section class="section dark" id="quiz"><div class="wrap">
 <div class="section-head"><span class="eyebrow">30 secondes, 3 questions</span><h2>Trouve ton kit idéal</h2><p>Réponds à 3 questions : on te dit exactement quoi acheter, et dans quel ordre.</p></div>
-{QUIZ.replace("__TAG__", SITE['amazon_tag']).replace("__PRODUCTS__", json.dumps([{**{k: p[k] for k in ("icon", "name", "why")}, "mus": MUSCLES.get(p["icon"], []), "t": {t: tier_pick(p, t) for t in (1, 2, 3)}, "ts": tier_pick(p, 3, True), "other": {t: [o for o in opts(p) if o["asin"] != tier_pick(p, t)["asin"]][:1] for t in (1, 2, 3)}} for p in PRODUCTS], ensure_ascii=False))}
+{QUIZ.replace("__TAG__", SITE['amazon_tag']).replace("__PRODUCTS__", json.dumps([{**{k: p[k] for k in ("icon", "name", "why")}, "mus": MUSCLES.get(p["icon"], []), "t": {t: tier_pick(p, t) for t in (1, 2, 3)}, "ts": tier_pick(p, 3, True), "other": {t: [o for o in opts(p) if o["asin"] != tier_pick(p, t)["asin"]][:1] for t in (1, 2, 3)}, "diff": DIFF.get(p["icon"], "")} for p in PRODUCTS], ensure_ascii=False))}
 </div></section>
 
 <section class="section" id="excuses"><div class="wrap">
