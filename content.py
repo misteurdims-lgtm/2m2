@@ -15,43 +15,43 @@ PRODUCTS = [
     {"icon": "tapis", "tier": "Essentiel", "pair": "rouleau", "name": "Un tapis de sol", "start": True, "budget": "€", "compare": "un tapis de bain un peu long",
      "w": 183, "d": 61, "storage": "Roulé dans un coin",
      "why": "Ta base : plus confortable pour les genoux, et il protège le sol. C'est ton coin sport.",
-     "query": "tapis de sol fitness épais 15 mm", "guide": "salle-de-sport-petit-appartement"},
+     "query": "tapis de sol fitness épais 15 mm", "asin": "B07SBQJD96", "pick": "Tapis ROMIX 15 mm, 180 × 61 cm", "guide": "salle-de-sport-petit-appartement"},
     {"icon": "elastiques", "tier": "Essentiel", "pair": "barre", "name": "Des élastiques", "start": True, "budget": "€", "compare": "une boîte à chaussures",
      "w": 30, "d": 20, "storage": "Dans un tiroir",
      "why": "Le meilleur achat pour commencer : pas cher, et ils servent pour tout le corps.",
-     "query": "élastiques de résistance musculation lot", "guide": "elastiques-musculation"},
+     "query": "élastiques de résistance musculation lot", "asin": "B09CTVQWK8", "pick": "Lot de 5 élastiques Fokky", "guide": "elastiques-musculation"},
     {"icon": "halteres", "tier": "Essentiel", "pair": "banc", "name": "Des haltères réglables", "start": True, "budget": "€€", "compare": "une petite valise",
      "w": 45, "d": 40, "storage": "Sous le lit",
      "why": "Les petits poids qu'on règle selon sa force. Une seule paire suffit pour progresser des mois.",
-     "query": "haltères réglables", "guide": "halteres-reglables"},
+     "query": "haltères réglables", "asin": "B0GL1TPMQ6", "pick": "Kit d'haltères réglables FEIERDUN", "guide": "halteres-reglables"},
     {"icon": "barre", "tier": "Pour progresser", "pair": "elastiques", "name": "Une barre de traction", "budget": "€", "compare": "rien : elle se pose sur une porte",
      "w": 0, "d": 0, "storage": "Reste sur la porte",
      "why": "Pour muscler le dos et les bras. Elle tient sur un cadre de porte, sans percer.",
-     "query": "barre de traction porte sans perçage", "guide": "barre-traction-sans-percer"},
+     "query": "barre de traction porte sans perçage", "asin": "B0C88MN138", "pick": "Barre PROIRON sans perçage, 72 à 97 cm", "guide": "barre-traction-sans-percer"},
     {"icon": "kettlebell", "tier": "Pour progresser", "pair": "tapis", "name": "Un kettlebell", "budget": "€", "compare": "un pot de fleurs",
      "w": 22, "d": 22, "storage": "Au pied d'un meuble",
      "why": "Un poids avec une poignée, pour les jambes, les fesses et le cardio en même temps.",
-     "query": "kettlebell fonte"},
+     "query": "kettlebell fonte", "asin": "B076QJY2FN", "pick": "Kettlebell en fonte Amazon Basics"},
     {"icon": "corde", "tier": "Pour progresser", "pair": "tapis", "name": "Une corde à sauter", "budget": "€", "compare": "rien : elle tient dans une poche",
      "w": 0, "d": 0, "storage": "Dans un tiroir",
      "why": "Le cardio le plus simple qui soit : 10 minutes et tu es essoufflé. Il faut un plafond assez haut.",
-     "query": "corde à sauter roulements"},
+     "query": "corde à sauter roulements", "asin": "B08CRVG7BB", "pick": "Corde à sauter Blukar réglable"},
     {"icon": "rouleau", "tier": "Pour récupérer", "pair": "tapis", "name": "Un rouleau de massage", "budget": "€", "compare": "une bouteille d'eau",
      "w": 33, "d": 14, "storage": "Sur une étagère",
      "why": "Pour détendre les muscles après la séance. Ça fait du bien, surtout au début.",
-     "query": "rouleau de massage mousse"},
+     "query": "rouleau de massage mousse", "asin": "B00XM2MRGI", "pick": "Rouleau en mousse Amazon Basics"},
     {"icon": "banc", "tier": "Pour aller plus loin", "pair": "halteres", "name": "Un banc pliable", "budget": "€€", "compare": "une planche à repasser, une fois plié",
      "w": 125, "d": 50, "storage": "Plié contre un mur",
      "why": "Pour plus tard, quand tu as pris l'habitude. Il ajoute beaucoup d'exercices.",
-     "query": "banc de musculation pliable"},
+     "query": "banc de musculation pliable", "asin": "B07S7NRZL4", "pick": "Banc pliable PASYOU"},
     {"icon": "pot", "tier": "Nutrition (en option)", "pair": "shaker", "name": "De la créatine", "budget": "€", "compare": "un petit pot sur une étagère",
      "w": 0, "d": 0, "storage": "Dans un placard",
      "why": "Le complément le plus étudié en sport. 3 g par jour, pour les efforts courts et intenses comme la musculation.",
-     "query": "créatine monohydrate pure", "guide": "creatine-proteines-complements"},
+     "query": "créatine monohydrate pure", "asin": "B00T7L20EC", "pick": "Créatine micronisée Optimum Nutrition", "guide": "creatine-proteines-complements"},
     {"icon": "shaker", "tier": "Nutrition (en option)", "pair": "pot", "name": "Des protéines en poudre", "budget": "€€", "compare": "un pot sur une étagère",
      "w": 0, "d": 0, "storage": "Dans un placard",
      "why": "Pratique pour atteindre ses besoins en protéines quand on se muscle, sans cuisiner plus.",
-     "query": "protéine whey", "guide": "creatine-proteines-complements"},
+     "query": "protéine whey", "asin": "B0057DVWYI", "pick": "ESN Designer Whey", "guide": "creatine-proteines-complements"},
 ]
 
 GUIDES = [
@@ -110,16 +110,16 @@ GUIDES = [
         "desc": "À disques ou à sélecteur, quelle plage de poids, quel encombrement : les critères pour choisir des haltères réglables qui dureront.",
         "date": "2026-11-19", "minutes": 5,
         "toc": ["Les deux grandes familles", "Quelle plage de poids", "Les critères qui comptent", "Les erreurs à éviter"],
-        "links": {"disques": "haltères réglables disques", "selecteur": "haltères réglables sélecteur rapide"},
+        "links": {"disques": "dp:B0GL1TPMQ6", "selecteur": "dp:B0D96Y9W8Y"},   # FEIERDUN (disques) / BRAINGAIN 24 kg (sélecteur)
         "body": """
 <p>Les haltères réglables sont l'achat le plus rentable pour s'entraîner chez soi : une seule paire remplace une dizaine de paires fixes, et se range sous un lit.</p>
 <h2>Les deux grandes familles</h2>
 <h3>À disques (avec écrous ou bagues)</h3>
 <p>Une barre courte, des disques qu'on ajoute et qu'on bloque. C'est simple, solide et le moins cher. En contrepartie, changer de poids prend une minute, et les disques se rangent à côté.</p>
-<div class="buy"><div><strong>Haltères réglables à disques</strong><span>Le meilleur prix, increvables, réglage plus lent.</span></div><a class="btn" href="{{disques}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
+<div class="buy"><div><strong>Notre choix à disques : FEIERDUN</strong><span>Le meilleur prix, increvable, réglage plus lent.</span></div><a class="btn" href="{{disques}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
 <h3>À sélecteur (molette ou goupille)</h3>
 <p>L'haltère reste dans son socle : on tourne une molette ou on déplace une goupille, et on soulève seulement le poids choisi. Le réglage prend quelques secondes, tout tient dans deux socles. C'est nettement plus cher, et le haltère est plus long qu'un modèle classique, ce qui gêne un peu pour certains exercices.</p>
-<div class="buy"><div><strong>Haltères à sélecteur rapide</strong><span>Réglage en secondes, rangement net.</span></div><a class="btn" href="{{selecteur}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
+<div class="buy"><div><strong>Notre choix à sélecteur : BRAINGAIN 24 kg</strong><span>Réglage en secondes, rangement net. Plus cher.</span></div><a class="btn" href="{{selecteur}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
 <h2>Quelle plage de poids</h2>
 <div class="tbl"><table>
 <tr><th>Profil</th><th>Plage par haltère</th><th>Pour quoi</th></tr>

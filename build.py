@@ -19,6 +19,13 @@ def aff(query):
     return f"https://www.amazon.fr/s?k={quote_plus(query)}&tag={SITE['amazon_tag']}"
 
 
+def link(p):
+    """Lien vers le modèle choisi (fiche produit Amazon), sinon vers une recherche."""
+    if p.get("asin"):
+        return f"https://www.amazon.fr/dp/{p['asin']}?tag={SITE['amazon_tag']}"
+    return aff(p["query"])
+
+
 def url(path):
     return SITE["base_url"].rstrip("/") + "/" + path.lstrip("/")
 
@@ -154,9 +161,9 @@ def product_card(i, p):
 <div class="art">{icon(p['icon'])}</div>
 <h3>{e(p['name'])}</h3>
 <p>{e(p['why'])}</p>
-<div class="facts"><span><b>Place :</b> {e(p['compare'])}</span><span><b>Rangement :</b> {e(p['storage'].lower())}</span><span><b>Prix :</b> {BUDGET[p['budget']].lower()}</span></div>
-<a class="btn go" href="{aff(p['query'])}" rel="sponsored nofollow noopener" target="_blank">Voir le prix du jour</a>
-<p class="pair">Va bien avec : <a href="{aff(mate['query'])}" rel="sponsored nofollow noopener" target="_blank">{e(mate['name'].lower())}</a></p>
+<div class="facts"><span><b>Place :</b> {e(p['compare'])}</span><span><b>Rangement :</b> {e(p['storage'].lower())}</span><span><b>Prix :</b> {BUDGET[p['budget']].lower()}</span>{f'<span class="pick"><b>Notre choix :</b> {e(p["pick"])} · <a href="{aff(p["query"])}" rel="sponsored nofollow noopener" target="_blank">autres modèles</a></span>' if p.get("pick") else ""}</div>
+<a class="btn go" href="{link(p)}" rel="sponsored nofollow noopener" target="_blank">Voir le prix du jour</a>
+<p class="pair">Va bien avec : <a href="{link(mate)}" rel="sponsored nofollow noopener" target="_blank">{e(mate['name'].lower())}</a></p>
 {guide}
 </article>"""
 
@@ -171,7 +178,7 @@ KITS = [
 def kits_html():
     out = []
     for i, (name, when, what, ids, budget) in enumerate(KITS):
-        items = "".join(f'<li><a href="{aff(p["query"])}" rel="sponsored nofollow noopener" target="_blank">{e(p["name"])}</a></li>'
+        items = "".join(f'<li><a href="{link(p)}" rel="sponsored nofollow noopener" target="_blank">{e(p["name"])}</a></li>'
                         for p in PRODUCTS if p["icon"] in ids)
         out.append(f"""<div class="kitcard{' best' if i == 1 else ''}">{'<span class="badge">Notre conseil</span>' if i == 1 else ''}
 <span class="when">{e(when)}</span><h3>{e(name)}</h3><p>{e(what)}</p>
@@ -217,7 +224,7 @@ CALC = """<div class="calc">
     {id:"corde", n:"Une corde à sauter", w:0, d:0, need:[200,120], q:"corde à sauter roulements"},
     {id:"banc", n:"Un banc pliable", w:125, d:50, need:[200,140], q:"banc de musculation pliable"}
   ];
-  const TAG = "__TAG__";
+  const TAG = "__TAG__", URLS = __URLS__;
   const $ = id => document.getElementById(id);
   const fits = (it, W, D) => { const [a,b] = it.need; return (W >= a && D >= b) || (D >= a && W >= b); };
   const m = v => (v / 100).toLocaleString("fr-FR") + " m";
@@ -229,7 +236,7 @@ CALC = """<div class="calc">
                 `C'est un peu juste, mais <span>${ok.length} équipements</span> rentrent déjà.`;
     $("verdict").innerHTML = msg;
     $("fits").innerHTML = items.map(it => fits(it, W, D)
-      ? `<li><span class="yes" aria-hidden="true">✓</span><a href="https://www.amazon.fr/s?k=${encodeURIComponent(it.q)}&tag=${TAG}" rel="sponsored nofollow noopener" target="_blank">${it.n}</a></li>`
+      ? `<li><span class="yes" aria-hidden="true">✓</span><a href="${URLS[it.id]}" rel="sponsored nofollow noopener" target="_blank">${it.n}</a></li>`
       : `<li class="no"><span aria-hidden="true">✕</span>${it.n} <small>(il faut un peu plus de place)</small></li>`).join("");
     const s = Math.min(380 / W, 170 / D), rw = W * s, rd = D * s, x0 = (420 - rw) / 2, y0 = 30;
     let svg = `<defs><clipPath id="roomclip"><rect x="${x0}" y="${y0}" width="${rw}" height="${rd}" rx="10"/></clipPath></defs><rect x="${x0}" y="${y0}" width="${rw}" height="${rd}" rx="10" fill="var(--blue-soft)" stroke="var(--blue)" stroke-width="2"/><g clip-path="url(#roomclip)">`;
@@ -296,7 +303,7 @@ QUIZ = """<div class="quiz" id="quizbox">
     const names = {forme: "te remettre en forme", muscle: "te muscler", poids: "perdre du poids"};
     out.innerHTML = `<h3>Ton kit pour ${names[pick.goal]} : ${ids.length} objets</h3>
       <p>Dans l'ordre où les acheter. Les prix changent souvent : compare-les sur la page du vendeur.</p>
-      <ol>${ids.map(id => { const p = P.find(x => x.icon === id); return `<li><span><b>${p.name}</b><small>${p.why}</small></span><a class="btn" href="https://www.amazon.fr/s?k=${encodeURIComponent(p.query)}&tag=${TAG}" rel="sponsored nofollow noopener" target="_blank">Voir le prix</a></li>`; }).join("")}</ol>
+      <ol>${ids.map(id => { const p = P.find(x => x.icon === id); return `<li><span><b>${p.name}</b><small>${p.why}</small></span><a class="btn" href="${p.url}" rel="sponsored nofollow noopener" target="_blank">Voir le prix</a></li>`; }).join("")}</ol>
       <p class="next"><button type="button" class="reset" id="reset">Recommencer</button> Ensuite : <a href="programme-musculation-maison-debutant.html">ton programme de 3 séances par semaine →</a></p>${pick.goal === "muscle" ? '<p class="small">Compléments : réservés aux adultes en bonne santé. <a href="creatine-proteines-complements.html">Ce qu&apos;en disent les experts →</a></p>' : ""}`;
     out.hidden = false; document.getElementById("ph").hidden = true;
     document.getElementById("reset").addEventListener("click", () => { for (const k in pick) delete pick[k]; box.querySelectorAll(".opts button").forEach(x => x.setAttribute("aria-pressed", "false")); out.hidden = true; document.getElementById("ph").hidden = false; document.getElementById("qprog").textContent = "0 / 3 réponses"; }); out.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "nearest"});
@@ -355,7 +362,7 @@ def build_index():
 
 <section class="section dark" id="quiz"><div class="wrap">
 <div class="section-head"><span class="eyebrow">30 secondes, 3 questions</span><h2>Trouve ton kit idéal</h2><p>Réponds à 3 questions : on te dit exactement quoi acheter, et dans quel ordre.</p></div>
-{QUIZ.replace("__TAG__", SITE['amazon_tag']).replace("__PRODUCTS__", json.dumps([{k: p[k] for k in ("icon", "name", "why", "query")} for p in PRODUCTS], ensure_ascii=False))}
+{QUIZ.replace("__TAG__", SITE['amazon_tag']).replace("__PRODUCTS__", json.dumps([{**{k: p[k] for k in ("icon", "name", "why")}, "url": link(p)} for p in PRODUCTS], ensure_ascii=False))}
 </div></section>
 
 <section class="section" id="excuses"><div class="wrap">
@@ -375,7 +382,7 @@ def build_index():
 
 <section class="section" id="espace"><div class="wrap">
 <div class="section-head"><span class="eyebrow">Étape 1</span><h2>Qu'est-ce qui rentre chez toi ?</h2><p>Clique sur l'endroit où tu veux t'entraîner. On dessine ton espace avec le matériel qui rentre.</p></div>
-{CALC.replace("__TAG__", SITE['amazon_tag'])}
+{CALC.replace("__TAG__", SITE['amazon_tag']).replace("__URLS__", json.dumps({k: link(next(p for p in PRODUCTS if p["icon"] == v)) for k, v in {"tapis": "tapis", "elast": "elastiques", "halt": "halteres", "barre": "barre", "kb": "kettlebell", "corde": "corde", "banc": "banc"}.items()}))}
 </div></section>
 
 <section class="section alt" id="materiel"><div class="wrap">
@@ -411,13 +418,18 @@ def build_guide(g):
         {"@type": "ListItem", "position": 2, "name": g["short"], "item": url(g["slug"] + ".html")}]}
     body = g["body"].replace("{{TAG}}", SITE["amazon_tag"])
     for key, q in g.get("links", {}).items():
-        body = body.replace("{{" + key + "}}", aff(q))
+        prod = next((p for p in PRODUCTS if p["query"] == q), None)
+        if q.startswith("dp:"):   # modèle précis choisi pour ce guide
+            href = f"https://www.amazon.fr/dp/{q[3:]}?tag={SITE['amazon_tag']}"
+        else:
+            href = link(prod) if prod else aff(q)
+        body = body.replace("{{" + key + "}}", href)
     faq = "".join(f"<details><summary>{e(q)}</summary><p>{e(a)}</p></details>" for q, a in g["faq"])
     others = "".join(f'<li><a href="{o["slug"]}.html">{e(o["short"])}</a></li>' for o in GUIDES if o["slug"] != g["slug"])
     toc = "".join(f"<li>{e(t)}</li>" for t in g["toc"])
     used = " ".join(g.get("links", {}).values())
     picks = [p for p in PRODUCTS if p["query"] not in used and p.get("guide") != g["slug"]][:3]
-    upsell = "".join(f'<div class="buy"><div><strong>{e(p["name"])}</strong><span>{e(p["why"])}</span></div><a class="btn" href="{aff(p["query"])}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>' for p in picks)
+    upsell = "".join(f'<div class="buy"><div><strong>{e(p["name"])}</strong><span>{e(p["why"])}</span></div><a class="btn" href="{link(p)}" rel="sponsored nofollow noopener" target="_blank">Voir le prix</a></div>' for p in picks)
     page = head(g["title"], g["desc"], g["slug"] + ".html", [art_ld, faq_ld, crumb_ld], "article", g.get("seo_title"))
     page += header("")
     page += f"""<div class="progress" id="progress"></div>

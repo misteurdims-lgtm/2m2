@@ -216,6 +216,8 @@ a.stepcard:hover .more { color: var(--ember-deep); }
 .card .badge { position: static; grid-area: title; align-self: start; justify-self: start; margin-top: -26px; }
 .facts { grid-area: facts; display: grid; gap: 4px; font-size: 14.5px; color: var(--ink-soft); padding-left: 24px; border-left: 1px solid var(--hair); }
 .facts b { color: var(--ink); font-weight: 600; }
+.facts .pick { margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--hair); }
+.facts .pick a { color: var(--ink-soft); }
 .card .go { grid-area: cta; align-self: center; padding: 16px 20px; font-size: 12px; }
 .card .pair, .card .guide-link { display: none; }
 
