@@ -4,7 +4,7 @@ SITE = {
     "name": "2 m²",
     "tagline": "La salle de sport qui tient chez toi",
     "description": "Le guide du matériel pour s'entraîner chez soi dans un petit espace : emprise au sol, rangement, critères de choix et programmes.",
-    "base_url": "https://deuxmetrescarres.fr",   # à remplacer par le vrai domaine
+    "base_url": "https://misteurdims-lgtm.github.io/2m2",   # à remplacer par le nom de domaine quand il sera acheté
     "amazon_tag": "VOTRE-TAG-21",                # à remplacer par ton identifiant Amazon Partenaires
     "goatcounter": "",                           # code GoatCounter (statistiques sans cookie), vide = désactivé
 }

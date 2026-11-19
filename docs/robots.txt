@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://deuxmetrescarres.fr/sitemap.xml
+Sitemap: https://misteurdims-lgtm.github.io/2m2/sitemap.xml
