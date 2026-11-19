@@ -588,12 +588,24 @@ ABOUT = """<h2 id="qui">Qui sommes-nous ?</h2>
 <p>Retrouve les guides en images sur <a href="https://www.pinterest.com/sport2m2/" rel="noopener" target="_blank">Pinterest</a>.</p>"""
 
 
-LEGAL = """<p><em>À compléter avant la mise en ligne officielle.</em></p>
-<h2>Éditeur du site</h2><p>Nom et prénom ou raison sociale, statut (micro-entreprise), numéro SIRET, adresse, adresse e-mail de contact.</p>
-<h2>Hébergeur</h2><p>Nom, adresse et contact de l'hébergeur du site.</p>
-<h2 id="affiliation">Liens affiliés</h2><p>Ce site participe au Programme Partenaires d'Amazon EU, un programme d'affiliation conçu pour permettre à des sites de percevoir une rémunération grâce à la création de liens vers Amazon.fr. En tant que Partenaire Amazon, nous réalisons un bénéfice sur les achats remplissant les conditions requises.</p>
-<h2>Données personnelles</h2><p>Ce site ne dépose pas de cookie de mesure d'audience à ce jour. Les sites marchands vers lesquels mènent nos liens ont leur propre politique de confidentialité.</p>
-<h2>Santé</h2><p>Les contenus sont des conseils généraux sur l'entraînement. Ils ne remplacent pas l'avis d'un médecin ou d'un professionnel de santé. En cas de douleur, de blessure ou de problème de santé, demande un avis médical avant de commencer.</p>"""
+LEGAL = """<h2>Éditeur du site</h2>
+<p>Le site 2m2sport.fr (« 2 m² ») est édité à titre non professionnel par une personne physique. Conformément à l'article 6, III, 2 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique (LCEN), l'éditeur a choisi de ne pas rendre publique son identité ; ses coordonnées ont été communiquées à l'hébergeur, qui peut être contacté pour toute demande.</p>
+<p>Directeur de la publication : l'éditeur du site.</p>
+<h2>Hébergeur</h2>
+<p>GitHub, Inc. (service GitHub Pages), 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis. Site : <a href="https://github.com" rel="noopener" target="_blank">github.com</a>.</p>
+<p>Nom de domaine enregistré auprès d'OVH SAS, 2 rue Kellermann, 59100 Roubaix, France.</p>
+<h2 id="affiliation">Liens affiliés</h2>
+<p>Ce site participe au Programme Partenaires d'Amazon EU, un programme d'affiliation conçu pour permettre à des sites de percevoir une rémunération grâce à la création de liens vers Amazon.fr. En tant que Partenaire Amazon, nous réalisons un bénéfice sur les achats remplissant les conditions requises. Le prix payé reste le même pour toi.</p>
+<p>Les prix et la disponibilité des produits s'affichent sur Amazon au moment de la commande ; ils peuvent changer à tout moment.</p>
+<h2>Données personnelles</h2>
+<p>Ce site ne demande aucune information personnelle et ne dépose pas de cookie publicitaire.</p>
+<p><strong>Panier :</strong> les articles que tu ajoutes au panier sont enregistrés uniquement dans ton navigateur (stockage local). Ils ne sont envoyés nulle part, sauf à Amazon au moment où tu cliques sur « Commander sur Amazon ». Tu peux vider le panier à tout moment.</p>
+<p><strong>Mesure d'audience :</strong> si elle est activée, elle utilise GoatCounter, un outil sans cookie qui ne collecte que des données anonymes (pages vues, provenance des visites), sans suivre les visiteurs d'un site à l'autre.</p>
+<p>Les sites vers lesquels mènent nos liens, dont Amazon, ont leur propre politique de confidentialité.</p>
+<h2>Propriété intellectuelle</h2>
+<p>Les textes, illustrations et le design du site sont la propriété de l'éditeur, sauf mention contraire. Les noms de marques et de produits cités appartiennent à leurs propriétaires respectifs.</p>
+<h2>Santé</h2>
+<p>Les contenus sont des conseils généraux sur l'entraînement. Ils ne remplacent pas l'avis d'un médecin ou d'un professionnel de santé. En cas de douleur, de blessure ou de problème de santé, demande un avis médical avant de commencer.</p>"""
 
 
 def build():
