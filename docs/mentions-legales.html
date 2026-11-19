@@ -18,7 +18,7 @@
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Instrument+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=263fdbf9">
+<link rel="stylesheet" href="style.css?v=6c1841ce">
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://misteurdims-lgtm.github.io/2m2/#site", "name": "2 m²", "url": "https://misteurdims-lgtm.github.io/2m2/", "description": "Le guide du matériel pour s'entraîner chez soi dans un petit espace : emprise au sol, rangement, critères de choix et programmes.", "inLanguage": "fr-FR", "publisher": {"@id": "https://misteurdims-lgtm.github.io/2m2/#org"}}, {"@type": "Organization", "@id": "https://misteurdims-lgtm.github.io/2m2/#org", "name": "2 m²", "url": "https://misteurdims-lgtm.github.io/2m2/", "logo": "https://misteurdims-lgtm.github.io/2m2/favicon.svg", "sameAs": ["https://www.pinterest.com/sport2m2/"]}]}</script>
 </head>
@@ -84,11 +84,12 @@
     e.preventDefault(); add(b.dataset.add.split(","));
   });
   // Dans les guides : un bouton « Ajouter au panier » à côté de chaque lien vers un modèle précis
-  document.querySelectorAll(".prose a[href*='amazon.fr/dp/']").forEach(a => {
+  const enhance = () => document.querySelectorAll(".buy a[href*='amazon.fr/dp/']").forEach(a => {
     const m = a.href.match(/dp\/([A-Z0-9]{10})/); if (!m || !NAMES[m[1]]) return;
     const b = document.createElement("button"); b.type = "button"; b.className = "btn add"; b.dataset.add = m[1]; b.textContent = "Ajouter au panier";
-    a.classList.add("see"); a.textContent = "Voir sur Amazon"; a.before(b);
+    a.className = "see"; a.textContent = "Voir sur Amazon"; const w = document.createElement("span"); w.className = "buy-acts"; a.before(w); w.append(b, a);
   });
+  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", enhance) : enhance();
   render();
 })();
 </script>

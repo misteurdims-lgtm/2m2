@@ -59,11 +59,12 @@ CART_PANEL = """<div class="cart-veil" id="cartVeil" hidden></div>
     e.preventDefault(); add(b.dataset.add.split(","));
   });
   // Dans les guides : un bouton « Ajouter au panier » à côté de chaque lien vers un modèle précis
-  document.querySelectorAll(".prose a[href*='amazon.fr/dp/']").forEach(a => {
+  const enhance = () => document.querySelectorAll(".buy a[href*='amazon.fr/dp/']").forEach(a => {
     const m = a.href.match(/dp\\/([A-Z0-9]{10})/); if (!m || !NAMES[m[1]]) return;
     const b = document.createElement("button"); b.type = "button"; b.className = "btn add"; b.dataset.add = m[1]; b.textContent = "Ajouter au panier";
-    a.classList.add("see"); a.textContent = "Voir sur Amazon"; a.before(b);
+    a.className = "see"; a.textContent = "Voir sur Amazon"; const w = document.createElement("span"); w.className = "buy-acts"; a.before(w); w.append(b, a);
   });
+  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", enhance) : enhance();
   render();
 })();
 </script>"""
