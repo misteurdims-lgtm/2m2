@@ -314,6 +314,106 @@ GUIDES = [
             ("Les protéines en poudre sont-elles obligatoires ?", "Non. L'alimentation peut couvrir les besoins. La poudre est simplement pratique pour atteindre 1,4 à 2 g de protéines par kilo et par jour."),
         ],
     },
+
+    {
+        "slug": "programme-abdos-maison",
+        "short": "Programme abdos à la maison",
+        "kicker": "S'entraîner",
+        "title": "Programme abdos à la maison : 15 minutes, 3 fois par semaine",
+        "seo_title": "Programme abdos maison : 15 min, débutant, sans machine",
+        "desc": "Un programme abdos simple à faire chez soi, sur un tapis : 5 exercices, 15 minutes, 3 fois par semaine, et comment progresser sans se faire mal au dos.",
+        "date": "2026-11-19", "minutes": 5,
+        "toc": ["Ce qu'il faut savoir avant", "Les 5 exercices", "Le programme sur 4 semaines", "Les erreurs à éviter"],
+        "links": {"tapis": "tapis de sol fitness épais 15 mm", "rouleau": "rouleau de massage mousse"},
+        "body": """
+<p>Pas besoin de machine ni de salle : un tapis et 15 minutes suffisent pour renforcer ta sangle abdominale. Ce programme vise un ventre plus solide et un dos mieux protégé, pas seulement des « tablettes ».</p>
+<h2>Ce qu'il faut savoir avant</h2>
+<p>Les abdominaux travaillent surtout pour <strong>stabiliser</strong> le tronc. Les exercices de gainage, où l'on tient une position, sont donc aussi importants que ceux où l'on plie le buste. Et pour voir ses abdos, l'alimentation et l'activité globale comptent davantage que le nombre de crunchs : aucun exercice ne fait perdre du ventre à un endroit précis.</p>
+<div class="buy"><div><strong>Un bon tapis</strong><span>Indispensable pour le dos et les coudes au sol.</span></div><a class="btn" href="{{tapis}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
+<h2>Les 5 exercices</h2>
+<div class="tbl"><table>
+<tr><th>Exercice</th><th>Ce qu'il travaille</th><th>Comment</th></tr>
+<tr><td>La planche</td><td>Toute la sangle abdominale</td><td>Sur les avant-bras, le corps droit de la tête aux talons, sans creuser le dos.</td></tr>
+<tr><td>Le dead bug</td><td>Abdos profonds, coordination</td><td>Sur le dos, bras et jambes en l'air : allonge un bras et la jambe opposée, le bas du dos reste collé au sol.</td></tr>
+<tr><td>La planche latérale</td><td>Obliques, taille</td><td>Sur un avant-bras, le corps de profil, les hanches hautes. Genoux au sol pour débuter.</td></tr>
+<tr><td>Le crunch</td><td>Grand droit (les « tablettes »)</td><td>Décolle seulement les épaules, en soufflant. Le menton ne touche pas la poitrine.</td></tr>
+<tr><td>Le relevé de bassin</td><td>Bas du ventre</td><td>Sur le dos, jambes en l'air : décolle doucement les fesses du sol, sans élan.</td></tr>
+</table></div>
+<h2>Le programme sur 4 semaines</h2>
+<p>Fais les 5 exercices à la suite, puis récupère 1 minute : c'est un tour. Trois séances par semaine, avec un jour de repos entre deux.</p>
+<div class="tbl"><table>
+<tr><th>Semaine</th><th>Travail par exercice</th><th>Tours</th></tr>
+<tr><td>1</td><td>20 secondes (ou 8 répétitions)</td><td>2</td></tr>
+<tr><td>2</td><td>30 secondes (ou 10 répétitions)</td><td>2</td></tr>
+<tr><td>3</td><td>30 secondes (ou 12 répétitions)</td><td>3</td></tr>
+<tr><td>4</td><td>40 secondes (ou 15 répétitions)</td><td>3</td></tr>
+</table></div>
+<p>Ensuite, continue à allonger un peu les temps, ou passe aux versions plus difficiles : planche sur les mains, planche latérale jambes tendues, relevés de jambes suspendu à une barre de traction.</p>
+<h2>Les erreurs à éviter</h2>
+<ul>
+<li><strong>Creuser le bas du dos</strong> pendant la planche ou les relevés : si ça tire dans les lombaires, réduis la durée.</li>
+<li><strong>Tirer sur la nuque</strong> pendant le crunch : les mains soutiennent la tête, elles ne la tirent pas.</li>
+<li><strong>Faire des abdos tous les jours</strong> : les muscles progressent pendant le repos.</li>
+<li><strong>Aller vite</strong> : un mouvement lent et contrôlé travaille bien plus qu'un mouvement avec élan.</li>
+</ul>
+<p>Après la séance, quelques minutes d'étirements ou de rouleau de massage aident à se détendre.</p>
+<div class="buy"><div><strong>Un rouleau de massage</strong><span>Pour détendre le dos et les cuisses après la séance.</span></div><a class="btn" href="{{rouleau}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
+<p class="small">En cas de douleur au dos, de grossesse ou de problème de santé, demande l'avis d'un professionnel de santé avant de commencer.</p>
+""",
+        "faq": [
+            ("Combien de temps pour voir des résultats avec un programme abdos ?", "On se sent plus gainé après 3 à 4 semaines de séances régulières. Pour voir ses abdominaux, l'alimentation et l'activité physique globale comptent davantage que les exercices eux-mêmes."),
+            ("Faut-il faire des abdos tous les jours ?", "Non. Trois séances par semaine, avec un jour de repos entre deux, suffisent et laissent aux muscles le temps de récupérer."),
+            ("Les abdos font-ils perdre du ventre ?", "Pas à eux seuls : on ne peut pas perdre de la graisse à un endroit précis. Ils renforcent la sangle abdominale ; la perte de ventre dépend surtout de l'alimentation et de l'activité globale."),
+        ],
+    },
+    {
+        "slug": "kettlebell-debutant",
+        "short": "Kettlebell pour débutant",
+        "kicker": "S'entraîner",
+        "title": "Kettlebell pour débutant : quel poids choisir et 6 exercices",
+        "seo_title": "Kettlebell débutant : quel poids et 6 exercices à la maison",
+        "desc": "Quel poids de kettlebell choisir quand on débute, fixe ou réglable, et 6 exercices simples pour travailler tout le corps à la maison.",
+        "date": "2026-11-19", "minutes": 5,
+        "toc": ["Pourquoi un kettlebell", "Quel poids choisir", "Fixe ou réglable", "6 exercices pour débuter", "Une séance type"],
+        "links": {"kb": "kettlebell fonte", "kbr": "dp:B0F73GBRYR", "tapis": "tapis de sol fitness épais 15 mm"},
+        "body": """
+<p>Un kettlebell, c'est un poids avec une poignée. Il tient au pied d'un meuble, et il fait travailler tout le corps en même temps : jambes, fessiers, dos, abdos et cardio. C'est l'un des meilleurs objets pour un petit espace.</p>
+<h2>Pourquoi un kettlebell</h2>
+<p>Sa poignée permet des mouvements que les haltères ne permettent pas, comme le <strong>swing</strong>, un mouvement de balancier très efficace pour les fessiers et le cardio. Avec un seul kettlebell, on peut faire une séance complète en 20 minutes.</p>
+<h2>Quel poids choisir</h2>
+<p>Le bon poids dépend de l'exercice : on est plus fort pour le swing, qui utilise les hanches, que pour lever le poids au-dessus de la tête. À titre indicatif pour débuter :</p>
+<div class="tbl"><table>
+<tr><th>Profil</th><th>Pour le swing et le squat</th><th>Pour les bras et les épaules</th></tr>
+<tr><td>Débutante</td><td>8 à 12 kg</td><td>4 à 8 kg</td></tr>
+<tr><td>Débutant</td><td>12 à 16 kg</td><td>8 à 12 kg</td></tr>
+</table></div>
+<p>Dans le doute, prends le plus léger des deux : un mouvement propre vaut mieux qu'un poids lourd mal maîtrisé.</p>
+<h2>Fixe ou réglable</h2>
+<p>Un <strong>kettlebell en fonte</strong> coûte peu et dure toute une vie, mais c'est un seul poids : en progressant, il faudra en racheter un plus lourd. Un <strong>kettlebell réglable</strong> regroupe plusieurs poids en un : plus cher à l'achat, mais il suit tes progrès et prend moins de place qu'une collection.</p>
+<div class="buy"><div><strong>Notre choix en fonte : Amazon Basics</strong><span>Simple, solide, poignée large.</span></div><a class="btn" href="{{kb}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
+<div class="buy"><div><strong>Notre choix réglable : VEVOR</strong><span>7 poids en un seul kettlebell.</span></div><a class="btn" href="{{kbr}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
+<h2>6 exercices pour débuter</h2>
+<div class="tbl"><table>
+<tr><th>Exercice</th><th>Ce qu'il travaille</th><th>Le point clé</th></tr>
+<tr><td>Le soulevé de terre</td><td>Arrière des cuisses, fessiers, dos</td><td>Le dos reste droit, ce sont les hanches qui reculent.</td></tr>
+<tr><td>Le squat gobelet</td><td>Cuisses, fessiers</td><td>Le kettlebell contre la poitrine, les talons au sol.</td></tr>
+<tr><td>Le swing</td><td>Fessiers, cardio</td><td>Pousse les hanches vers l'avant : les bras ne font que tenir.</td></tr>
+<tr><td>Le rowing à un bras</td><td>Dos, biceps</td><td>Une main en appui, tire le kettlebell vers la hanche.</td></tr>
+<tr><td>Le développé au-dessus de la tête</td><td>Épaules, triceps</td><td>Abdos serrés, sans cambrer le dos. Prends un poids léger.</td></tr>
+<tr><td>Le halo</td><td>Épaules, abdos</td><td>Fais tourner doucement le kettlebell autour de la tête.</td></tr>
+</table></div>
+<p>Apprends le <strong>soulevé de terre avant le swing</strong> : c'est le même mouvement de hanches, en lent. Quand il est maîtrisé, le swing devient naturel.</p>
+<h2>Une séance type</h2>
+<p>Après 5 minutes d'échauffement, enchaîne les 6 exercices, 10 répétitions chacun, puis récupère 1 à 2 minutes. Fais 3 tours, 2 à 3 fois par semaine. Pose le kettlebell sur un tapis : il protège le sol et réduit le bruit.</p>
+<div class="buy"><div><strong>Un tapis épais</strong><span>Protège le sol et tes voisins du bruit.</span></div><a class="btn" href="{{tapis}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
+<p class="small">Ces repères sont généraux. En cas de douleur ou de problème de santé, demande l'avis d'un professionnel avant de commencer.</p>
+""",
+        "faq": [
+            ("Quel poids de kettlebell pour débuter ?", "Souvent 8 à 12 kg pour une femme et 12 à 16 kg pour un homme pour le swing et le squat, et plus léger pour les exercices au-dessus de la tête. Dans le doute, choisis le plus léger."),
+            ("Kettlebell ou haltères pour débuter ?", "Les deux sont complémentaires. Le kettlebell est idéal pour le swing, les jambes et le cardio ; les haltères réglables pour le haut du corps et les mouvements à deux bras."),
+            ("Un kettlebell fait-il du bruit en appartement ?", "Il peut en faire si on le pose brusquement. Un tapis épais dessous et des gestes contrôlés suffisent en général."),
+        ],
+    },
 ]
 
 # 3 exercices montrés sur chaque fiche matériel (nom, muscles, comment faire)
