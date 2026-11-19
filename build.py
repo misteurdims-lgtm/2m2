@@ -5,6 +5,7 @@ Ajouter un guide = ajouter une entrée dans content.py (GUIDES), puis relancer :
 import html, json, os, shutil, datetime
 from urllib.parse import quote_plus
 from content import SITE, PRODUCTS, GUIDES
+from iso import scene
 
 OUT = os.path.join(os.path.dirname(__file__), "public")
 SRC = os.path.join(os.path.dirname(__file__), "src")
@@ -76,7 +77,8 @@ def header(current):
 <nav aria-label="Navigation principale">{links}</nav>
 </div></header>
 {SEASON}
-<a class="sticky-cta" href="index.html#quiz">Trouver mon kit en 30 secondes</a>
+<a class="sticky-cta" id="sticky" href="index.html#quiz">Trouver mon kit en 30 secondes</a>
+<script>(() => {{ const s = document.getElementById("sticky"); const f = () => s.classList.toggle("show", scrollY > 700); addEventListener("scroll", f, {{passive: true}}); f(); }})();</script>
 <div class="disclose">Certains liens sont affiliés : si tu achètes via ces liens, on touche une petite commission. Ça ne change pas le prix pour toi.</div>"""
 
 
@@ -111,15 +113,20 @@ def icon(name, size=88):
             f'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{ICONS[name]}</svg>')
 
 
+GICON = {"salle-de-sport-petit-appartement": "tapis", "halteres-reglables": "halteres", "barre-traction-sans-percer": "barre",
+         "elastiques-musculation": "elastiques", "programme-musculation-maison-debutant": "kettlebell", "creatine-proteines-complements": "pot"}
+
+
 BUDGET = {"€": "Petit budget", "€€": "Budget moyen", "€€€": "Gros budget"}
 
 
 def product_card(i, p):
     tier = p["tier"]
-    badge = f'<span class="badge{" alt" if tier != "Essentiel" else ""}">{e(tier)}</span>'
+    kind = "start" if tier == "Essentiel" else "nut" if tier.startswith("Nutrition") else ""
+    badge = f'<span class="badge{" nut" if kind == "nut" else " alt" if not kind else ""}">{e(tier)}</span>'
     guide = f'<a class="guide-link" href="{p["guide"]}.html">Comment bien le choisir</a>' if p.get("guide") else ""
     mate = next(x for x in PRODUCTS if x["icon"] == p["pair"])
-    return f"""<article class="card{' start' if tier == 'Essentiel' else ''}" id="p-{p['icon']}">{badge}
+    return f"""<article class="card {kind}" id="p-{p['icon']}">{badge}
 <div class="art">{icon(p['icon'])}</div>
 <h3>{e(p['name'])}</h3>
 <p>{e(p['why'])}</p>
@@ -148,23 +155,11 @@ def kits_html():
     return '<div class="kits">' + "".join(out) + "</div>"
 
 
-HERO_ART = """<figure class="hero-art" style="margin:0">
-<svg viewBox="0 0 440 300" role="img" aria-label="Un coin sport de 2 mètres sur 1 mètre avec un tapis, des haltères, des élastiques et un kettlebell">
-<rect x="20" y="40" width="400" height="200" rx="18" fill="var(--blue-soft)"/>
-<rect x="50" y="70" width="250" height="84" rx="10" fill="var(--blue)" opacity=".85"/>
-<text x="175" y="118" text-anchor="middle" font-size="20" font-weight="800" fill="#fff" font-family="var(--display)">Ton tapis</text>
-<g fill="none" stroke="var(--orange)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
-<rect x="70" y="175" width="12" height="36" rx="3"/><line x1="82" y1="193" x2="122" y2="193" stroke-width="7"/><rect x="122" y="175" width="12" height="36" rx="3"/>
-<path d="M176 182 C176 166 200 166 200 182"/><circle cx="188" cy="198" r="16"/>
-<ellipse cx="250" cy="194" rx="22" ry="13"/><ellipse cx="268" cy="194" rx="22" ry="13"/>
-</g>
-<g fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"><path d="M330 220 V60 H400 V220"/><line x1="320" y1="72" x2="410" y2="72" stroke-width="6"/></g>
-<text x="365" y="250" text-anchor="middle" font-size="14" fill="var(--muted)" font-family="var(--body)">ta porte</text>
-<text x="220" y="28" text-anchor="middle" font-size="18" font-weight="800" fill="var(--ink)" font-family="var(--display)">2 mètres</text>
-<text x="220" y="285" text-anchor="middle" font-size="15" fill="var(--muted)" font-family="var(--body)">La place d'un tapis de couloir suffit.</text>
-</svg>
-<figcaption>Tout ton matériel tient ici. Et se range en 2 minutes.</figcaption>
-</figure>"""
+def hero_art():
+    return f"""<div class="stage">{scene()}
+<div class="chip c1"><b>2&nbsp;m²</b> suffisent</div>
+<div class="chip c2">✓ Tout se range en 2 min</div>
+</div>"""
 
 
 CALC = """<div class="calc">
@@ -241,13 +236,15 @@ CALC = """<div class="calc">
 
 
 QUIZ = """<div class="quiz" id="quizbox">
-<div class="q" data-q="goal"><h3>1. Ton objectif ?</h3><div class="opts">
+<div class="questions">
+<div class="q" data-q="goal"><h3><span>1.</span>Ton objectif ?</h3><div class="opts">
 <button data-v="forme">Me remettre en forme</button><button data-v="muscle">Me muscler</button><button data-v="poids">Perdre du poids</button></div></div>
-<div class="q" data-q="space"><h3>2. Ta place ?</h3><div class="opts">
+<div class="q" data-q="space"><h3><span>2.</span>Ta place ?</h3><div class="opts">
 <button data-v="petit">Un petit coin</button><button data-v="moyen">Un bout de pièce</button><button data-v="grand">Une pièce libre</button></div></div>
-<div class="q" data-q="budget"><h3>3. Ton budget pour démarrer ?</h3><div class="opts">
+<div class="q" data-q="budget"><h3><span>3.</span>Ton budget pour démarrer ?</h3><div class="opts">
 <button data-v="1">Le plus petit possible</button><button data-v="2">Raisonnable</button><button data-v="3">Je veux bien m'équiper</button></div></div>
-<div class="answer" id="answer" hidden></div>
+</div>
+<div class="answer-slot"><div class="placeholder" id="ph"><b>Ton kit apparaît ici</b>Réponds aux 3 questions, ça prend 30 secondes.</div><div class="answer" id="answer" hidden></div></div>
 </div>
 <script>
 (() => {
@@ -274,7 +271,7 @@ QUIZ = """<div class="quiz" id="quizbox">
       <p>Dans l'ordre où les acheter. Les prix changent souvent : compare-les sur la page du vendeur.</p>
       <ol>${ids.map(id => { const p = P.find(x => x.icon === id); return `<li><span><b>${p.name}</b><small>${p.why}</small></span><a class="btn" href="https://www.amazon.fr/s?k=${encodeURIComponent(p.query)}&tag=${TAG}" rel="sponsored nofollow noopener" target="_blank">Voir le prix</a></li>`; }).join("")}</ol>
       <p class="next">Ensuite : <a href="programme-musculation-maison-debutant.html">ton programme de 3 séances par semaine →</a></p>${pick.goal === "muscle" ? '<p class="small">Compléments : réservés aux adultes en bonne santé. <a href="creatine-proteines-complements.html">Ce qu&apos;en disent les experts →</a></p>' : ""}`;
-    out.hidden = false; out.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "nearest"});
+    out.hidden = false; document.getElementById("ph").hidden = true; out.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "nearest"});
   }
 })();
 </script>"""
@@ -301,7 +298,7 @@ def org_ld():
 
 def build_index():
     cards = "".join(product_card(i + 1, p) for i, p in enumerate(PRODUCTS))
-    guides = "".join(f'<a class="guide" href="{g["slug"]}.html"><span class="tag">{e(g["kicker"])}</span><h3>{e(g["title"])}</h3><p>{e(g["desc"])}</p></a>' for g in GUIDES)
+    guides = "".join(f'<a class="guide" href="{g["slug"]}.html"><span class="gi">{icon(GICON.get(g["slug"], "tapis"), 44)}</span><span class="tag">{e(g["kicker"])}</span><h3>{e(g["title"])}</h3><p>{e(g["desc"])}</p></a>' for g in GUIDES)
     faq = "".join(f"<details><summary>{e(q)}</summary><p>{e(a)}</p></details>" for q, a in HOME_FAQ)
     itemlist = {"@context": "https://schema.org", "@type": "ItemList", "name": "Le matériel pour s'entraîner chez soi",
                 "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": p["name"]} for i, p in enumerate(PRODUCTS)]}
@@ -314,28 +311,28 @@ def build_index():
     page += f"""<main>
 <div class="wrap hero">
 <div>
-<span class="pill">Fait pour les débutants</span>
+<span class="pill"><i>✓</i>Fait pour les débutants</span>
 <h1>Ta salle de sport à la maison, <span class="o">même dans 2&nbsp;m²</span>.</h1>
 <p class="lead">Pas d'abonnement à payer chaque mois, pas de trajet, pas de regard des autres. Tu t'équipes une fois, et tu t'entraînes quand tu veux, pendant des années.</p>
 <div class="actions"><a class="btn" href="#quiz">Trouver mon kit en 30 secondes</a><a class="btn ghost" href="#materiel">Voir le matériel</a></div>
 <div class="reassure"><span>Sans abonnement</span><span>Dès un petit budget</span><span>Tout se range</span></div>
 </div>
-{HERO_ART}
+{hero_art()}
 </div>
 
-<section class="section alt" id="quiz"><div class="wrap">
-<div class="section-head"><span class="step">30 secondes, 3 questions</span><h2>Trouve ton kit idéal</h2><p>Réponds à 3 questions : on te dit exactement quoi acheter, et dans quel ordre.</p></div>
+<section class="section dark" id="quiz"><div class="wrap">
+<div class="section-head"><span class="eyebrow">30 secondes, 3 questions</span><h2>Trouve ton kit idéal</h2><p>Réponds à 3 questions : on te dit exactement quoi acheter, et dans quel ordre.</p></div>
 {QUIZ.replace("__TAG__", SITE['amazon_tag']).replace("__PRODUCTS__", json.dumps([{k: p[k] for k in ("icon", "name", "why", "query")} for p in PRODUCTS], ensure_ascii=False))}
 </div></section>
 
 <section class="section" id="excuses"><div class="wrap">
-<div class="section-head"><span class="step">On se connaît</span><h2>Les 3 excuses qu'on se donne</h2><p>Et pourquoi, à la maison, elles ne tiennent plus.</p></div>
-<div class="steps">{"".join(f'<div class="stepcard"><h3>{e(t)}</h3><p>{e(a)}</p></div>' for t, a in OBJECTIONS)}</div>
-<p class="oms">L'OMS recommande aux adultes au moins <b>deux séances de renforcement musculaire par semaine</b>, en plus de 150 à 300 minutes d'activité modérée. <a href="https://www.who.int/europe/fr/publications/i/item/9789240014886" rel="noopener" target="_blank">Source : OMS</a></p>
+<div class="section-head center"><span class="eyebrow">On se connaît</span><h2>Les 3 excuses qu'on se donne</h2><p>Et pourquoi, à la maison, elles ne tiennent plus.</p></div>
+<div class="steps">{"".join(f'<div class="stepcard excuse"><span class="q">?</span><h3>{e(t)}</h3><p>{e(a)}</p></div>' for t, a in OBJECTIONS)}</div>
+<p class="oms"><span>L'OMS recommande aux adultes au moins <b>deux séances de renforcement musculaire par semaine</b>, en plus de 150 à 300 minutes d'activité modérée. <a href="https://www.who.int/europe/fr/publications/i/item/9789240014886" rel="noopener" target="_blank">Source : OMS</a></span></p>
 </div></section>
 
 <section class="section alt" id="commencer"><div class="wrap">
-<div class="section-head"><span class="step">Par où commencer ?</span><h2>3 étapes, c'est tout</h2><p>Pas de jargon. Suis les étapes dans l'ordre, et ton coin sport grandit avec toi.</p></div>
+<div class="section-head"><span class="eyebrow">Par où commencer ?</span><h2>3 étapes, c'est tout</h2><p>Pas de jargon. Suis les étapes dans l'ordre, et ton coin sport grandit avec toi.</p></div>
 <div class="steps">
 <a class="stepcard" href="#espace"><span class="n">1</span><h3>Regarde la place que tu as</h3><p>Choisis ta pièce : on te montre ce qui rentre chez toi.</p><span class="more">Voir ma place →</span></a>
 <a class="stepcard" href="#materiel"><span class="n">2</span><h3>Commence avec les essentiels</h3><p>Un tapis, des élastiques, des haltères pour démarrer. Puis complète au fil de tes progrès.</p><span class="more">Voir le matériel →</span></a>
@@ -344,25 +341,25 @@ def build_index():
 </div></section>
 
 <section class="section" id="espace"><div class="wrap">
-<div class="section-head"><span class="step">Étape 1</span><h2>Qu'est-ce qui rentre chez toi ?</h2><p>Clique sur l'endroit où tu veux t'entraîner. On dessine ton espace avec le matériel qui rentre.</p></div>
+<div class="section-head"><span class="eyebrow">Étape 1</span><h2>Qu'est-ce qui rentre chez toi ?</h2><p>Clique sur l'endroit où tu veux t'entraîner. On dessine ton espace avec le matériel qui rentre.</p></div>
 {CALC.replace("__TAG__", SITE['amazon_tag'])}
 </div></section>
 
 <section class="section alt" id="materiel"><div class="wrap">
-<div class="section-head"><span class="step">Étape 2</span><h2>Le matériel, expliqué simplement</h2><p>Commence par les essentiels. Ensuite, chaque nouvel objet débloque de nouveaux exercices et te fait progresser plus vite.</p></div>
+<div class="section-head"><span class="eyebrow">Étape 2</span><h2>Le matériel, expliqué simplement</h2><p>Commence par les essentiels. Ensuite, chaque nouvel objet débloque de nouveaux exercices et te fait progresser plus vite.</p></div>
 {kits_html()}
 <h3 class="subhead">Chaque objet en détail</h3>
 <div class="kit">{cards}</div>
 </div></section>
 
 <section class="section" id="guides"><div class="wrap">
-<div class="section-head"><span class="step">Pour aller plus loin</span><h2>Nos guides</h2><p>Pour bien choisir ton matériel et t'entraîner sans te blesser.</p></div>
+<div class="section-head"><span class="eyebrow">Pour aller plus loin</span><h2>Nos guides</h2><p>Pour bien choisir ton matériel et t'entraîner sans te blesser.</p></div>
 <div class="guides">{guides}</div>
 </div></section>
 
 <section class="section alt" id="questions"><div class="wrap">
-<div class="section-head"><span class="step">Tu te poses la question ?</span><h2>Les questions des débutants</h2></div>
-<div class="faq" style="max-width:780px">{faq}</div>
+<div class="section-head center"><span class="eyebrow">Tu te poses la question ?</span><h2>Les questions des débutants</h2></div>
+<div class="faq">{faq}</div>
 </div></section>
 </main>"""
     page += footer()
@@ -390,15 +387,19 @@ def build_guide(g):
     upsell = "".join(f'<div class="buy"><div><strong>{e(p["name"])}</strong><span>{e(p["why"])}</span></div><a class="btn" href="{aff(p["query"])}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>' for p in picks)
     page = head(g["title"], g["desc"], g["slug"] + ".html", [art_ld, faq_ld, crumb_ld], "article")
     page += header("")
-    page += f"""<main class="wrap">
+    page += f"""<div class="progress" id="progress"></div>
+<main>
+<div class="article-band"><div class="wrap">
 <div class="crumbs"><a href="index.html">Accueil</a> / {e(g['short'])}</div>
 <header class="article-head">
-<span class="tag">{e(g['kicker'])}</span>
+<div><span class="tag">{e(g['kicker'])}</span>
 <h1>{e(g['title'])}</h1>
 <p class="lead">{e(g['desc'])}</p>
-<p class="meta">Mis à jour le {datetime.date.today().strftime('%d/%m/%Y')} · {g['minutes']} min de lecture</p>
+<p class="meta">Mis à jour le {datetime.date.today().strftime('%d/%m/%Y')} · {g['minutes']} min de lecture</p></div>
+<div class="big-ico">{icon(GICON.get(g['slug'], 'tapis'), 120)}</div>
 </header>
-<div class="article-body">
+</div></div>
+<div class="wrap article-body">
 <article class="prose">{body}
 <h2>Complète ton coin sport</h2>
 <p>Ces objets vont bien avec ce que tu viens de lire, et ajoutent de nouveaux exercices.</p>
@@ -407,11 +408,12 @@ def build_guide(g):
 </article>
 <aside class="aside">
 <div class="box"><h3>Dans ce guide</h3><ol>{toc}</ol></div>
-<div class="box"><h3>Tu débutes ?</h3><p style="margin:0 0 12px;font-size:16px;color:var(--muted)">Regarde ce qui rentre chez toi en un clic.</p><a class="btn" href="index.html#espace">Voir ma place</a></div>
+<div class="box cta"><h3>Tu débutes ?</h3><p style="margin:0 0 12px;font-size:16px;color:var(--muted)">Regarde ce qui rentre chez toi en un clic.</p><a class="btn" href="index.html#espace">Voir ma place</a></div>
 <div class="box"><h3>Autres guides</h3><ul>{others}</ul></div>
 </aside>
 </div>
-</main>"""
+</main>
+<script>(() => {{ const bar = document.getElementById("progress"); const f = () => {{ const h = document.documentElement; bar.style.width = (h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight) * 100) + "%"; }}; addEventListener("scroll", f, {{passive: true}}); f(); }})();</script>"""
     page += footer()
     return page
 
@@ -419,7 +421,7 @@ def build_guide(g):
 def build_simple(slug, title, desc, inner):
     page = head(title, desc, slug + ".html", [org_ld()])
     page += header(slug + ".html")
-    page += f'<main class="wrap"><header class="article-head"><h1>{e(title)}</h1></header><div class="prose" style="padding:32px 0 64px">{inner}</div></main>'
+    page += f'<main><div class="article-band"><div class="wrap"><header class="article-head"><div><h1>{e(title)}</h1></div></header></div></div><div class="wrap"><div class="prose" style="padding:40px 0 80px;max-width:68ch">{inner}</div></div></main>'
     page += footer()
     return page
 

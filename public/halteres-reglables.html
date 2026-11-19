@@ -36,16 +36,21 @@
   if (msg) { el.innerHTML = msg; el.hidden = false; }
 })();
 </script>
-<a class="sticky-cta" href="index.html#quiz">Trouver mon kit en 30 secondes</a>
-<div class="disclose">Certains liens sont affiliés : si tu achètes via ces liens, on touche une petite commission. Ça ne change pas le prix pour toi.</div><main class="wrap">
+<a class="sticky-cta" id="sticky" href="index.html#quiz">Trouver mon kit en 30 secondes</a>
+<script>(() => { const s = document.getElementById("sticky"); const f = () => s.classList.toggle("show", scrollY > 700); addEventListener("scroll", f, {passive: true}); f(); })();</script>
+<div class="disclose">Certains liens sont affiliés : si tu achètes via ces liens, on touche une petite commission. Ça ne change pas le prix pour toi.</div><div class="progress" id="progress"></div>
+<main>
+<div class="article-band"><div class="wrap">
 <div class="crumbs"><a href="index.html">Accueil</a> / Bien choisir ses haltères réglables</div>
 <header class="article-head">
-<span class="tag">Choisir son matériel</span>
+<div><span class="tag">Choisir son matériel</span>
 <h1>Haltères réglables : comment bien les choisir</h1>
 <p class="lead">À disques ou à sélecteur, quelle plage de poids, quel encombrement : les critères pour choisir des haltères réglables qui dureront.</p>
-<p class="meta">Mis à jour le 19/11/2026 · 5 min de lecture</p>
+<p class="meta">Mis à jour le 19/11/2026 · 5 min de lecture</p></div>
+<div class="big-ico"><svg width="120" height="120" viewBox="0 0 100 86" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="12" y="26" width="12" height="34" rx="3"/><rect x="24" y="31" width="8" height="24" rx="2"/><line x1="32" y1="43" x2="68" y2="43" stroke-width="6"/><rect x="68" y="31" width="8" height="24" rx="2"/><rect x="76" y="26" width="12" height="34" rx="3"/></svg></div>
 </header>
-<div class="article-body">
+</div></div>
+<div class="wrap article-body">
 <article class="prose">
 <p>Les haltères réglables sont l'achat le plus rentable pour s'entraîner chez soi : une seule paire remplace une dizaine de paires fixes, et se range sous un lit.</p>
 <h2>Les deux grandes familles</h2>
@@ -84,11 +89,12 @@
 </article>
 <aside class="aside">
 <div class="box"><h3>Dans ce guide</h3><ol><li>Les deux grandes familles</li><li>Quelle plage de poids</li><li>Les critères qui comptent</li><li>Les erreurs à éviter</li></ol></div>
-<div class="box"><h3>Tu débutes ?</h3><p style="margin:0 0 12px;font-size:16px;color:var(--muted)">Regarde ce qui rentre chez toi en un clic.</p><a class="btn" href="index.html#espace">Voir ma place</a></div>
+<div class="box cta"><h3>Tu débutes ?</h3><p style="margin:0 0 12px;font-size:16px;color:var(--muted)">Regarde ce qui rentre chez toi en un clic.</p><a class="btn" href="index.html#espace">Voir ma place</a></div>
 <div class="box"><h3>Autres guides</h3><ul><li><a href="salle-de-sport-petit-appartement.html">Salle de sport en petit appartement</a></li><li><a href="barre-traction-sans-percer.html">Barre de traction sans percer</a></li><li><a href="elastiques-musculation.html">Élastiques de musculation</a></li><li><a href="programme-musculation-maison-debutant.html">Programme musculation maison débutant</a></li><li><a href="creatine-proteines-complements.html">Créatine et protéines</a></li></ul></div>
 </aside>
 </div>
-</main><footer><div class="wrap">
+</main>
+<script>(() => { const bar = document.getElementById("progress"); const f = () => { const h = document.documentElement; bar.style.width = (h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight) * 100) + "%"; }; addEventListener("scroll", f, {passive: true}); f(); })();</script><footer><div class="wrap">
 <div><span class="brand-mark">2m²</span><p>Le guide du matériel pour s&#x27;entraîner chez soi dans un petit espace : emprise au sol, rangement, critères de choix et programmes.</p>
 <p>En tant que Partenaire Amazon, nous réalisons un bénéfice sur les achats remplissant les conditions requises.</p></div>
 <div><h3>Guides</h3><ul><li><a href="salle-de-sport-petit-appartement.html">Salle de sport en petit appartement</a></li><li><a href="halteres-reglables.html">Bien choisir ses haltères réglables</a></li><li><a href="barre-traction-sans-percer.html">Barre de traction sans percer</a></li><li><a href="elastiques-musculation.html">Élastiques de musculation</a></li><li><a href="programme-musculation-maison-debutant.html">Programme musculation maison débutant</a></li><li><a href="creatine-proteines-complements.html">Créatine et protéines</a></li></ul></div>

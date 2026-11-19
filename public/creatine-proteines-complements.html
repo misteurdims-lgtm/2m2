@@ -36,16 +36,21 @@
   if (msg) { el.innerHTML = msg; el.hidden = false; }
 })();
 </script>
-<a class="sticky-cta" href="index.html#quiz">Trouver mon kit en 30 secondes</a>
-<div class="disclose">Certains liens sont affiliés : si tu achètes via ces liens, on touche une petite commission. Ça ne change pas le prix pour toi.</div><main class="wrap">
+<a class="sticky-cta" id="sticky" href="index.html#quiz">Trouver mon kit en 30 secondes</a>
+<script>(() => { const s = document.getElementById("sticky"); const f = () => s.classList.toggle("show", scrollY > 700); addEventListener("scroll", f, {passive: true}); f(); })();</script>
+<div class="disclose">Certains liens sont affiliés : si tu achètes via ces liens, on touche une petite commission. Ça ne change pas le prix pour toi.</div><div class="progress" id="progress"></div>
+<main>
+<div class="article-band"><div class="wrap">
 <div class="crumbs"><a href="index.html">Accueil</a> / Créatine et protéines</div>
 <header class="article-head">
-<span class="tag">Nutrition</span>
+<div><span class="tag">Nutrition</span>
 <h1>Créatine et protéines : les 2 compléments validés par la science</h1>
 <p class="lead">Ce que disent vraiment les experts sur la créatine et les protéines en poudre, comment les prendre, et les compléments à éviter.</p>
-<p class="meta">Mis à jour le 19/11/2026 · 6 min de lecture</p>
+<p class="meta">Mis à jour le 19/11/2026 · 6 min de lecture</p></div>
+<div class="big-ico"><svg width="120" height="120" viewBox="0 0 100 86" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="28" y="24" width="44" height="50" rx="8"/><rect x="32" y="12" width="36" height="12" rx="3"/><line x1="36" y1="44" x2="64" y2="44"/><line x1="36" y1="54" x2="56" y2="54"/></svg></div>
 </header>
-<div class="article-body">
+</div></div>
+<div class="wrap article-body">
 <article class="prose">
 <p>Les compléments ne remplacent ni l'entraînement ni une alimentation équilibrée. Mais deux d'entre eux sont solidement étudiés et utiles quand on fait de la musculation : <strong>la créatine</strong> et <strong>les protéines en poudre</strong>. Le reste est souvent du marketing.</p>
 <h2>La créatine</h2>
@@ -83,11 +88,12 @@
 </article>
 <aside class="aside">
 <div class="box"><h3>Dans ce guide</h3><ol><li>La créatine</li><li>Les protéines</li><li>Les compléments à éviter</li><li>Qui doit demander l&#x27;avis d&#x27;un médecin</li></ol></div>
-<div class="box"><h3>Tu débutes ?</h3><p style="margin:0 0 12px;font-size:16px;color:var(--muted)">Regarde ce qui rentre chez toi en un clic.</p><a class="btn" href="index.html#espace">Voir ma place</a></div>
+<div class="box cta"><h3>Tu débutes ?</h3><p style="margin:0 0 12px;font-size:16px;color:var(--muted)">Regarde ce qui rentre chez toi en un clic.</p><a class="btn" href="index.html#espace">Voir ma place</a></div>
 <div class="box"><h3>Autres guides</h3><ul><li><a href="salle-de-sport-petit-appartement.html">Salle de sport en petit appartement</a></li><li><a href="halteres-reglables.html">Bien choisir ses haltères réglables</a></li><li><a href="barre-traction-sans-percer.html">Barre de traction sans percer</a></li><li><a href="elastiques-musculation.html">Élastiques de musculation</a></li><li><a href="programme-musculation-maison-debutant.html">Programme musculation maison débutant</a></li></ul></div>
 </aside>
 </div>
-</main><footer><div class="wrap">
+</main>
+<script>(() => { const bar = document.getElementById("progress"); const f = () => { const h = document.documentElement; bar.style.width = (h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight) * 100) + "%"; }; addEventListener("scroll", f, {passive: true}); f(); })();</script><footer><div class="wrap">
 <div><span class="brand-mark">2m²</span><p>Le guide du matériel pour s&#x27;entraîner chez soi dans un petit espace : emprise au sol, rangement, critères de choix et programmes.</p>
 <p>En tant que Partenaire Amazon, nous réalisons un bénéfice sur les achats remplissant les conditions requises.</p></div>
 <div><h3>Guides</h3><ul><li><a href="salle-de-sport-petit-appartement.html">Salle de sport en petit appartement</a></li><li><a href="halteres-reglables.html">Bien choisir ses haltères réglables</a></li><li><a href="barre-traction-sans-percer.html">Barre de traction sans percer</a></li><li><a href="elastiques-musculation.html">Élastiques de musculation</a></li><li><a href="programme-musculation-maison-debutant.html">Programme musculation maison débutant</a></li><li><a href="creatine-proteines-complements.html">Créatine et protéines</a></li></ul></div>
