@@ -4,7 +4,7 @@ Ajouter un guide = ajouter une entrée dans content.py (GUIDES), puis relancer :
 """
 import html, json, os, shutil, datetime
 from urllib.parse import quote_plus
-from content import SITE, PRODUCTS, GUIDES, EXOS, MUSCLES, DIFF
+from content import SITE, PRODUCTS, GUIDES, EXOS, MUSCLES, DIFF, EXTRA_NAMES
 from iso import scene
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "docs")
@@ -90,7 +90,7 @@ SEASON = r"""<div class="season" id="season" hidden></div>
   const d = new Date(), m = d.getMonth() + 1, day = d.getDate(), el = document.getElementById("season");
   let msg = "";
   if (m === 11 && day < 20) msg = "Black Friday le 27 novembre : c'est souvent le meilleur moment de l'année pour s'équiper. <a href='index.html#quiz'>Trouve ton kit avant →</a>";
-  else if (m === 11) msg = "C'est la période du Black Friday : le matériel de sport est souvent en promo sur Amazon. Prépare ton panier ici, tu verras les prix du moment avant de valider. <a href='index.html#materiel'>Voir les 3 kits →</a>";
+  else if (m === 11) msg = "C'est la période du Black Friday : le matériel de sport est souvent en promo sur Amazon. Prépare ton panier ici, tu verras les prix du moment avant de valider. <a href='black-friday-sport-maison.html'>Quoi acheter →</a>";
   else if (m === 12 && day <= 24) msg = "Une idée cadeau qui sert vraiment : un kit pour faire du sport à la maison. <a href='index.html#materiel'>Voir les kits →</a>";
   else if ((m === 12 && day >= 26) || m === 1) msg = "Nouvelle année, bonne résolution : commence le sport chez toi, sans abonnement. <a href='index.html#quiz'>Trouve ton kit →</a>";
   else if (m === 9) msg = "C'est la rentrée : le bon moment pour (re)prendre le sport à la maison. <a href='index.html#quiz'>Trouve ton kit →</a>";
@@ -99,7 +99,7 @@ SEASON = r"""<div class="season" id="season" hidden></div>
 </script>"""
 
 
-NAV = [("index.html", "Accueil"), ("index.html#quiz", "Mon kit"), ("materiel.html", "Matériel"), ("index.html#guides", "Guides")]
+NAV = [("index.html", "Accueil"), ("index.html#quiz", "Mon kit"), ("materiel.html", "Matériel"), ("guides.html", "Guides")]
 
 
 DISCLOSE = '<p class="disclose">Liens affiliés : si tu achètes via nos liens, on touche une petite commission, sans surcoût pour toi. <a href="mentions-legales.html#affiliation">En savoir plus</a></p>'
@@ -112,6 +112,7 @@ def names():
             n[p["asin"]] = p["pick"]
         if p.get("alt"):
             n[p["alt"]["asin"]] = p["alt"]["pick"]
+    n.update(EXTRA_NAMES)
     return n
 
 
@@ -129,8 +130,21 @@ def header(current):
 """
 
 
+FEATURED = ["meilleures-halteres-reglables", "meilleure-barre-de-traction", "meilleur-tapis-de-sport", "programme-musculation-maison-debutant",
+            "programme-abdos-maison", "salle-de-sport-petit-appartement", "meilleur-kettlebell", "kettlebell-debutant"]
+
+
+def featured(n):
+    by = {g["slug"]: g for g in GUIDES}
+    return [by[s] for s in FEATURED if s in by][:n]
+
+
+def guide_card(g):
+    return f'<a class="guide" href="{g["slug"]}.html"><span class="gi">{icon(GICON.get(g["slug"], "tapis"), 44)}</span><span class="tag">{e(g["kicker"])}</span><h3>{e(g["title"])}</h3><p>{e(g["desc"])}</p></a>'
+
+
 def footer():
-    guides = "".join(f'<li><a href="{g["slug"]}.html">{e(g["short"])}</a></li>' for g in GUIDES)
+    guides = "".join(f'<li><a href="{g["slug"]}.html">{e(g["short"])}</a></li>' for g in featured(8)) + '<li><a href="guides.html">Tous les guides →</a></li>'
     return f"""<footer><div class="wrap">
 <div><span class="brand-mark">2M<span class="sq">²</span></span><p>{e(SITE['description'])}</p>
 <p>En tant que Partenaire Amazon, nous réalisons un bénéfice sur les achats remplissant les conditions requises.</p></div>
@@ -161,7 +175,7 @@ def icon(name, size=88):
 
 
 GICON = {"salle-de-sport-petit-appartement": "tapis", "halteres-reglables": "halteres", "barre-traction-sans-percer": "barre",
-         "elastiques-musculation": "elastiques", "programme-musculation-maison-debutant": "kettlebell", "creatine-proteines-complements": "pot", "programme-abdos-maison": "tapis", "kettlebell-debutant": "kettlebell"}
+         "elastiques-musculation": "elastiques", "programme-musculation-maison-debutant": "kettlebell", "creatine-proteines-complements": "pot", "programme-abdos-maison": "tapis", "kettlebell-debutant": "kettlebell", "meilleur-tapis-de-sport": "tapis", "meilleures-halteres-reglables": "halteres", "meilleure-barre-de-traction": "barre", "meilleur-kettlebell": "kettlebell", "black-friday-sport-maison": "elastiques"}
 
 
 BUDGET = {"€": "Petit budget", "€€": "Budget moyen", "€€€": "Gros budget"}
@@ -408,7 +422,7 @@ def org_ld():
 
 
 def build_index():
-    guides = "".join(f'<a class="guide" href="{g["slug"]}.html"><span class="gi">{icon(GICON.get(g["slug"], "tapis"), 44)}</span><span class="tag">{e(g["kicker"])}</span><h3>{e(g["title"])}</h3><p>{e(g["desc"])}</p></a>' for g in GUIDES)
+    guides = "".join(guide_card(g) for g in featured(6))
     faq = "".join(f"<details><summary>{e(q)}</summary><p>{e(a)}</p></details>" for q, a in HOME_FAQ)
     faq_ld = {"@context": "https://schema.org", "@type": "FAQPage",
               "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in HOME_FAQ]}
@@ -451,6 +465,7 @@ def build_index():
 <section class="section alt" id="guides"><div class="wrap">
 <div class="section-head"><span class="eyebrow">Pour aller plus loin</span><h2>Nos guides</h2></div>
 <div class="guides">{guides}</div>
+<p class="center-cta"><a class="btn" href="guides.html">Voir les {len(GUIDES)} guides</a></p>
 </div></section>
 
 <section class="section" id="questions"><div class="wrap">
@@ -540,6 +555,31 @@ def share(g):
 <script>document.querySelectorAll(".copy").forEach(b => b.addEventListener("click", async () => {{ try {{ await navigator.clipboard.writeText(b.dataset.url); b.textContent = "Lien copié"; }} catch (e) {{ b.textContent = b.dataset.url; }} }}));</script>"""
 
 
+def build_guides_page():
+    order = ["Bons plans", "Comparatif", "S'entraîner"]
+    groups = {}
+    for g in GUIDES:
+        groups.setdefault(g["kicker"], []).append(g)
+    keys = [k for k in order if k in groups] + [k for k in groups if k not in order]
+    titles = {"Comparatif": "Comparatifs : les meilleurs modèles", "S'entraîner": "S'entraîner à la maison", "Bons plans": "Bons plans"}
+    sections = "".join(f'<h2 class="subhead" style="margin-top:{0 if i == 0 else 64}px">{e(titles.get(k, k))}</h2><div class="guides">{"".join(guide_card(g) for g in groups[k])}</div>' for i, k in enumerate(keys))
+    crumb_ld = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Accueil", "item": url("")},
+        {"@type": "ListItem", "position": 2, "name": "Guides", "item": url("guides.html")}]}
+    page = head("Tous nos guides : sport à la maison, matériel et programmes",
+                "Comparatifs du meilleur matériel, programmes pour débutants et conseils pour faire du sport à la maison dans un petit espace.",
+                "guides.html", [org_ld(), crumb_ld], seo_title="Guides sport à la maison : comparatifs et programmes")
+    page += header("guides.html")
+    page += f"""<main id="contenu">
+<div class="article-band"><div class="wrap"><div class="crumbs"><a href="index.html">Accueil</a> / Guides</div>
+<header class="article-head"><div><h1>Tous nos guides</h1>
+<p class="lead">Pour bien choisir ton matériel et t'entraîner chez toi, même dans un petit espace.</p></div></header></div></div>
+<section class="section alt"><div class="wrap">{sections}</div></section>
+</main>"""
+    page += footer()
+    return page
+
+
 def build_materiel():
     cards = "".join(product_card(i + 1, p) for i, p in enumerate(PRODUCTS))
     itemlist = {"@context": "https://schema.org", "@type": "ItemList", "name": "Le matériel pour s'entraîner chez soi",
@@ -617,6 +657,7 @@ def build():
     for g in GUIDES:
         pages[g["slug"] + ".html"] = build_guide(g)
     pages["materiel.html"] = build_materiel()
+    pages["guides.html"] = build_guides_page()
     pages["a-propos.html"] = build_simple("a-propos", "À propos de 2 m²", "Qui est derrière 2 m², comment le matériel est choisi et comment le site est financé.", ABOUT)
     pages["404.html"] = build_simple("404", "Page introuvable", "Cette page n'existe pas ou a été déplacée.",
         '<p>Cette page n\'existe pas ou a été déplacée.</p><p><a class="btn" href="index.html">Retour à l\'accueil</a></p>')

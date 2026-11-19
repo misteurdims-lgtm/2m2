@@ -414,6 +414,181 @@ GUIDES = [
             ("Un kettlebell fait-il du bruit en appartement ?", "Il peut en faire si on le pose brusquement. Un tapis épais dessous et des gestes contrôlés suffisent en général."),
         ],
     },
+
+    {
+        "slug": "meilleur-tapis-de-sport",
+        "short": "Meilleur tapis de sport",
+        "kicker": "Comparatif",
+        "title": "Meilleur tapis de sport pour la maison : notre sélection 2026",
+        "seo_title": "Meilleur tapis de sport 2026 : comparatif pour la maison",
+        "desc": "Quel tapis de sport choisir pour s'entraîner chez soi ? Épaisseur, matière, taille : nos 3 modèles préférés et comment choisir le bon.",
+        "date": "2026-11-19", "minutes": 4,
+        "toc": ["Notre sélection en bref", "Comment choisir", "Les 3 modèles en détail", "Nos critères"],
+        "links": {"romix": "dp:B07SBQJD96", "proiron": "dp:B01CC9P1UA", "dh": "dp:B0B6W4WDRX"},
+        "body": """
+<p>Le tapis est le premier achat à faire pour le sport à la maison : il protège tes genoux, ton dos et ton sol. Voici les trois modèles que nous recommandons, selon ce que tu comptes faire dessus.</p>
+<h2>Notre sélection en bref</h2>
+<div class="tbl"><table>
+<tr><th>Modèle</th><th>Pour qui</th><th>Points forts</th><th>À savoir</th></tr>
+<tr><td><strong>ROMIX 15 mm</strong></td><td>Abdos, gainage, étirements</td><td>Très épais, doux pour les genoux et le dos</td><td>Moins stable pour sauter</td></tr>
+<tr><td><strong>PROIRON</strong></td><td>Cardio, sauts, polyvalent</td><td>Dense, durable, très bien noté</td><td>Un peu plus cher</td></tr>
+<tr><td><strong>DH FitLife 1 cm</strong></td><td>Petit budget, usage mixte</td><td>Bon compromis épaisseur et stabilité</td><td>Moins épais que le ROMIX</td></tr>
+</table></div>
+<h2>Comment choisir</h2>
+<ul>
+<li><strong>L'épaisseur :</strong> 10 à 15 mm pour le confort au sol (abdos, gainage, étirements). Plus fin et plus dense si tu sautes beaucoup.</li>
+<li><strong>La matière :</strong> la mousse NBR est douce et épaisse ; les mousses plus denses s'écrasent moins et durent plus longtemps.</li>
+<li><strong>La taille :</strong> environ 180 × 60 cm convient à la plupart des gens. Plus long si tu mesures plus d'1,85 m.</li>
+<li><strong>Le rangement :</strong> un tapis qui s'enroule avec une sangle se range debout dans un coin.</li>
+</ul>
+<h2>Les 3 modèles en détail</h2>
+<div class="buy"><div><strong>ROMIX 15 mm, 180 × 61 cm</strong><span>Le plus confortable : idéal pour le sol, les abdos et les étirements.</span></div><a class="btn" href="{{romix}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
+<div class="buy"><div><strong>PROIRON</strong><span>Le plus durable : il bouge peu quand tu sautes, parfait pour le cardio.</span></div><a class="btn" href="{{proiron}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
+<div class="buy"><div><strong>DH FitLife, 183 × 61 × 1 cm</strong><span>Le compromis : assez épais, assez stable, petit prix.</span></div><a class="btn" href="{{dh}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
+<h2>Nos critères</h2>
+<p>Nous n'avons pas testé ces tapis nous-mêmes. Nous les avons sélectionnés sur leurs caractéristiques (épaisseur, taille, matière), leur note et le nombre d'avis d'acheteurs vérifiés sur Amazon en novembre 2026, et leur adaptation à un petit espace. Les prix changent souvent : vérifie-les au moment d'acheter.</p>
+""",
+        "faq": [
+            ("Quelle épaisseur de tapis pour faire du sport à la maison ?", "Entre 10 et 15 mm pour le travail au sol (abdos, gainage, étirements). Pour sauter, un tapis plus dense est plus stable."),
+            ("Un tapis de yoga suffit-il pour la musculation ?", "Pour le yoga oui, mais un tapis de yoga fin (4 à 6 mm) est vite inconfortable pour les abdos et les genoux. Un tapis de 10 à 15 mm est plus adapté."),
+        ],
+    },
+    {
+        "slug": "meilleures-halteres-reglables",
+        "short": "Meilleures haltères réglables",
+        "kicker": "Comparatif",
+        "title": "Meilleures haltères réglables : notre sélection 2026",
+        "seo_title": "Meilleures haltères réglables 2026 : comparatif et avis",
+        "desc": "À disques ou à molette ? Les meilleures haltères réglables pour s'entraîner chez soi selon ton budget et ta place, et comment bien les choisir.",
+        "date": "2026-11-19", "minutes": 4,
+        "toc": ["Notre sélection en bref", "Disques ou molette ?", "Les modèles en détail", "Nos critères"],
+        "links": {"feierdun": "dp:B0GL1TPMQ6", "braingain": "dp:B0D96Y9W8Y", "dh": "dp:B0GVGDYX6W"},
+        "body": """
+<p>Une paire d'haltères réglables remplace tout un rack de poids, dans la place d'une petite valise. Il en existe deux grandes familles : à disques, et à molette. Voici nos préférées.</p>
+<h2>Notre sélection en bref</h2>
+<div class="tbl"><table>
+<tr><th>Modèle</th><th>Type</th><th>Pour qui</th><th>À savoir</th></tr>
+<tr><td><strong>FEIERDUN 5 en 1</strong></td><td>Disques</td><td>Petit budget, débutant</td><td>Changer de poids prend environ une minute</td></tr>
+<tr><td><strong>DH FitLife 10 niveaux</strong></td><td>Molette</td><td>Réglage rapide à prix moyen</td><td>Moins d'avis que les autres</td></tr>
+<tr><td><strong>BRAINGAIN 24 kg</strong></td><td>Molette</td><td>Pour progresser longtemps</td><td>Le plus cher des trois</td></tr>
+</table></div>
+<h2>Disques ou molette ?</h2>
+<p><strong>À disques :</strong> une barre courte, des disques qu'on ajoute et qu'on bloque. C'est le moins cher et c'est increvable, mais changer de poids prend du temps. <strong>À molette :</strong> l'haltère reste dans son socle, on tourne un bouton et on soulève seulement le poids choisi. Le réglage prend quelques secondes et tout reste rangé, mais c'est plus cher.</p>
+<p>Pour débuter, une plage de 2 à 20-24 kg par haltère suffit pour progresser pendant des années.</p>
+<h2>Les modèles en détail</h2>
+<div class="buy"><div><strong>FEIERDUN, kit 5 en 1</strong><span>Le meilleur prix : disques, et transformable en barre ou en kettlebell selon la version.</span></div><a class="btn" href="{{feierdun}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
+<div class="buy"><div><strong>DH FitLife, 10 niveaux</strong><span>Le réglage rapide sans viser le haut de gamme.</span></div><a class="btn" href="{{dh}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
+<div class="buy"><div><strong>BRAINGAIN 24 kg, la paire</strong><span>15 poids en un, réglage en quelques secondes, rangement net.</span></div><a class="btn" href="{{braingain}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
+<h2>Nos critères</h2>
+<p>Nous n'avons pas testé ces haltères nous-mêmes. Nous les avons sélectionnées sur leurs caractéristiques (plage de poids, système de réglage, encombrement), leur note et le nombre d'avis d'acheteurs vérifiés sur Amazon en novembre 2026. Vérifie toujours le poids maximum et si l'offre concerne une haltère ou une paire.</p>
+""",
+        "faq": [
+            ("Quel poids d'haltères réglables pour débuter ?", "Une plage d'environ 2 à 20 kg par haltère convient à la plupart des débutants et permet de progresser longtemps."),
+            ("Haltères à disques ou à molette ?", "À disques pour le petit budget et la solidité ; à molette pour la rapidité de réglage et le rangement, mais plus cher."),
+        ],
+    },
+    {
+        "slug": "meilleure-barre-de-traction",
+        "short": "Meilleure barre de traction",
+        "kicker": "Comparatif",
+        "title": "Meilleure barre de traction : porte ou station, notre sélection 2026",
+        "seo_title": "Meilleure barre de traction 2026 : sans percer ou station",
+        "desc": "Barre de traction de porte sans percer ou station de traction et dips : nos modèles préférés pour s'entraîner chez soi, et comment choisir.",
+        "date": "2026-11-19", "minutes": 4,
+        "toc": ["Notre sélection en bref", "Porte ou station ?", "Les modèles en détail", "Nos critères"],
+        "links": {"proiron": "dp:B0C88MN138", "sportneer": "dp:B09JC86WNK", "tower": "dp:B0DJSYBQWS"},
+        "body": """
+<p>La barre de traction est le meilleur outil pour muscler le dos et les bras chez soi. Deux options : une barre qui se pose sur un cadre de porte, ou une station posée au sol qui permet aussi les dips.</p>
+<h2>Notre sélection en bref</h2>
+<div class="tbl"><table>
+<tr><th>Modèle</th><th>Type</th><th>Pour qui</th><th>À savoir</th></tr>
+<tr><td><strong>PROIRON 72-97 cm</strong></td><td>Porte, sans perçage</td><td>Location, petit espace</td><td>Mesure ta porte avant</td></tr>
+<tr><td><strong>Sportneer 75-94 cm</strong></td><td>Porte, sans vis</td><td>Le plus vendu, petit prix</td><td>Vérifie la largeur du cadre</td></tr>
+<tr><td><strong>Power Tower SPORTSROYALS</strong></td><td>Station au sol</td><td>Tractions + dips + abdos</td><td>Il faut un coin libre au sol</td></tr>
+</table></div>
+<h2>Porte ou station ?</h2>
+<p>La <strong>barre de porte</strong> ne prend aucune place et s'enlève en quelques secondes : idéale en appartement. La <strong>station de traction (power tower)</strong> se pose au sol, sans rien fixer : elle ajoute les dips, les relevés de jambes et les pompes inclinées, mais demande un coin dédié.</p>
+<p>Avant d'acheter une barre de porte, mesure la largeur intérieure de ton cadre et vérifie qu'il est solide (pas de cloison fine).</p>
+<h2>Les modèles en détail</h2>
+<div class="buy"><div><strong>PROIRON, 72 à 97 cm, sans perçage</strong><span>Solide et simple, pour la plupart des portes.</span></div><a class="btn" href="{{proiron}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
+<div class="buy"><div><strong>Sportneer, 75 à 94 cm</strong><span>Très répandue, petit prix, sans vis.</span></div><a class="btn" href="{{sportneer}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
+<div class="buy"><div><strong>Power Tower SPORTSROYALS</strong><span>La station complète : tractions, dips, abdos.</span></div><a class="btn" href="{{tower}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
+<h2>Nos critères</h2>
+<p>Nous n'avons pas testé ces barres nous-mêmes. Nous les avons sélectionnées sur leurs caractéristiques (largeur, charge maximale annoncée, fixation), leur note et le nombre d'avis d'acheteurs vérifiés sur Amazon en novembre 2026. Respecte toujours la notice d'installation et la charge maximale.</p>
+""",
+        "faq": [
+            ("Une barre de traction sans percer est-elle sûre ?", "Oui si elle est adaptée à la largeur et à la solidité de ton cadre de porte, et installée selon la notice. Teste-la doucement avant la première séance."),
+            ("Que faire si je n'arrive pas à faire une traction ?", "Commence par la suspension, puis les tractions en descente lente en t'aidant d'une chaise. Un élastique d'assistance aide aussi."),
+        ],
+    },
+    {
+        "slug": "meilleur-kettlebell",
+        "short": "Meilleur kettlebell",
+        "kicker": "Comparatif",
+        "title": "Meilleur kettlebell pour la maison : notre sélection 2026",
+        "seo_title": "Meilleur kettlebell 2026 : fonte, néoprène ou réglable",
+        "desc": "Fonte, néoprène ou réglable : les meilleurs kettlebells pour s'entraîner chez soi, et quel poids choisir pour débuter.",
+        "date": "2026-11-19", "minutes": 4,
+        "toc": ["Notre sélection en bref", "Fonte, néoprène ou réglable ?", "Les modèles en détail", "Nos critères"],
+        "links": {"basics": "dp:B076QJY2FN", "yes4all": "dp:B0BYP59FLD", "vevor": "dp:B0F73GBRYR"},
+        "body": """
+<p>Un kettlebell fait travailler tout le corps et tient au pied d'un meuble. Voici nos trois préférés, selon ton budget et ton sol.</p>
+<h2>Notre sélection en bref</h2>
+<div class="tbl"><table>
+<tr><th>Modèle</th><th>Type</th><th>Pour qui</th><th>À savoir</th></tr>
+<tr><td><strong>Amazon Basics</strong></td><td>Fonte</td><td>Le classique, très bien noté</td><td>Un seul poids par kettlebell</td></tr>
+<tr><td><strong>Yes4All</strong></td><td>Fonte gainée de néoprène</td><td>Protège le sol, moins bruyant</td><td>Revêtement à ménager</td></tr>
+<tr><td><strong>VEVOR réglable</strong></td><td>Réglable, 7 niveaux</td><td>Pour progresser sans racheter</td><td>Plus cher, moins d'avis</td></tr>
+</table></div>
+<h2>Fonte, néoprène ou réglable ?</h2>
+<p>La <strong>fonte</strong> est simple et dure toute une vie. Le <strong>néoprène</strong> recouvre la fonte : il protège le sol et fait moins de bruit en appartement. Le <strong>réglable</strong> regroupe plusieurs poids en un : plus cher à l'achat, mais il suit tes progrès. Pour le poids, vois notre guide <a href="kettlebell-debutant.html">kettlebell pour débutant</a>.</p>
+<h2>Les modèles en détail</h2>
+<div class="buy"><div><strong>Amazon Basics, fonte</strong><span>Poignée large, finition simple, très bien noté.</span></div><a class="btn" href="{{basics}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
+<div class="buy"><div><strong>Yes4All, néoprène</strong><span>Plus doux pour le sol et les voisins.</span></div><a class="btn" href="{{yes4all}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
+<div class="buy"><div><strong>VEVOR, réglable 7 niveaux</strong><span>Un seul kettlebell pour plusieurs années de progrès.</span></div><a class="btn" href="{{vevor}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
+<h2>Nos critères</h2>
+<p>Nous n'avons pas testé ces kettlebells nous-mêmes. Nous les avons sélectionnés sur leurs caractéristiques (matière, poignée, poids disponibles), leur note et le nombre d'avis d'acheteurs vérifiés sur Amazon en novembre 2026. Choisis le poids sur la page du produit avant d'ajouter au panier.</p>
+""",
+        "faq": [
+            ("Kettlebell en fonte ou en néoprène ?", "La fonte est la plus simple et la plus durable ; le néoprène protège le sol et fait moins de bruit, pratique en appartement."),
+            ("Un kettlebell réglable vaut-il le coup ?", "Oui si tu veux progresser sans racheter plusieurs poids et gagner de la place. Il coûte plus cher à l'achat."),
+        ],
+    },
+    {
+        "slug": "black-friday-sport-maison",
+        "short": "Black Friday sport à la maison",
+        "kicker": "Bons plans",
+        "title": "Black Friday 2026 : s'équiper pour le sport à la maison",
+        "seo_title": "Black Friday 2026 sport à la maison : quoi acheter",
+        "desc": "Black Friday 2026 : le matériel de sport à la maison à surveiller, dans quel ordre l'acheter, et comment éviter les fausses bonnes affaires.",
+        "date": "2026-11-19", "minutes": 3,
+        "toc": ["Quoi acheter en priorité", "Les 3 kits complets", "Éviter les fausses promos"],
+        "links": {"tapis": "tapis de sol fitness épais 15 mm", "elast": "élastiques de résistance musculation lot", "halt": "haltères réglables"},
+        "body": """
+<p>Le Black Friday, le 27 novembre 2026, est souvent le meilleur moment de l'année pour s'équiper : beaucoup de matériel de sport passe en promotion sur Amazon pendant la semaine qui l'entoure. Voici comment en profiter sans se tromper.</p>
+<h2>Quoi acheter en priorité</h2>
+<ol>
+<li><strong>Un tapis</strong> : la base pour tout le reste.</li>
+<li><strong>Des élastiques</strong> : le meilleur rapport prix-utilité pour travailler tout le corps.</li>
+<li><strong>Des haltères réglables</strong> : l'achat le plus cher, donc celui où une promo compte le plus.</li>
+<li>Ensuite, selon ta place : barre de traction, kettlebell, corde à sauter.</li>
+</ol>
+<div class="buy"><div><strong>Haltères réglables</strong><span>L'achat où une promo fait le plus de différence.</span></div><a class="btn" href="{{halt}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
+<h2>Les 3 kits complets</h2>
+<p>Pour ne rien oublier, nous avons préparé 3 kits avec tout l'équipement : petit budget, équilibré et haut de gamme. <a href="index.html#materiel">Voir les 3 kits</a> ou <a href="index.html#quiz">faire le quiz en 30 secondes</a>. Tu ajoutes tout au panier en un clic, et tu vois les prix du moment sur Amazon avant de valider.</p>
+<h2>Éviter les fausses promos</h2>
+<ul>
+<li><strong>Compare avec le prix habituel</strong>, pas avec un « prix barré » gonflé.</li>
+<li><strong>Regarde les avis</strong> : une grosse remise sur un produit mal noté n'est pas une bonne affaire.</li>
+<li><strong>N'achète que ce que tu utiliseras</strong> : commence par les essentiels, tu compléteras ensuite.</li>
+</ul>
+<div class="buy"><div><strong>Un tapis épais</strong><span>Le premier achat, souvent en promo à cette période.</span></div><a class="btn" href="{{tapis}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
+""",
+        "faq": [
+            ("Quand a lieu le Black Friday 2026 ?", "Le vendredi 27 novembre 2026. Amazon propose généralement des offres pendant toute la semaine autour de cette date."),
+            ("Quel matériel de sport acheter pendant le Black Friday ?", "En priorité un tapis, des élastiques et des haltères réglables, puis selon ta place une barre de traction ou un kettlebell."),
+        ],
+    },
 ]
 
 # 3 exercices montrés sur chaque fiche matériel (nom, muscles, comment faire)
@@ -445,3 +620,11 @@ DIFF = {'tapis': 'Le ROMIX est plus épais (15 mm), donc plus doux pour les geno
     'rouleau': 'Avec le rouleau, tu roules dessus avec le poids de ton corps : simple et efficace. Le pistolet masse tout seul, plus vite et plus précisément, même les zones difficiles comme les épaules.',
     'banc': "Le PASYOU se plie et se range contre un mur. Le Nicepeople a 8 positions de dossier pour varier davantage les exercices, et il est très robuste (jusqu'à 299 kg).", 'pot': 'Les deux sont de la créatine monohydrate. Optimum Nutrition est le meilleur prix au kilo. Creapure est la créatine fabriquée en Allemagne, réputée la plus contrôlée, mais plus chère au kilo.',
     'shaker': 'Les deux sont des whey de bonne qualité, avec environ 22 à 23 g de protéines par dose. Bulk est un peu moins chère : choisis surtout le parfum qui te tente.'}
+
+# Modèles cités seulement dans les comparatifs (pour le panier)
+EXTRA_NAMES = {
+    "B0B6W4WDRX": "Tapis DH FitLife 1 cm",
+    "B0GVGDYX6W": "Haltères DH FitLife 10 niveaux",
+    "B09JC86WNK": "Barre de traction Sportneer",
+    "B0BYP59FLD": "Kettlebell Yes4All néoprène",
+}

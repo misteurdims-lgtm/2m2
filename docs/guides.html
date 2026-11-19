@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guides sport à la maison : comparatifs et programmes | 2 m²</title>
+<meta name="description" content="Comparatifs du meilleur matériel, programmes pour débutants et conseils pour faire du sport à la maison dans un petit espace."><meta name="msvalidate.01" content="A4175F93088D15A445960A9478274A40">
+<link rel="canonical" href="https://2m2sport.fr/guides.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="2 m²">
+<meta property="og:title" content="Tous nos guides : sport à la maison, matériel et programmes">
+<meta property="og:description" content="Comparatifs du meilleur matériel, programmes pour débutants et conseils pour faire du sport à la maison dans un petit espace.">
+<meta property="og:url" content="https://2m2sport.fr/guides.html">
+<meta property="og:image" content="https://2m2sport.fr/og.png">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0c0d10">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/anton-400.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="fonts/instrument-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css?v=a7897580">
+<script data-goatcounter="https://2m2sport.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script><script>document.addEventListener("click", e => { const a = e.target.closest("a[rel~=sponsored]"); if (a && window.goatcounter && goatcounter.count) goatcounter.count({path: "clic-" + (a.textContent || "").trim().slice(0, 40), title: location.pathname, event: true}); });</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://2m2sport.fr/#site", "name": "2 m²", "url": "https://2m2sport.fr/", "description": "Le guide du matériel pour s'entraîner chez soi dans un petit espace : emprise au sol, rangement, critères de choix et programmes.", "inLanguage": "fr-FR", "publisher": {"@id": "https://2m2sport.fr/#org"}}, {"@type": "Organization", "@id": "https://2m2sport.fr/#org", "name": "2 m²", "url": "https://2m2sport.fr/", "logo": "https://2m2sport.fr/favicon.svg", "sameAs": ["https://www.pinterest.com/sport2m2/"]}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://2m2sport.fr/"}, {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://2m2sport.fr/guides.html"}]}</script>
+</head>
+<body>
+<a class="skip" href="#contenu">Aller au contenu</a><header class="top"><div class="wrap">
+<a class="brand" href="index.html"><span class="brand-mark">2M<span class="sq">²</span></span><strong>La salle de sport qui tient chez toi</strong></a>
+<nav aria-label="Navigation principale"><a href="index.html">Accueil</a><a href="index.html#quiz">Mon kit</a><a href="materiel.html">Matériel</a><a href="guides.html" aria-current="page">Guides</a></nav>
+<button type="button" class="cart-btn" id="cartBtn" aria-controls="cart" aria-expanded="false">Panier <span id="cartCount">0</span></button>
+</div></header>
+<div class="cart-veil" id="cartVeil" hidden></div>
+<aside class="cart" id="cart" aria-label="Ton panier" hidden>
+<div class="cart-head"><h2>Ton panier</h2><button type="button" class="cart-x" id="cartClose" aria-label="Fermer le panier">✕</button></div>
+<ul id="cartList"></ul>
+<p class="cart-empty" id="cartEmpty">Ton panier est vide. Ajoute du matériel depuis les fiches, un kit ou le quiz.</p>
+<div class="cart-foot" id="cartFoot" hidden>
+<p class="cart-note">Tu verras les prix exacts et tu confirmeras ta commande sur Amazon. Rien n'est payé ici.</p>
+<a class="btn cart-go" id="cartGo" href="#" rel="sponsored nofollow noopener" target="_blank">Commander sur Amazon<small id="cartN"></small></a>
+<button type="button" class="cart-clear" id="cartClear">Vider le panier</button>
+</div>
+</aside>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<script>
+(() => {
+  const TAG = "deuxm2-21", NAMES = {"B07SBQJD96": "Tapis ROMIX 15 mm, 180 × 61 cm", "B01CC9P1UA": "Tapis PROIRON", "B09CTVQWK8": "Lot de 5 élastiques Fokky", "B0D1DV9NHZ": "Kit Fokky 5 niveaux", "B0GL1TPMQ6": "Kit d'haltères réglables FEIERDUN", "B0D96Y9W8Y": "BRAINGAIN 24 kg", "B0C88MN138": "Barre PROIRON sans perçage, 72 à 97 cm", "B0DJSYBQWS": "Power Tower SPORTSROYALS", "B076QJY2FN": "Kettlebell en fonte Amazon Basics", "B0F73GBRYR": "Kettlebell réglable VEVOR", "B08CRVG7BB": "Corde à sauter Blukar réglable", "B09D3DGS4T": "Corde RENPHO sans fil", "B00XM2MRGI": "Rouleau en mousse Amazon Basics", "B085NTR26K": "Pistolet de massage RENPHO", "B07S7NRZL4": "Banc pliable PASYOU", "B0CTMKNWF7": "Banc Nicepeople", "B00T7L20EC": "Créatine micronisée Optimum Nutrition", "B0CHMY9TRG": "Créatine Creapure NUTRI&CO", "B0057DVWYI": "ESN Designer Whey", "B00HF63AYA": "Bulk Pure Whey", "B0B6W4WDRX": "Tapis DH FitLife 1 cm", "B0GVGDYX6W": "Haltères DH FitLife 10 niveaux", "B09JC86WNK": "Barre de traction Sportneer", "B0BYP59FLD": "Kettlebell Yes4All néoprène"}, KEY = "2m2-panier";
+  let cart = [];
+  try { cart = JSON.parse(localStorage.getItem(KEY) || "[]").filter(i => NAMES[i.a]); } catch (e) { cart = []; }
+  const $ = id => document.getElementById(id);
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(cart)); } catch (e) {} };
+  const count = () => cart.reduce((n, i) => n + i.q, 0);
+  function render() {
+    $("cartCount").textContent = count();
+    $("cartBtn").classList.toggle("full", count() > 0);
+    $("cartList").innerHTML = cart.map(i => `<li><span class="nm">${NAMES[i.a]}</span>
+      <span class="qty"><button type="button" data-q="-1" data-a="${i.a}" aria-label="Retirer un">−</button><b>${i.q}</b><button type="button" data-q="1" data-a="${i.a}" aria-label="Ajouter un">+</button></span>
+      <button type="button" class="rm" data-rm="${i.a}" aria-label="Supprimer">Supprimer</button></li>`).join("");
+    $("cartEmpty").hidden = cart.length > 0; $("cartFoot").hidden = cart.length === 0;
+    $("cartN").textContent = `${count()} article${count() > 1 ? "s" : ""}`;
+    $("cartGo").href = `https://www.amazon.fr/gp/aws/cart/add.html?${cart.map((i, n) => `ASIN.${n + 1}=${i.a}&Quantity.${n + 1}=${i.q}`).join("&")}&AssociateTag=${TAG}`;
+  }
+  function add(asins) {
+    asins.forEach(a => { if (!NAMES[a]) return; const it = cart.find(i => i.a === a); it ? it.q++ : cart.push({a, q: 1}); });
+    save(); render();
+    const t = $("toast");
+    t.innerHTML = (asins.length > 1 ? `${asins.length} articles ajoutés au panier` : `Ajouté au panier : ${NAMES[asins[0]]}`) + ' <button type="button" id="toastOpen">Voir le panier</button>';
+    t.hidden = false; clearTimeout(t._h); t._h = setTimeout(() => t.hidden = true, 4000);
+    $("toastOpen").onclick = open;
+    if (window.goatcounter && goatcounter.count) goatcounter.count({path: "panier-ajout", event: true});
+  }
+  function open() { $("cart").hidden = false; $("cartVeil").hidden = false; $("cartBtn").setAttribute("aria-expanded", "true"); $("toast").hidden = true; $("cartClose").focus(); }
+  function close() { $("cart").hidden = true; $("cartVeil").hidden = true; $("cartBtn").setAttribute("aria-expanded", "false"); }
+  $("cartBtn").onclick = open; $("cartClose").onclick = close; $("cartVeil").onclick = close;
+  addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+  $("cartList").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.dataset.rm) cart = cart.filter(i => i.a !== b.dataset.rm);
+    if (b.dataset.q) { const it = cart.find(i => i.a === b.dataset.a); it.q += +b.dataset.q; if (it.q < 1) cart = cart.filter(i => i !== it); }
+    save(); render();
+  });
+  $("cartClear").onclick = () => { cart = []; save(); render(); };
+  $("cartGo").addEventListener("click", () => { if (window.goatcounter && goatcounter.count) goatcounter.count({path: "panier-commande", event: true}); });
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-add]"); if (!b) return;
+    e.preventDefault(); add(b.dataset.add.split(","));
+  });
+  // Dans les guides : un bouton « Ajouter au panier » à côté de chaque lien vers un modèle précis
+  const enhance = () => document.querySelectorAll(".buy a[href*='amazon.fr/dp/']").forEach(a => {
+    const m = a.href.match(/dp\/([A-Z0-9]{10})/); if (!m || !NAMES[m[1]]) return;
+    const b = document.createElement("button"); b.type = "button"; b.className = "btn add"; b.dataset.add = m[1]; b.textContent = "Ajouter au panier";
+    a.className = "see"; a.textContent = "Voir sur Amazon"; const w = document.createElement("span"); w.className = "buy-acts"; a.before(w); w.append(b, a);
+  });
+  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", enhance) : enhance();
+  render();
+})();
+</script>
+<div class="season" id="season" hidden></div>
+<script>
+(() => {
+  const d = new Date(), m = d.getMonth() + 1, day = d.getDate(), el = document.getElementById("season");
+  let msg = "";
+  if (m === 11 && day < 20) msg = "Black Friday le 27 novembre : c'est souvent le meilleur moment de l'année pour s'équiper. <a href='index.html#quiz'>Trouve ton kit avant →</a>";
+  else if (m === 11) msg = "C'est la période du Black Friday : le matériel de sport est souvent en promo sur Amazon. Prépare ton panier ici, tu verras les prix du moment avant de valider. <a href='black-friday-sport-maison.html'>Quoi acheter →</a>";
+  else if (m === 12 && day <= 24) msg = "Une idée cadeau qui sert vraiment : un kit pour faire du sport à la maison. <a href='index.html#materiel'>Voir les kits →</a>";
+  else if ((m === 12 && day >= 26) || m === 1) msg = "Nouvelle année, bonne résolution : commence le sport chez toi, sans abonnement. <a href='index.html#quiz'>Trouve ton kit →</a>";
+  else if (m === 9) msg = "C'est la rentrée : le bon moment pour (re)prendre le sport à la maison. <a href='index.html#quiz'>Trouve ton kit →</a>";
+  if (msg) { el.innerHTML = msg; el.hidden = false; }
+})();
+</script>
+<a class="sticky-cta" id="sticky" href="index.html#quiz">Trouver mon kit en 30 secondes</a>
+<script>(() => { const s = document.getElementById("sticky"); const f = () => s.classList.toggle("show", scrollY > 700); addEventListener("scroll", f, {passive: true}); f(); })();</script>
+<main id="contenu">
+<div class="article-band"><div class="wrap"><div class="crumbs"><a href="index.html">Accueil</a> / Guides</div>
+<header class="article-head"><div><h1>Tous nos guides</h1>
+<p class="lead">Pour bien choisir ton matériel et t'entraîner chez toi, même dans un petit espace.</p></div></header></div></div>
+<section class="section alt"><div class="wrap"><h2 class="subhead" style="margin-top:0px">Bons plans</h2><div class="guides"><a class="guide" href="black-friday-sport-maison.html"><span class="gi"><svg width="44" height="44" viewBox="0 0 100 86" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="38" cy="43" rx="26" ry="16"/><ellipse cx="62" cy="43" rx="26" ry="16"/></svg></span><span class="tag">Bons plans</span><h3>Black Friday 2026 : s&#x27;équiper pour le sport à la maison</h3><p>Black Friday 2026 : le matériel de sport à la maison à surveiller, dans quel ordre l&#x27;acheter, et comment éviter les fausses bonnes affaires.</p></a></div><h2 class="subhead" style="margin-top:64px">Comparatifs : les meilleurs modèles</h2><div class="guides"><a class="guide" href="meilleur-tapis-de-sport.html"><span class="gi"><svg width="44" height="44" viewBox="0 0 100 86" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="10" y="30" width="78" height="26" rx="4"/><ellipse cx="88" cy="43" rx="10" ry="13"/><ellipse cx="88" cy="43" rx="4" ry="6"/></svg></span><span class="tag">Comparatif</span><h3>Meilleur tapis de sport pour la maison : notre sélection 2026</h3><p>Quel tapis de sport choisir pour s&#x27;entraîner chez soi ? Épaisseur, matière, taille : nos 3 modèles préférés et comment choisir le bon.</p></a><a class="guide" href="meilleures-halteres-reglables.html"><span class="gi"><svg width="44" height="44" viewBox="0 0 100 86" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="12" y="26" width="12" height="34" rx="3"/><rect x="24" y="31" width="8" height="24" rx="2"/><line x1="32" y1="43" x2="68" y2="43" stroke-width="6"/><rect x="68" y="31" width="8" height="24" rx="2"/><rect x="76" y="26" width="12" height="34" rx="3"/></svg></span><span class="tag">Comparatif</span><h3>Meilleures haltères réglables : notre sélection 2026</h3><p>À disques ou à molette ? Les meilleures haltères réglables pour s&#x27;entraîner chez soi selon ton budget et ta place, et comment bien les choisir.</p></a><a class="guide" href="meilleure-barre-de-traction.html"><span class="gi"><svg width="44" height="44" viewBox="0 0 100 86" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 80 V16 H78 V80"/><line x1="12" y1="24" x2="88" y2="24" stroke-width="6"/><rect x="34" y="18" width="8" height="12" rx="2"/><rect x="58" y="18" width="8" height="12" rx="2"/></svg></span><span class="tag">Comparatif</span><h3>Meilleure barre de traction : porte ou station, notre sélection 2026</h3><p>Barre de traction de porte sans percer ou station de traction et dips : nos modèles préférés pour s&#x27;entraîner chez soi, et comment choisir.</p></a><a class="guide" href="meilleur-kettlebell.html"><span class="gi"><svg width="44" height="44" viewBox="0 0 100 86" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M36 34 C36 14 64 14 64 34"/><circle cx="50" cy="55" r="22"/></svg></span><span class="tag">Comparatif</span><h3>Meilleur kettlebell pour la maison : notre sélection 2026</h3><p>Fonte, néoprène ou réglable : les meilleurs kettlebells pour s&#x27;entraîner chez soi, et quel poids choisir pour débuter.</p></a></div><h2 class="subhead" style="margin-top:64px">S&#x27;entraîner à la maison</h2><div class="guides"><a class="guide" href="programme-musculation-maison-debutant.html"><span class="gi"><svg width="44" height="44" viewBox="0 0 100 86" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M36 34 C36 14 64 14 64 34"/><circle cx="50" cy="55" r="22"/></svg></span><span class="tag">S&#x27;entraîner</span><h3>Programme de musculation à la maison pour débutant</h3><p>Trois séances de 40 minutes par semaine avec un tapis, des élastiques et des haltères : le programme complet, et comment progresser.</p></a><a class="guide" href="programme-abdos-maison.html"><span class="gi"><svg width="44" height="44" viewBox="0 0 100 86" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="10" y="30" width="78" height="26" rx="4"/><ellipse cx="88" cy="43" rx="10" ry="13"/><ellipse cx="88" cy="43" rx="4" ry="6"/></svg></span><span class="tag">S&#x27;entraîner</span><h3>Programme abdos à la maison : 15 minutes, 3 fois par semaine</h3><p>Un programme abdos simple à faire chez soi, sur un tapis : 5 exercices, 15 minutes, 3 fois par semaine, et comment progresser sans se faire mal au dos.</p></a><a class="guide" href="kettlebell-debutant.html"><span class="gi"><svg width="44" height="44" viewBox="0 0 100 86" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M36 34 C36 14 64 14 64 34"/><circle cx="50" cy="55" r="22"/></svg></span><span class="tag">S&#x27;entraîner</span><h3>Kettlebell pour débutant : quel poids choisir et 6 exercices</h3><p>Quel poids de kettlebell choisir quand on débute, fixe ou réglable, et 6 exercices simples pour travailler tout le corps à la maison.</p></a></div><h2 class="subhead" style="margin-top:64px">Bien s&#x27;installer</h2><div class="guides"><a class="guide" href="salle-de-sport-petit-appartement.html"><span class="gi"><svg width="44" height="44" viewBox="0 0 100 86" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="10" y="30" width="78" height="26" rx="4"/><ellipse cx="88" cy="43" rx="10" ry="13"/><ellipse cx="88" cy="43" rx="4" ry="6"/></svg></span><span class="tag">Bien s&#x27;installer</span><h3>Aménager une salle de sport dans un petit appartement</h3><p>Comment s&#x27;équiper pour s&#x27;entraîner chez soi avec 2 m², sans gêner les voisins ni encombrer le salon : plan, matériel, rangement.</p></a></div><h2 class="subhead" style="margin-top:64px">Choisir son matériel</h2><div class="guides"><a class="guide" href="halteres-reglables.html"><span class="gi"><svg width="44" height="44" viewBox="0 0 100 86" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="12" y="26" width="12" height="34" rx="3"/><rect x="24" y="31" width="8" height="24" rx="2"/><line x1="32" y1="43" x2="68" y2="43" stroke-width="6"/><rect x="68" y="31" width="8" height="24" rx="2"/><rect x="76" y="26" width="12" height="34" rx="3"/></svg></span><span class="tag">Choisir son matériel</span><h3>Haltères réglables : comment bien les choisir</h3><p>À disques ou à sélecteur, quelle plage de poids, quel encombrement : les critères pour choisir des haltères réglables qui dureront.</p></a><a class="guide" href="barre-traction-sans-percer.html"><span class="gi"><svg width="44" height="44" viewBox="0 0 100 86" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 80 V16 H78 V80"/><line x1="12" y1="24" x2="88" y2="24" stroke-width="6"/><rect x="34" y="18" width="8" height="12" rx="2"/><rect x="58" y="18" width="8" height="12" rx="2"/></svg></span><span class="tag">Choisir son matériel</span><h3>Barre de traction sans percer : laquelle choisir</h3><p>Télescopique ou en appui sur le cadre de porte : comment choisir une barre de traction qui tient sans vis ni trou, et l&#x27;installer en sécurité.</p></a><a class="guide" href="elastiques-musculation.html"><span class="gi"><svg width="44" height="44" viewBox="0 0 100 86" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="38" cy="43" rx="26" ry="16"/><ellipse cx="62" cy="43" rx="26" ry="16"/></svg></span><span class="tag">Choisir son matériel</span><h3>Élastiques de musculation : le guide pour bien débuter</h3><p>Mini-bandes, grandes boucles ou tubes à poignées : quels élastiques choisir, quelle résistance, et quels exercices faire avec.</p></a></div><h2 class="subhead" style="margin-top:64px">Nutrition</h2><div class="guides"><a class="guide" href="creatine-proteines-complements.html"><span class="gi"><svg width="44" height="44" viewBox="0 0 100 86" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="28" y="24" width="44" height="50" rx="8"/><rect x="32" y="12" width="36" height="12" rx="3"/><line x1="36" y1="44" x2="64" y2="44"/><line x1="36" y1="54" x2="56" y2="54"/></svg></span><span class="tag">Nutrition</span><h3>Créatine et protéines : les 2 compléments validés par la science</h3><p>Ce que disent vraiment les experts sur la créatine et les protéines en poudre, comment les prendre, et les compléments à éviter.</p></a></div></div></section>
+</main><footer><div class="wrap">
+<div><span class="brand-mark">2M<span class="sq">²</span></span><p>Le guide du matériel pour s&#x27;entraîner chez soi dans un petit espace : emprise au sol, rangement, critères de choix et programmes.</p>
+<p>En tant que Partenaire Amazon, nous réalisons un bénéfice sur les achats remplissant les conditions requises.</p></div>
+<div><h2>Guides</h2><ul><li><a href="meilleures-halteres-reglables.html">Meilleures haltères réglables</a></li><li><a href="meilleure-barre-de-traction.html">Meilleure barre de traction</a></li><li><a href="meilleur-tapis-de-sport.html">Meilleur tapis de sport</a></li><li><a href="programme-musculation-maison-debutant.html">Programme musculation maison débutant</a></li><li><a href="programme-abdos-maison.html">Programme abdos à la maison</a></li><li><a href="salle-de-sport-petit-appartement.html">Salle de sport en petit appartement</a></li><li><a href="meilleur-kettlebell.html">Meilleur kettlebell</a></li><li><a href="kettlebell-debutant.html">Kettlebell pour débutant</a></li><li><a href="guides.html">Tous les guides →</a></li></ul></div>
+<div><h2>Le site</h2><ul><li><a href="a-propos.html">Qui sommes-nous ?</a></li><li><a href="mentions-legales.html">Mentions légales</a></li><li><a href="mentions-legales.html#affiliation">Liens affiliés</a></li></ul>
+<p>Conseils généraux, qui ne remplacent pas l'avis d'un professionnel de santé.</p></div>
+</div></footer>
+</body></html>
