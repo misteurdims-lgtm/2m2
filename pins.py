@@ -5,9 +5,9 @@ import iso
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "src", "pins")
-ANTON = "/usr/share/fonts/truetype/google-fonts/ofl/anton/Anton-Regular.ttf"
-SANS = "/mnt/skills/examples/canvas-design/canvas-fonts/InstrumentSans-Regular.ttf"
-SANS_B = "/mnt/skills/examples/canvas-design/canvas-fonts/InstrumentSans-Bold.ttf"
+ANTON = os.path.join(HERE, "src", "fonts", "anton-400.woff2")
+SANS = os.path.join(HERE, "src", "fonts", "instrument-sans-400.woff2")
+SANS_B = os.path.join(HERE, "src", "fonts", "instrument-sans-700.woff2")
 
 # Chaque épingle : fichier, page cible, style, titre (lignes), mot mis en avant, sous-titre, points
 PINS = [
@@ -53,6 +53,27 @@ PINS = [
     dict(f="creatine-b", page="creatine-proteines-complements.html", style="list", kicker="Compléments",
          title=["Créatine :", "ce qu'il faut"], hi="savoir",
          points=["3 g par jour suffisent", "Monohydrate pure, rien d'autre", "Pas besoin de « phase de charge »", "Avis médical si problème de reins"]),
+    dict(f="blackfriday-a", page="#materiel", style="list", kicker="Black Friday",
+         title=["Black Friday :", "équipe-toi"], hi="pour l'année",
+         points=["Tapis, élastiques, haltères, barre…", "3 kits complets, 3 budgets", "Tout le panier en 1 clic", "Les prix du moment sur Amazon"]),
+    dict(f="blackfriday-b", page="#quiz", style="hero", kicker="Black Friday",
+         title=["Ta salle de sport", "à la maison"], hi="pendant le Black Friday",
+         sub="Réponds à 3 questions, on te dit quoi acheter. Tu vois les prix du moment sur Amazon."),
+    dict(f="abdos-a", page="programme-abdos-maison.html", style="hero", kicker="Programme gratuit",
+         title=["Programme abdos", "à la maison :"], hi="15 minutes",
+         sub="5 exercices sur un tapis, 3 fois par semaine, sans se faire mal au dos."),
+    dict(f="abdos-b", page="programme-abdos-maison.html", style="list", kicker="Abdos maison",
+         title=["Abdos maison :", ""], hi="5 exercices",
+         points=["La planche", "Le dead bug", "La planche latérale", "Le crunch", "Le relevé de bassin"]),
+    dict(f="kettlebell-a", page="kettlebell-debutant.html", style="hero", kicker="Guide débutant",
+         title=["Kettlebell :", "quel poids"], hi="choisir ?",
+         sub="Le bon poids pour débuter, fixe ou réglable, et 6 exercices pour tout le corps."),
+    dict(f="kettlebell-b", page="kettlebell-debutant.html", style="list", kicker="Tout le corps",
+         title=["Kettlebell :", ""], hi="5 exercices",
+         points=["Soulevé de terre", "Squat gobelet", "Swing", "Rowing", "Développé"]),
+    dict(f="materiel-a", page="materiel.html", style="list", kicker="Sport à la maison",
+         title=["Le matériel", "expliqué"], hi="simplement",
+         points=["Ce que chaque objet fait travailler", "3 exercices pour s'en servir", "2 modèles, la différence expliquée", "Tout le panier en 1 clic"]),
 ]
 
 CSS = f"""
@@ -104,8 +125,12 @@ def html(p):
         items = "".join(f"<li><b>{i + 1}</b>{t}</li>" for i, t in enumerate(p["points"]))
         body += f'<ol>{items}</ol></main>'
         cta = "Le guide complet →"
-    if p["f"].startswith("accueil"):
+    if p["f"].startswith("accueil") or p["f"] == "blackfriday-b":
         cta = "Trouve ton kit en 30 s →"
+    if p["f"] == "blackfriday-a":
+        cta = "Voir les 3 kits →"
+    if p["f"] == "materiel-a":
+        cta = "Voir tout le matériel →"
     body += f'<div class="cta"><strong>{cta}</strong><span>2 m² · la salle de sport qui tient chez toi</span></div>'
     return f"<!DOCTYPE html><html lang=fr><head><meta charset=utf-8><style>{CSS}</style></head><body>{body}</body></html>"
 
@@ -115,7 +140,11 @@ def main():
     with sync_playwright() as pw:
         b = pw.chromium.launch(executable_path="/usr/bin/google-chrome", args=["--allow-file-access-from-files"])
         pg = b.new_page(viewport={"width": 1000, "height": 1500})
+        import sys
+        only = set(sys.argv[1:])
         for p in PINS:
+            if only and p["f"] not in only:
+                continue
             tmp = os.path.join("/tmp", f"pin-{p['f']}.html")
             open(tmp, "w").write(html(p).replace('class="f1"', "").replace("animation", "x-anim"))
             pg.goto("file://" + tmp)

@@ -98,7 +98,8 @@
 (() => {
   const d = new Date(), m = d.getMonth() + 1, day = d.getDate(), el = document.getElementById("season");
   let msg = "";
-  if (m === 11 && day <= 30) msg = "Black Friday le 27 novembre : c'est souvent le meilleur moment de l'année pour s'équiper. <a href='index.html#quiz'>Trouve ton kit avant →</a>";
+  if (m === 11 && day < 20) msg = "Black Friday le 27 novembre : c'est souvent le meilleur moment de l'année pour s'équiper. <a href='index.html#quiz'>Trouve ton kit avant →</a>";
+  else if (m === 11) msg = "C'est la période du Black Friday : le matériel de sport est souvent en promo sur Amazon. Prépare ton panier ici, tu verras les prix du moment avant de valider. <a href='index.html#materiel'>Voir les 3 kits →</a>";
   else if (m === 12 && day <= 24) msg = "Une idée cadeau qui sert vraiment : un kit pour faire du sport à la maison. <a href='index.html#materiel'>Voir les kits →</a>";
   else if ((m === 12 && day >= 26) || m === 1) msg = "Nouvelle année, bonne résolution : commence le sport chez toi, sans abonnement. <a href='index.html#quiz'>Trouve ton kit →</a>";
   else if (m === 9) msg = "C'est la rentrée : le bon moment pour (re)prendre le sport à la maison. <a href='index.html#quiz'>Trouve ton kit →</a>";
