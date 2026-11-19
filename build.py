@@ -452,11 +452,19 @@ def build_guide(g):
     return page
 
 
+PIN_OF = {"salle-de-sport-petit-appartement": "petit-appartement", "halteres-reglables": "halteres",
+          "barre-traction-sans-percer": "traction", "elastiques-musculation": "elastiques",
+          "programme-musculation-maison-debutant": "programme", "creatine-proteines-complements": "creatine"}
+
+
 def share(g):
     from urllib.parse import quote
     u, t = quote(url(g["slug"] + ".html"), safe=""), quote(g["title"], safe="")
-    img = quote(url("og.png"), safe="")
-    return f"""<div class="share"><span>Partager ce guide</span>
+    pin = PIN_OF.get(g["slug"])
+    img = quote(url(f"pins/{pin}-a.jpg") if pin else url("og.png"), safe="")
+    pinblock = (f"""<figure class="pinit"><img src="pins/{pin}-a.jpg" width="1000" height="1500" loading="lazy" alt="{e(g['title'])} : visuel à épingler"
+ data-pin-description="{e(g['title'])} : {e(g['desc'])}"><figcaption>Garde ce guide pour plus tard : <a href="https://www.pinterest.com/pin/create/button/?url={u}&media={img}&description={t}" rel="noopener" target="_blank">l'épingler sur Pinterest</a></figcaption></figure>""" if pin else "")
+    return pinblock + f"""<div class="share"><span>Partager ce guide</span>
 <a href="https://www.pinterest.com/pin/create/button/?url={u}&media={img}&description={t}" rel="noopener" target="_blank">Pinterest</a>
 <a href="https://www.facebook.com/sharer/sharer.php?u={u}" rel="noopener" target="_blank">Facebook</a>
 <a href="https://wa.me/?text={t}%20{u}" rel="noopener" target="_blank">WhatsApp</a>
@@ -512,6 +520,11 @@ def build():
     with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
         f.write(f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{sitemap}</urlset>')
     open(os.path.join(OUT, ".nojekyll"), "w").close()
+    shutil.copytree(os.path.join(SRC, "pins"), os.path.join(OUT, "pins"))
+    # page technique listant les épingles (source pour Pinterest, non indexée)
+    import pins as P
+    imgs = "".join(f'<figure><img src="pins/{p["f"]}.jpg" width="500" height="750" alt="{e(" ".join(p["title"]) + " " + p["hi"])}"><figcaption>{p["f"]}</figcaption></figure>' for p in P.PINS)
+    open(os.path.join(OUT, "epingles.html"), "w").write(f'<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="robots" content="noindex"><title>Épingles 2 m²</title><style>body{{margin:0;padding:20px;background:#0c0d10;color:#eee;font-family:sans-serif;display:flex;flex-wrap:wrap;gap:20px}}img{{width:250px;height:auto;display:block}}</style></head><body>{imgs}</body></html>')
     # fichier de vérification Google Search Console (ne pas supprimer)
     gsc = "google4ff7b37beb931c1d.html"
     open(os.path.join(OUT, gsc), "w").write(f"google-site-verification: {gsc}")

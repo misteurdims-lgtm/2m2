@@ -335,3 +335,8 @@ footer .brand-mark { display: block; font-size: 120px; color: #fff; margin-botto
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* visuel à épingler */
+.pinit { margin: 48px 0 8px; max-width: 320px; }
+.pinit img { width: 100%; height: auto; display: block; box-shadow: 0 20px 40px rgba(0,0,0,.25); }
+.pinit figcaption { font-size: 15px; margin-top: 12px; color: var(--muted); }
