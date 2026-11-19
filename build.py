@@ -342,7 +342,7 @@ QUIZ = """<div class="quiz" id="quizbox">
 <button type="button" aria-pressed="false" data-v="petit">Un petit coin</button><button type="button" aria-pressed="false" data-v="moyen">Un bout de pièce</button><button type="button" aria-pressed="false" data-v="grand">Une pièce libre</button></div></div>
 <div class="q" data-q="budget"><h3><span>3.</span>Ton budget pour démarrer ?</h3><div class="opts">
 <button type="button" aria-pressed="false" data-v="1">Petit budget</button><button type="button" aria-pressed="false" data-v="2">Équilibré</button><button type="button" aria-pressed="false" data-v="3">Haut de gamme</button></div>
-<p class="bhelp">Dans les 3 cas, tu as <b>tout l'équipement</b>. Seule la gamme change. <b>Petit budget</b> : les modèles les moins chers, qui font très bien le travail. <b>Équilibré</b> : petits prix sur le gros matériel, un cran au-dessus là où ça change le confort. <b>Haut de gamme</b> : plus pratiques (réglage en quelques secondes), plus d'exercices possibles, et ils durent plus longtemps.</p></div>
+<p class="bhelp">Dans les 3 cas, tu as <b>tout l'équipement</b> : seule la gamme des modèles change.</p></div>
 </div>
 <div class="answer-slot"><div class="placeholder" id="ph"><b>Ton kit<br>apparaît ici.</b>Réponds aux 3 questions. Ça prend 30 secondes.</div><div class="answer" id="answer" hidden></div></div>
 </div>
@@ -421,54 +421,38 @@ def build_index():
 <div>
 <span class="pill"><i>—</i>Le sport à la maison, pour débutants</span>
 <h1>Ta salle de sport à la maison. <span class="o">Dans 2&nbsp;m².</span></h1>
-<p class="lead">Pas d'abonnement à payer chaque mois, pas de trajet, pas de regard des autres. Tu t'équipes une fois, et tu t'entraînes quand tu veux, pendant des années.</p>
+<p class="lead">Pas d'abonnement, pas de trajet. Tu t'équipes une fois, tu t'entraînes quand tu veux.</p>
 <div class="actions"><a class="btn" href="#quiz">Trouver mon kit en 30 secondes</a><a class="btn ghost" href="materiel.html">Voir le matériel</a></div>
 {DISCLOSE}
 </div>
 {hero_art()}
 </div>
-<div class="ticker" aria-hidden="true"><div>{TICK}{TICK}</div></div>
 </div>
 
 <section class="section dark" id="quiz"><div class="wrap">
-<div class="section-head"><span class="eyebrow">30 secondes, 3 questions</span><h2>Trouve ton kit idéal</h2><p>Réponds à 3 questions : on te dit exactement quoi acheter, et dans quel ordre.</p></div>
+<div class="section-head"><span class="eyebrow">30 secondes, 3 questions</span><h2>Trouve ton kit idéal</h2><p>3 questions, et on te dit quoi acheter.</p></div>
 {QUIZ.replace("__TAG__", SITE['amazon_tag']).replace("__PRODUCTS__", json.dumps([{**{k: p[k] for k in ("icon", "name", "why")}, "mus": MUSCLES.get(p["icon"], []), "t": {t: tier_pick(p, t) for t in (1, 2, 3)}, "ts": tier_pick(p, 3, True), "other": {t: [o for o in opts(p) if o["asin"] != tier_pick(p, t)["asin"]][:1] for t in (1, 2, 3)}, "diff": DIFF.get(p["icon"], "")} for p in PRODUCTS], ensure_ascii=False))}
 </div></section>
 
-<section class="section" id="excuses"><div class="wrap">
-<div class="section-head center"><span class="eyebrow">On se connaît</span><h2>Les 3 excuses qu'on se donne</h2><p>Et pourquoi, à la maison, elles ne tiennent plus.</p></div>
-<div class="steps">{"".join(f'<div class="stepcard excuse"><span class="q">?</span><h3>{e(t)}</h3><p>{e(a)}</p></div>' for t, a in OBJECTIONS)}</div>
-<p class="oms"><span>L'OMS recommande aux adultes au moins <b>deux séances de renforcement musculaire par semaine</b>, en plus de 150 à 300 minutes d'activité modérée. <a href="https://www.who.int/europe/fr/publications/i/item/9789240014886" rel="noopener" target="_blank">Source : OMS</a></span></p>
-</div></section>
-
-<section class="section alt" id="commencer"><div class="wrap">
-<div class="section-head"><span class="eyebrow">Par où commencer ?</span><h2>3 étapes, c'est tout</h2><p>Pas de jargon. Suis les étapes dans l'ordre, et ton coin sport grandit avec toi.</p></div>
-<div class="steps">
-<a class="stepcard" href="#espace"><span class="n">1</span><h3>Regarde la place que tu as</h3><p>Choisis ta pièce : on te montre ce qui rentre chez toi.</p><span class="more">Voir ma place →</span></a>
-<a class="stepcard" href="#materiel"><span class="n">2</span><h3>Commence avec les essentiels</h3><p>Un tapis, des élastiques, des haltères pour démarrer. Puis complète au fil de tes progrès.</p><span class="more">Voir le matériel →</span></a>
-<a class="stepcard" href="programme-musculation-maison-debutant.html"><span class="n">3</span><h3>Suis un programme simple</h3><p>3 séances de 40 minutes par semaine, expliquées pas à pas.</p><span class="more">Voir le programme →</span></a>
-</div>
-</div></section>
-
-<section class="section" id="espace"><div class="wrap">
-<div class="section-head"><span class="eyebrow">Étape 1</span><h2>Qu'est-ce qui rentre chez toi ?</h2><p>Clique sur l'endroit où tu veux t'entraîner. On dessine ton espace avec le matériel qui rentre.</p></div>
-{CALC.replace("__TAG__", SITE['amazon_tag']).replace("__URLS__", json.dumps({k: next(p for p in PRODUCTS if p["icon"] == v)["asin"] for k, v in {"tapis": "tapis", "elast": "elastiques", "halt": "halteres", "barre": "barre", "kb": "kettlebell", "corde": "corde", "banc": "banc"}.items()}))}
-</div></section>
-
 <section class="section alt" id="materiel"><div class="wrap">
-<div class="section-head"><span class="eyebrow">Étape 2</span><h2>Le matériel, expliqué simplement</h2><p>Commence par les essentiels. Ensuite, chaque nouvel objet débloque de nouveaux exercices et te fait progresser plus vite.</p></div>
+<div class="section-head"><span class="eyebrow">Tout prêts</span><h2>3 kits complets</h2><p>Le même équipement, à 3 niveaux de prix.</p></div>
 {kits_html()}
 <h3 class="subhead">Chaque objet en détail</h3>
 <div class="mini-grid">{"".join(f'<a class="mini-item" href="materiel.html#p-{p["icon"]}"><span class="mi-art">{icon(p["icon"], 44)}</span><b>{e(p["name"])}</b><small>{e(", ".join(MUSCLES.get(p["icon"], [])[:3]))}</small></a>' for p in PRODUCTS)}</div>
 <p class="center-cta"><a class="btn" href="materiel.html">Voir tout le matériel en détail</a></p>
 </div></section>
 
-<section class="section" id="guides"><div class="wrap">
-<div class="section-head"><span class="eyebrow">Pour aller plus loin</span><h2>Nos guides</h2><p>Pour bien choisir ton matériel et t'entraîner sans te blesser.</p></div>
+<section class="section" id="espace"><div class="wrap">
+<div class="section-head"><span class="eyebrow">Peu de place ?</span><h2>Qu'est-ce qui rentre chez toi ?</h2><p>Choisis ta pièce, on te montre ce qui rentre.</p></div>
+{CALC.replace("__TAG__", SITE['amazon_tag']).replace("__URLS__", json.dumps({k: next(p for p in PRODUCTS if p["icon"] == v)["asin"] for k, v in {"tapis": "tapis", "elast": "elastiques", "halt": "halteres", "barre": "barre", "kb": "kettlebell", "corde": "corde", "banc": "banc"}.items()}))}
+</div></section>
+
+<section class="section alt" id="guides"><div class="wrap">
+<div class="section-head"><span class="eyebrow">Pour aller plus loin</span><h2>Nos guides</h2></div>
 <div class="guides">{guides}</div>
 </div></section>
 
-<section class="section alt" id="questions"><div class="wrap">
+<section class="section" id="questions"><div class="wrap">
 <div class="section-head center"><span class="eyebrow">Tu te poses la question ?</span><h2>Les questions des débutants</h2></div>
 <div class="faq">{faq}</div>
 </div></section>
