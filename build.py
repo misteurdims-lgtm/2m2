@@ -98,7 +98,7 @@ SEASON = r"""<div class="season" id="season" hidden></div>
 </script>"""
 
 
-NAV = [("index.html", "Accueil"), ("index.html#quiz", "Mon kit"), ("index.html#materiel", "Matériel"), ("index.html#guides", "Guides")]
+NAV = [("index.html", "Accueil"), ("index.html#quiz", "Mon kit"), ("materiel.html", "Matériel"), ("index.html#guides", "Guides")]
 
 
 DISCLOSE = '<p class="disclose">Liens affiliés : si tu achètes via nos liens, on touche une petite commission, sans surcoût pour toi. <a href="mentions-legales.html#affiliation">En savoir plus</a></p>'
@@ -407,16 +407,13 @@ def org_ld():
 
 
 def build_index():
-    cards = "".join(product_card(i + 1, p) for i, p in enumerate(PRODUCTS))
     guides = "".join(f'<a class="guide" href="{g["slug"]}.html"><span class="gi">{icon(GICON.get(g["slug"], "tapis"), 44)}</span><span class="tag">{e(g["kicker"])}</span><h3>{e(g["title"])}</h3><p>{e(g["desc"])}</p></a>' for g in GUIDES)
     faq = "".join(f"<details><summary>{e(q)}</summary><p>{e(a)}</p></details>" for q, a in HOME_FAQ)
-    itemlist = {"@context": "https://schema.org", "@type": "ItemList", "name": "Le matériel pour s'entraîner chez soi",
-                "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": p["name"]} for i, p in enumerate(PRODUCTS)]}
     faq_ld = {"@context": "https://schema.org", "@type": "FAQPage",
               "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in HOME_FAQ]}
     page = head(f"{SITE['name']} : faire du sport à la maison, même dans un petit espace",
                 "Tu veux te mettre au sport à la maison ? Découvre ce qui tient chez toi, le matériel simple pour débuter et un programme facile à suivre.",
-                "", [org_ld(), itemlist, faq_ld])
+                "", [org_ld(), faq_ld])
     page += header("index.html")
     page += f"""<main id="contenu">
 <div class="hero-band">
@@ -425,7 +422,7 @@ def build_index():
 <span class="pill"><i>—</i>Le sport à la maison, pour débutants</span>
 <h1>Ta salle de sport à la maison. <span class="o">Dans 2&nbsp;m².</span></h1>
 <p class="lead">Pas d'abonnement à payer chaque mois, pas de trajet, pas de regard des autres. Tu t'équipes une fois, et tu t'entraînes quand tu veux, pendant des années.</p>
-<div class="actions"><a class="btn" href="#quiz">Trouver mon kit en 30 secondes</a><a class="btn ghost" href="#materiel">Voir le matériel</a></div>
+<div class="actions"><a class="btn" href="#quiz">Trouver mon kit en 30 secondes</a><a class="btn ghost" href="materiel.html">Voir le matériel</a></div>
 {DISCLOSE}
 </div>
 {hero_art()}
@@ -462,7 +459,8 @@ def build_index():
 <div class="section-head"><span class="eyebrow">Étape 2</span><h2>Le matériel, expliqué simplement</h2><p>Commence par les essentiels. Ensuite, chaque nouvel objet débloque de nouveaux exercices et te fait progresser plus vite.</p></div>
 {kits_html()}
 <h3 class="subhead">Chaque objet en détail</h3>
-<div class="kit">{cards}</div>
+<div class="mini-grid">{"".join(f'<a class="mini-item" href="materiel.html#p-{p["icon"]}"><span class="mi-art">{icon(p["icon"], 44)}</span><b>{e(p["name"])}</b><small>{e(", ".join(MUSCLES.get(p["icon"], [])[:3]))}</small></a>' for p in PRODUCTS)}</div>
+<p class="center-cta"><a class="btn" href="materiel.html">Voir tout le matériel en détail</a></p>
 </div></section>
 
 <section class="section" id="guides"><div class="wrap">
@@ -557,6 +555,34 @@ def share(g):
 <script>document.querySelectorAll(".copy").forEach(b => b.addEventListener("click", async () => {{ try {{ await navigator.clipboard.writeText(b.dataset.url); b.textContent = "Lien copié"; }} catch (e) {{ b.textContent = b.dataset.url; }} }}));</script>"""
 
 
+def build_materiel():
+    cards = "".join(product_card(i + 1, p) for i, p in enumerate(PRODUCTS))
+    itemlist = {"@context": "https://schema.org", "@type": "ItemList", "name": "Le matériel pour s'entraîner chez soi",
+                "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": p["name"], "url": url(f"materiel.html#p-{p['icon']}")} for i, p in enumerate(PRODUCTS)]}
+    crumb_ld = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Accueil", "item": url("")},
+        {"@type": "ListItem", "position": 2, "name": "Matériel", "item": url("materiel.html")}]}
+    jump = "".join(f'<a href="#p-{p["icon"]}">{e(p["name"])}</a>' for p in PRODUCTS)
+    page = head("Le matériel pour faire du sport à la maison : 2 modèles par objet",
+                "Tapis, élastiques, haltères, barre de traction, kettlebell… Pour chaque objet : les muscles travaillés, 3 exercices, et 2 modèles expliqués simplement.",
+                "materiel.html", [org_ld(), itemlist, crumb_ld], seo_title="Matériel de sport à la maison : le guide simple | 2 m²")
+    page += header("materiel.html")
+    page += f"""<main id="contenu">
+<div class="article-band"><div class="wrap"><div class="crumbs"><a href="index.html">Accueil</a> / Matériel</div>
+<header class="article-head"><div><h1>Le matériel, expliqué simplement</h1>
+<p class="lead">Pour chaque objet : ce qu'il fait travailler, 3 exercices pour s'en servir, et 2 modèles avec leur différence. Ajoute au panier ce qui te plaît, tout part sur Amazon en une fois.</p></div></header>
+<nav class="jump" aria-label="Aller à un objet">{jump}</nav></div></div>
+<section class="section alt"><div class="wrap">
+<h2 class="subhead" style="margin-top:0">Les 10 objets</h2>
+<div class="kit">{cards}</div>
+<div class="after-cta"><p>Tu hésites ? Le quiz choisit pour toi en 30 secondes, ou prends un kit tout fait.</p>
+<a class="btn" href="index.html#quiz">Faire le quiz</a> <a class="btn ghost-dark" href="index.html#materiel">Voir les 3 kits</a></div>
+</div></section>
+</main>"""
+    page += footer()
+    return page
+
+
 def build_simple(slug, title, desc, inner):
     page = head(title, desc, slug + ".html", [org_ld()])
     page += header(slug + ".html")
@@ -593,6 +619,7 @@ def build():
     pages = {"index.html": build_index()}
     for g in GUIDES:
         pages[g["slug"] + ".html"] = build_guide(g)
+    pages["materiel.html"] = build_materiel()
     pages["a-propos.html"] = build_simple("a-propos", "À propos de 2 m²", "Qui est derrière 2 m², comment le matériel est choisi et comment le site est financé.", ABOUT)
     pages["404.html"] = build_simple("404", "Page introuvable", "Cette page n'existe pas ou a été déplacée.",
         '<p>Cette page n\'existe pas ou a été déplacée.</p><p><a class="btn" href="index.html">Retour à l\'accueil</a></p>')
