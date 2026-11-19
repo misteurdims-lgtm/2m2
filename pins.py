@@ -74,6 +74,22 @@ PINS = [
     dict(f="materiel-a", page="materiel.html", style="list", kicker="Sport à la maison",
          title=["Le matériel", "expliqué"], hi="simplement",
          points=["Ce que chaque objet fait travailler", "3 exercices pour s'en servir", "2 modèles, la différence expliquée", "Tout le panier en 1 clic"]),
+    dict(f="comp-halteres", page="meilleures-halteres-reglables.html", style="list", kicker="Comparatif 2026",
+         title=["Les meilleures", "haltères"], hi="réglables",
+         points=["À disques : petit budget", "À molette : réglage rapide", "Quelle plage de poids", "Notre sélection de 3 modèles"]),
+    dict(f="comp-barre", page="meilleure-barre-de-traction.html", style="list", kicker="Comparatif 2026",
+         title=["Barre de traction :", "porte ou"], hi="station ?",
+         points=["Sans percer, pour la location", "Station tractions + dips", "Mesurer sa porte", "Notre sélection de 3 modèles"]),
+    dict(f="comp-tapis", page="meilleur-tapis-de-sport.html", style="list", kicker="Comparatif 2026",
+         title=["Le meilleur tapis", "de sport"], hi="pour la maison",
+         points=["Quelle épaisseur choisir", "Pour le sol ou pour sauter", "La bonne taille", "Notre sélection de 3 modèles"]),
+    dict(f="comp-kettlebell", page="meilleur-kettlebell.html", style="list", kicker="Comparatif 2026",
+         title=["Le meilleur", ""], hi="kettlebell",
+         points=["Fonte : le classique", "Néoprène : protège le sol", "Réglable : 7 poids en 1", "Quel poids pour débuter"]),
+    dict(f="blackfriday-c", page="black-friday-sport-maison.html", style="list", kicker="Black Friday 2026",
+         title=["Black Friday :", "quoi acheter"], hi="en premier ?",
+         points=["Un tapis", "Des élastiques", "Des haltères réglables", "Éviter les fausses promos"]),
+
 ]
 
 CSS = f"""
@@ -129,6 +145,10 @@ def html(p):
         cta = "Trouve ton kit en 30 s →"
     if p["f"] == "blackfriday-a":
         cta = "Voir les 3 kits →"
+    if p["f"].startswith("comp-"):
+        cta = "Voir le comparatif →"
+    if p["f"] == "blackfriday-c":
+        cta = "Voir le guide Black Friday →"
     if p["f"] == "materiel-a":
         cta = "Voir tout le matériel →"
     body += f'<div class="cta"><strong>{cta}</strong><span>2 m² · la salle de sport qui tient chez toi</span></div>'
