@@ -18,7 +18,7 @@
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Instrument+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=716942c7">
+<link rel="stylesheet" href="style.css?v=e9bcbbe1">
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Barre de traction sans percer : laquelle choisir", "description": "Télescopique ou en appui sur le cadre de porte : comment choisir une barre de traction qui tient sans vis ni trou, et l'installer en sécurité.", "datePublished": "2026-11-19", "dateModified": "2026-11-19", "inLanguage": "fr-FR", "author": {"@type": "Organization", "name": "2 m²", "url": "https://misteurdims-lgtm.github.io/2m2/a-propos.html"}, "publisher": {"@type": "Organization", "name": "2 m²"}, "image": "https://misteurdims-lgtm.github.io/2m2/og.png", "mainEntityOfPage": "https://misteurdims-lgtm.github.io/2m2/barre-traction-sans-percer.html"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Une barre de traction sans percer est-elle solide ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui si elle est adaptée à ton encadrement, installée selon la notice et testée progressivement avant chaque séance."}}, {"@type": "Question", "name": "Est-ce que la barre abîme la porte ?", "acceptedAnswer": {"@type": "Answer", "text": "Les modèles avec mousses de protection limitent les marques. Évite les chambranles très fins ou fragiles."}}, {"@type": "Question", "name": "Comment faire sa première traction ?", "acceptedAnswer": {"@type": "Answer", "text": "Avec des tractions négatives et une bande élastique d'assistance, en réduisant l'aide au fil des semaines."}}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://misteurdims-lgtm.github.io/2m2/"}, {"@type": "ListItem", "position": 2, "name": "Barre de traction sans percer", "item": "https://misteurdims-lgtm.github.io/2m2/barre-traction-sans-percer.html"}]}</script>
 </head>
@@ -26,7 +26,76 @@
 <a class="skip" href="#contenu">Aller au contenu</a><header class="top"><div class="wrap">
 <a class="brand" href="index.html"><span class="brand-mark">2M<span class="sq">²</span></span><strong>La salle de sport qui tient chez toi</strong></a>
 <nav aria-label="Navigation principale"><a href="index.html">Accueil</a><a href="index.html#quiz">Mon kit</a><a href="index.html#materiel">Matériel</a><a href="index.html#guides">Guides</a></nav>
+<button type="button" class="cart-btn" id="cartBtn" aria-controls="cart" aria-expanded="false">Panier <span id="cartCount">0</span></button>
 </div></header>
+<div class="cart-veil" id="cartVeil" hidden></div>
+<aside class="cart" id="cart" aria-label="Ton panier" hidden>
+<div class="cart-head"><h2>Ton panier</h2><button type="button" class="cart-x" id="cartClose" aria-label="Fermer le panier">✕</button></div>
+<ul id="cartList"></ul>
+<p class="cart-empty" id="cartEmpty">Ton panier est vide. Ajoute du matériel depuis les fiches, un kit ou le quiz.</p>
+<div class="cart-foot" id="cartFoot" hidden>
+<p class="cart-note">Tu verras les prix exacts et tu confirmeras ta commande sur Amazon. Rien n'est payé ici.</p>
+<button type="button" class="btn cart-go" id="cartGo">Commander sur Amazon <span id="cartN"></span></button>
+<button type="button" class="cart-clear" id="cartClear">Vider le panier</button>
+</div>
+</aside>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<script>
+(() => {
+  const TAG = "deuxm2-21", NAMES = {"B07SBQJD96": "Tapis ROMIX 15 mm, 180 × 61 cm", "B01CC9P1UA": "Tapis PROIRON", "B09CTVQWK8": "Lot de 5 élastiques Fokky", "B0D1DV9NHZ": "Kit Fokky 5 niveaux", "B0GL1TPMQ6": "Kit d'haltères réglables FEIERDUN", "B0D96Y9W8Y": "BRAINGAIN 24 kg", "B0C88MN138": "Barre PROIRON sans perçage, 72 à 97 cm", "B0DJSYBQWS": "Power Tower SPORTSROYALS", "B076QJY2FN": "Kettlebell en fonte Amazon Basics", "B0F73GBRYR": "Kettlebell réglable VEVOR", "B08CRVG7BB": "Corde à sauter Blukar réglable", "B09D3DGS4T": "Corde RENPHO sans fil", "B00XM2MRGI": "Rouleau en mousse Amazon Basics", "B085NTR26K": "Pistolet de massage RENPHO", "B07S7NRZL4": "Banc pliable PASYOU", "B0CTMKNWF7": "Banc Nicepeople", "B00T7L20EC": "Créatine micronisée Optimum Nutrition", "B0CHMY9TRG": "Créatine Creapure NUTRI&CO", "B0057DVWYI": "ESN Designer Whey", "B00HF63AYA": "Bulk Pure Whey"}, KEY = "2m2-panier";
+  let cart = [];
+  try { cart = JSON.parse(localStorage.getItem(KEY) || "[]").filter(i => NAMES[i.a]); } catch (e) { cart = []; }
+  const $ = id => document.getElementById(id);
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(cart)); } catch (e) {} };
+  const count = () => cart.reduce((n, i) => n + i.q, 0);
+  function render() {
+    $("cartCount").textContent = count();
+    $("cartBtn").classList.toggle("full", count() > 0);
+    $("cartList").innerHTML = cart.map(i => `<li><span class="nm">${NAMES[i.a]}</span>
+      <span class="qty"><button type="button" data-q="-1" data-a="${i.a}" aria-label="Retirer un">−</button><b>${i.q}</b><button type="button" data-q="1" data-a="${i.a}" aria-label="Ajouter un">+</button></span>
+      <button type="button" class="rm" data-rm="${i.a}" aria-label="Supprimer">Supprimer</button></li>`).join("");
+    $("cartEmpty").hidden = cart.length > 0; $("cartFoot").hidden = cart.length === 0;
+    $("cartN").textContent = `(${count()} article${count() > 1 ? "s" : ""})`;
+  }
+  function add(asins) {
+    asins.forEach(a => { if (!NAMES[a]) return; const it = cart.find(i => i.a === a); it ? it.q++ : cart.push({a, q: 1}); });
+    save(); render();
+    const t = $("toast");
+    t.innerHTML = (asins.length > 1 ? `${asins.length} articles ajoutés au panier` : `Ajouté au panier : ${NAMES[asins[0]]}`) + ' <button type="button" id="toastOpen">Voir le panier</button>';
+    t.hidden = false; clearTimeout(t._h); t._h = setTimeout(() => t.hidden = true, 4000);
+    $("toastOpen").onclick = open;
+    if (window.goatcounter && goatcounter.count) goatcounter.count({path: "panier-ajout", event: true});
+  }
+  function open() { $("cart").hidden = false; $("cartVeil").hidden = false; $("cartBtn").setAttribute("aria-expanded", "true"); $("toast").hidden = true; $("cartClose").focus(); }
+  function close() { $("cart").hidden = true; $("cartVeil").hidden = true; $("cartBtn").setAttribute("aria-expanded", "false"); }
+  $("cartBtn").onclick = open; $("cartClose").onclick = close; $("cartVeil").onclick = close;
+  addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+  $("cartList").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.dataset.rm) cart = cart.filter(i => i.a !== b.dataset.rm);
+    if (b.dataset.q) { const it = cart.find(i => i.a === b.dataset.a); it.q += +b.dataset.q; if (it.q < 1) cart = cart.filter(i => i !== it); }
+    save(); render();
+  });
+  $("cartClear").onclick = () => { cart = []; save(); render(); };
+  $("cartGo").onclick = () => {
+    if (!cart.length) return;
+    const p = cart.map((i, n) => `ASIN.${n + 1}=${i.a}&Quantity.${n + 1}=${i.q}`).join("&");
+    if (window.goatcounter && goatcounter.count) goatcounter.count({path: "panier-commande", event: true});
+    window.open(`https://www.amazon.fr/gp/aws/cart/add.html?${p}&AssociateTag=${TAG}`, "_blank", "noopener");
+  };
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-add]"); if (!b) return;
+    e.preventDefault(); add(b.dataset.add.split(","));
+  });
+  // Dans les guides : un bouton « Ajouter au panier » à côté de chaque lien vers un modèle précis
+  document.querySelectorAll(".prose a[href*='amazon.fr/dp/']").forEach(a => {
+    const m = a.href.match(/dp\/([A-Z0-9]{10})/); if (!m || !NAMES[m[1]]) return;
+    const b = document.createElement("button"); b.type = "button"; b.className = "btn add"; b.dataset.add = m[1]; b.textContent = "Ajouter au panier";
+    a.classList.add("see"); a.textContent = "Voir sur Amazon"; a.before(b);
+  });
+  render();
+})();
+</script>
 <div class="season" id="season" hidden></div>
 <script>
 (() => {
@@ -86,7 +155,7 @@
 <script>document.querySelectorAll(".copy").forEach(b => b.addEventListener("click", async () => { try { await navigator.clipboard.writeText(b.dataset.url); b.textContent = "Lien copié"; } catch (e) { b.textContent = b.dataset.url; } }));</script>
 <h2>Complète ton coin sport</h2>
 <p>Ces objets vont bien avec ce que tu viens de lire, et ajoutent de nouveaux exercices.</p>
-<div class="buy"><div><strong>Un tapis de sol</strong><span>Ta base : plus confortable pour les genoux, et il protège le sol. C&#x27;est ton coin sport.</span></div><a class="btn" href="https://www.amazon.fr/dp/B07SBQJD96?tag=deuxm2-21" rel="sponsored nofollow noopener" target="_blank">Voir le prix</a></div><div class="buy"><div><strong>Des élastiques</strong><span>Le meilleur achat pour commencer : pas cher, et ils servent pour tout le corps.</span></div><a class="btn" href="https://www.amazon.fr/dp/B09CTVQWK8?tag=deuxm2-21" rel="sponsored nofollow noopener" target="_blank">Voir le prix</a></div><div class="buy"><div><strong>Des haltères réglables</strong><span>Les petits poids qu&#x27;on règle selon sa force. Une seule paire suffit pour progresser des mois.</span></div><a class="btn" href="https://www.amazon.fr/dp/B0GL1TPMQ6?tag=deuxm2-21" rel="sponsored nofollow noopener" target="_blank">Voir le prix</a></div>
+<div class="buy"><div><strong>Un tapis de sol</strong><span>Ta base : plus confortable pour les genoux, et il protège le sol. C&#x27;est ton coin sport.</span></div><button type="button" class="btn add" data-add="B07SBQJD96">Ajouter au panier</button></div><div class="buy"><div><strong>Des élastiques</strong><span>Le meilleur achat pour commencer : pas cher, et ils servent pour tout le corps.</span></div><button type="button" class="btn add" data-add="B09CTVQWK8">Ajouter au panier</button></div><div class="buy"><div><strong>Des haltères réglables</strong><span>Les petits poids qu&#x27;on règle selon sa force. Une seule paire suffit pour progresser des mois.</span></div><button type="button" class="btn add" data-add="B0GL1TPMQ6">Ajouter au panier</button></div>
 <h2 id="faq">Questions fréquentes</h2><div class="faq"><details><summary>Une barre de traction sans percer est-elle solide ?</summary><p>Oui si elle est adaptée à ton encadrement, installée selon la notice et testée progressivement avant chaque séance.</p></details><details><summary>Est-ce que la barre abîme la porte ?</summary><p>Les modèles avec mousses de protection limitent les marques. Évite les chambranles très fins ou fragiles.</p></details><details><summary>Comment faire sa première traction ?</summary><p>Avec des tractions négatives et une bande élastique d&#x27;assistance, en réduisant l&#x27;aide au fil des semaines.</p></details></div>
 </article>
 <aside class="aside">

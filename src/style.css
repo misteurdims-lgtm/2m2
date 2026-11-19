@@ -216,14 +216,44 @@ a.stepcard:hover .more { color: var(--ember-deep); }
 .card .badge { position: static; grid-area: title; align-self: start; justify-self: start; margin-top: -26px; }
 .facts { grid-area: facts; display: grid; gap: 4px; font-size: 14.5px; color: var(--ink-soft); padding-left: 24px; border-left: 1px solid var(--hair); }
 .facts b { color: var(--ink); font-weight: 600; }
-.choices { grid-area: cta; display: grid; gap: 8px; width: 250px; align-self: center; }
-.choice { display: grid; gap: 2px; padding: 10px 14px; border: 1px solid var(--hair); background: #fff; color: var(--ink); text-decoration: none; transition: border-color .2s, background .2s; }
+.choices { grid-area: cta; display: grid; gap: 8px; width: 270px; align-self: center; }
+.choice { display: grid; gap: 4px; padding: 10px 14px; border: 1px solid var(--hair); background: #fff; color: var(--ink); }
 .choice:first-child { border-color: var(--ember); }
-.choice:hover { border-color: var(--ember); background: rgba(255, 90, 31, .06); }
 .choice small { font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--ember-text); font-weight: 700; }
 .choice b { font-size: 15px; line-height: 1.25; }
-.choice span { font-size: 13px; font-weight: 600; color: var(--ink-soft); }
-.choice span::after { content: " →"; }
+.choice .acts { display: flex; align-items: center; gap: 12px; margin-top: 2px; }
+.choice .acts a { font-size: 12.5px; color: var(--ink-soft); }
+button.add { font-family: inherit; cursor: pointer; }
+button.btn { border: 0; cursor: pointer; font-family: inherit; }
+.choice button.add { background: var(--ember-btn); color: #fff; border: 0; padding: 8px 12px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.choice button.add:hover, .mini.add:hover { filter: brightness(1.1); }
+.kit-add { margin-top: 14px; width: 100%; }
+.mini.add { margin-left: 8px; background: var(--ember-btn); color: #fff; border: 0; padding: 3px 8px; font-size: 12px; font-weight: 700; border-radius: 3px; }
+.prose a.see { margin-left: 10px; font-size: 13px; }
+/* ---------- panier ---------- */
+.cart-btn { font: inherit; cursor: pointer; background: transparent; color: #fff; border: 1px solid var(--hair-light); padding: 8px 14px; font-weight: 700; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
+.cart-btn span { display: inline-block; min-width: 22px; padding: 1px 6px; margin-left: 6px; background: #3a3c42; border-radius: 11px; text-align: center; letter-spacing: 0; }
+.cart-btn.full { border-color: var(--ember); }
+.cart-btn.full span { background: var(--ember-btn); }
+.cart-veil { position: fixed; inset: 0; background: rgba(0, 0, 0, .45); z-index: 60; }
+.cart { position: fixed; top: 0; right: 0; bottom: 0; width: min(420px, 100%); background: var(--paper, #f4efe8); color: var(--ink); z-index: 61; display: flex; flex-direction: column; padding: 24px; box-shadow: -10px 0 40px rgba(0, 0, 0, .25); overflow-y: auto; }
+.cart[hidden], .cart-veil[hidden], .toast[hidden] { display: none; }
+.cart-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.cart-head h2 { font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: 34px; margin: 0; }
+.cart-x { font: inherit; font-size: 22px; background: none; border: 0; cursor: pointer; color: var(--ink); }
+#cartList { list-style: none; margin: 0; padding: 0; }
+#cartList li { display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; padding: 14px 0; border-bottom: 1px solid var(--hair); }
+#cartList .nm { font-weight: 600; }
+#cartList .qty { display: flex; align-items: center; gap: 8px; }
+#cartList .qty button { font: inherit; width: 30px; height: 30px; border: 1px solid var(--hair); background: #fff; cursor: pointer; font-size: 16px; }
+#cartList .rm { grid-column: 1; justify-self: start; font: inherit; font-size: 13px; background: none; border: 0; padding: 0; color: var(--ink-soft); text-decoration: underline; cursor: pointer; }
+.cart-empty { color: var(--ink-soft); }
+.cart-foot { margin-top: auto; padding-top: 20px; display: grid; gap: 10px; }
+.cart-note { font-size: 14px; color: var(--ink-soft); margin: 0; }
+.cart-go { width: 100%; border: 0; cursor: pointer; font: inherit; }
+.cart-clear { font: inherit; font-size: 13px; background: none; border: 0; color: var(--ink-soft); text-decoration: underline; cursor: pointer; }
+.toast { position: fixed; left: 50%; bottom: 80px; transform: translateX(-50%); z-index: 70; background: var(--night, #111); color: #fff; padding: 12px 16px; font-size: 14px; display: flex; gap: 12px; align-items: center; box-shadow: 0 8px 30px rgba(0, 0, 0, .3); max-width: calc(100% - 24px); }
+.toast button { font: inherit; font-weight: 700; background: var(--ember-btn); color: #fff; border: 0; padding: 6px 10px; cursor: pointer; white-space: nowrap; }
 .choices .others { font-size: 13px; color: var(--ink-soft); text-align: center; }
 .card .go { grid-area: cta; align-self: center; padding: 16px 20px; font-size: 12px; }
 .card .pair, .card .guide-link { display: none; }
