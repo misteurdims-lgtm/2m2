@@ -230,7 +230,7 @@ button.btn { border: 0; cursor: pointer; font-family: inherit; }
 .kit-add { margin-top: 14px; width: 100%; }
 .mini.add { margin-left: 8px; background: var(--ember-btn); color: #fff; border: 0; padding: 3px 8px; font-size: 12px; font-weight: 700; border-radius: 3px; }
 .buy-acts { display: grid; gap: 6px; justify-items: center; }
-.buy-acts .see { font-size: 13px; color: var(--ink-soft); }
+.buy-acts .see { font-size: 13px; color: #d6d3cc; }
 /* ---------- panier ---------- */
 .cart-btn { font: inherit; cursor: pointer; background: transparent; color: #fff; border: 1px solid var(--hair-light); padding: 8px 14px; font-weight: 700; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
 .cart-btn span { display: inline-block; min-width: 22px; padding: 1px 6px; margin-left: 6px; background: #3a3c42; border-radius: 11px; text-align: center; letter-spacing: 0; }
