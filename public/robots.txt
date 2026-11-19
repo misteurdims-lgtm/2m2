@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://deuxmetrescarres.fr/sitemap.xml
