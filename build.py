@@ -52,6 +52,20 @@ def head(title, desc, path, jsonld, og_type="website"):
 <body>"""
 
 
+SEASON = r"""<div class="season" id="season" hidden></div>
+<script>
+(() => {
+  const d = new Date(), m = d.getMonth() + 1, day = d.getDate(), el = document.getElementById("season");
+  let msg = "";
+  if (m === 11 && day <= 30) msg = "Black Friday le 27 novembre : c'est souvent le meilleur moment de l'année pour s'équiper. <a href='index.html#quiz'>Trouve ton kit avant →</a>";
+  else if (m === 12 && day <= 24) msg = "Une idée cadeau qui sert vraiment : un kit pour faire du sport à la maison. <a href='index.html#materiel'>Voir les kits →</a>";
+  else if ((m === 12 && day >= 26) || m === 1) msg = "Nouvelle année, bonne résolution : commence le sport chez toi, sans abonnement. <a href='index.html#quiz'>Trouve ton kit →</a>";
+  else if (m === 9) msg = "C'est la rentrée : le bon moment pour (re)prendre le sport à la maison. <a href='index.html#quiz'>Trouve ton kit →</a>";
+  if (msg) { el.innerHTML = msg; el.hidden = false; }
+})();
+</script>"""
+
+
 NAV = [("index.html", "Accueil"), ("index.html#commencer", "Par où commencer"), ("index.html#materiel", "Le matériel"), ("index.html#guides", "Les guides")]
 
 
@@ -61,6 +75,8 @@ def header(current):
 <a class="brand" href="index.html"><span class="brand-mark">2m²</span><strong>{e(SITE['tagline'])}</strong></a>
 <nav aria-label="Navigation principale">{links}</nav>
 </div></header>
+{SEASON}
+<a class="sticky-cta" href="index.html#quiz">Trouver mon kit en 30 secondes</a>
 <div class="disclose">Certains liens sont affiliés : si tu achètes via ces liens, on touche une petite commission. Ça ne change pas le prix pour toi.</div>"""
 
 
@@ -106,7 +122,7 @@ def product_card(i, p):
 <h3>{e(p['name'])}</h3>
 <p>{e(p['why'])}</p>
 <div class="facts"><span><b>Place :</b> {e(p['compare'])}</span><span><b>Rangement :</b> {e(p['storage'].lower())}</span><span><b>Prix :</b> {BUDGET[p['budget']].lower()}</span></div>
-<a class="btn go" href="{aff(p['query'])}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a>
+<a class="btn go" href="{aff(p['query'])}" rel="sponsored nofollow noopener" target="_blank">Voir le prix du jour</a>
 <p class="pair">Va bien avec : <a href="{aff(mate['query'])}" rel="sponsored nofollow noopener" target="_blank">{e(mate['name'].lower())}</a></p>
 {guide}
 </article>"""
@@ -222,6 +238,52 @@ CALC = """<div class="calc">
 </script>"""
 
 
+QUIZ = """<div class="quiz" id="quizbox">
+<div class="q" data-q="goal"><h3>1. Ton objectif ?</h3><div class="opts">
+<button data-v="forme">Me remettre en forme</button><button data-v="muscle">Me muscler</button><button data-v="poids">Perdre du poids</button></div></div>
+<div class="q" data-q="space"><h3>2. Ta place ?</h3><div class="opts">
+<button data-v="petit">Un petit coin</button><button data-v="moyen">Un bout de pièce</button><button data-v="grand">Une pièce libre</button></div></div>
+<div class="q" data-q="budget"><h3>3. Ton budget pour démarrer ?</h3><div class="opts">
+<button data-v="1">Le plus petit possible</button><button data-v="2">Raisonnable</button><button data-v="3">Je veux bien m'équiper</button></div></div>
+<div class="answer" id="answer" hidden></div>
+</div>
+<script>
+(() => {
+  const P = __PRODUCTS__, TAG = "__TAG__", pick = {};
+  const box = document.getElementById("quizbox"), out = document.getElementById("answer");
+  box.querySelectorAll(".q").forEach(q => q.querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
+    q.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    pick[q.dataset.q] = b.dataset.v; show();
+  })));
+  function show() {
+    if (!(pick.goal && pick.space && pick.budget)) return;
+    let ids = ["tapis", "elastiques"];
+    if (+pick.budget >= 2 || pick.goal === "muscle") ids.push("halteres");
+    if (pick.goal === "poids") ids.push("corde", "kettlebell");
+    if (pick.goal === "muscle") ids.push("barre");
+    if (pick.goal === "forme") ids.push("rouleau");
+    if (+pick.budget === 3) ids.push("barre", "kettlebell", "rouleau");
+    if (+pick.budget === 3 && pick.space === "grand") ids.push("banc");
+    if (pick.space === "petit") ids = ids.filter(i => i !== "banc");
+    ids = [...new Set(ids)];
+    const names = {forme: "te remettre en forme", muscle: "te muscler", poids: "perdre du poids"};
+    out.innerHTML = `<h3>Ton kit pour ${names[pick.goal]} : ${ids.length} objets</h3>
+      <p>Dans l'ordre où les acheter. Les prix changent souvent : compare-les sur la page du vendeur.</p>
+      <ol>${ids.map(id => { const p = P.find(x => x.icon === id); return `<li><span><b>${p.name}</b><small>${p.why}</small></span><a class="btn" href="https://www.amazon.fr/s?k=${encodeURIComponent(p.query)}&tag=${TAG}" rel="sponsored nofollow noopener" target="_blank">Voir le prix</a></li>`; }).join("")}</ol>
+      <p class="next">Ensuite : <a href="programme-musculation-maison-debutant.html">ton programme de 3 séances par semaine →</a></p>`;
+    out.hidden = false; out.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "nearest"});
+  }
+})();
+</script>"""
+
+
+OBJECTIONS = [
+    ("« Je n'ai pas la place »", "Un coin de 2 m sur 1 m suffit, et tout se range sous un lit ou dans un tiroir. Le calculateur plus bas te le montre en un clic."),
+    ("« Je n'ai pas le temps »", "Pas de trajet, pas de vestiaire : 30 à 40 minutes chez toi, quand tu veux, même tard le soir ou pendant la sieste des enfants."),
+    ("« Je vais abandonner »", "Le matériel à la vue de tous est un rappel quotidien. Et un programme simple, déjà prêt, évite de se demander quoi faire."),
+]
+
+
 HOME_FAQ = [
     ("Je n'ai jamais fait de sport. Je peux commencer à la maison ?", "Oui, c'est même l'endroit idéal pour débuter : pas de regard des autres, pas de trajet, et tu vas à ton rythme. Commence par 2 ou 3 séances courtes par semaine."),
     ("Combien ça coûte pour s'équiper ?", "Pour commencer, un tapis et un lot d'élastiques suffisent : c'est un petit budget. Les haltères réglables viennent ensuite, quand tu as pris l'habitude."),
@@ -250,13 +312,24 @@ def build_index():
 <div class="wrap hero">
 <div>
 <span class="pill">Fait pour les débutants</span>
-<h1>Le sport à la maison, <span class="o">même dans 2&nbsp;m²</span>.</h1>
-<p class="lead">Pas besoin d'une salle de sport ni d'une grande pièce. On t'aide à choisir le bon matériel pour commencer, sans te tromper.</p>
-<div class="actions"><a class="btn" href="#commencer">Je commence ici</a><a class="btn ghost" href="#materiel">Voir le matériel</a></div>
-<div class="reassure"><span>Sans abonnement</span><span>Petit budget</span><span>Tout se range</span></div>
+<h1>Ta salle de sport à la maison, <span class="o">même dans 2&nbsp;m²</span>.</h1>
+<p class="lead">Pas d'abonnement à payer chaque mois, pas de trajet, pas de regard des autres. Tu t'équipes une fois, et tu t'entraînes quand tu veux, pendant des années.</p>
+<div class="actions"><a class="btn" href="#quiz">Trouver mon kit en 30 secondes</a><a class="btn ghost" href="#materiel">Voir le matériel</a></div>
+<div class="reassure"><span>Sans abonnement</span><span>Dès un petit budget</span><span>Tout se range</span></div>
 </div>
 {HERO_ART}
 </div>
+
+<section class="section alt" id="quiz"><div class="wrap">
+<div class="section-head"><span class="step">30 secondes, 3 questions</span><h2>Trouve ton kit idéal</h2><p>Réponds à 3 questions : on te dit exactement quoi acheter, et dans quel ordre.</p></div>
+{QUIZ.replace("__TAG__", SITE['amazon_tag']).replace("__PRODUCTS__", json.dumps([{k: p[k] for k in ("icon", "name", "why", "query")} for p in PRODUCTS], ensure_ascii=False))}
+</div></section>
+
+<section class="section" id="excuses"><div class="wrap">
+<div class="section-head"><span class="step">On se connaît</span><h2>Les 3 excuses qu'on se donne</h2><p>Et pourquoi, à la maison, elles ne tiennent plus.</p></div>
+<div class="steps">{"".join(f'<div class="stepcard"><h3>{e(t)}</h3><p>{e(a)}</p></div>' for t, a in OBJECTIONS)}</div>
+<p class="oms">L'OMS recommande aux adultes au moins <b>deux séances de renforcement musculaire par semaine</b>, en plus de 150 à 300 minutes d'activité modérée. <a href="https://www.who.int/europe/fr/publications/i/item/9789240014886" rel="noopener" target="_blank">Source : OMS</a></p>
+</div></section>
 
 <section class="section alt" id="commencer"><div class="wrap">
 <div class="section-head"><span class="step">Par où commencer ?</span><h2>3 étapes, c'est tout</h2><p>Pas de jargon. Suis les étapes dans l'ordre, et ton coin sport grandit avec toi.</p></div>

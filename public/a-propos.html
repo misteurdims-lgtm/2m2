@@ -24,6 +24,19 @@
 <a class="brand" href="index.html"><span class="brand-mark">2m²</span><strong>La salle de sport qui tient chez toi</strong></a>
 <nav aria-label="Navigation principale"><a href="index.html">Accueil</a><a href="index.html#commencer">Par où commencer</a><a href="index.html#materiel">Le matériel</a><a href="index.html#guides">Les guides</a></nav>
 </div></header>
+<div class="season" id="season" hidden></div>
+<script>
+(() => {
+  const d = new Date(), m = d.getMonth() + 1, day = d.getDate(), el = document.getElementById("season");
+  let msg = "";
+  if (m === 11 && day <= 30) msg = "Black Friday le 27 novembre : c'est souvent le meilleur moment de l'année pour s'équiper. <a href='index.html#quiz'>Trouve ton kit avant →</a>";
+  else if (m === 12 && day <= 24) msg = "Une idée cadeau qui sert vraiment : un kit pour faire du sport à la maison. <a href='index.html#materiel'>Voir les kits →</a>";
+  else if ((m === 12 && day >= 26) || m === 1) msg = "Nouvelle année, bonne résolution : commence le sport chez toi, sans abonnement. <a href='index.html#quiz'>Trouve ton kit →</a>";
+  else if (m === 9) msg = "C'est la rentrée : le bon moment pour (re)prendre le sport à la maison. <a href='index.html#quiz'>Trouve ton kit →</a>";
+  if (msg) { el.innerHTML = msg; el.hidden = false; }
+})();
+</script>
+<a class="sticky-cta" href="index.html#quiz">Trouver mon kit en 30 secondes</a>
 <div class="disclose">Certains liens sont affiliés : si tu achètes via ces liens, on touche une petite commission. Ça ne change pas le prix pour toi.</div><main class="wrap"><header class="article-head"><h1>À propos de 2 m²</h1></header><div class="prose" style="padding:32px 0 64px"><p><strong>2 m²</strong> part d'une idée simple : la plupart des gens n'ont ni la place ni le budget pour une salle de sport à la maison. Ils ont un bout de salon, de chambre ou de couloir. C'est suffisant, à condition de bien choisir.</p>
 <h2>Notre méthode</h2>
 <p>Pour chaque équipement, on regarde trois choses : l'utilité (combien d'exercices il permet), l'emprise au sol (la place réellement occupée, en centimètres) et le rangement (où il va quand on ne s'en sert pas).</p>

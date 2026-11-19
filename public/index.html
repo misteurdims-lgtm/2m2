@@ -24,14 +24,27 @@
 <a class="brand" href="index.html"><span class="brand-mark">2m²</span><strong>La salle de sport qui tient chez toi</strong></a>
 <nav aria-label="Navigation principale"><a href="index.html" aria-current="page">Accueil</a><a href="index.html#commencer">Par où commencer</a><a href="index.html#materiel">Le matériel</a><a href="index.html#guides">Les guides</a></nav>
 </div></header>
+<div class="season" id="season" hidden></div>
+<script>
+(() => {
+  const d = new Date(), m = d.getMonth() + 1, day = d.getDate(), el = document.getElementById("season");
+  let msg = "";
+  if (m === 11 && day <= 30) msg = "Black Friday le 27 novembre : c'est souvent le meilleur moment de l'année pour s'équiper. <a href='index.html#quiz'>Trouve ton kit avant →</a>";
+  else if (m === 12 && day <= 24) msg = "Une idée cadeau qui sert vraiment : un kit pour faire du sport à la maison. <a href='index.html#materiel'>Voir les kits →</a>";
+  else if ((m === 12 && day >= 26) || m === 1) msg = "Nouvelle année, bonne résolution : commence le sport chez toi, sans abonnement. <a href='index.html#quiz'>Trouve ton kit →</a>";
+  else if (m === 9) msg = "C'est la rentrée : le bon moment pour (re)prendre le sport à la maison. <a href='index.html#quiz'>Trouve ton kit →</a>";
+  if (msg) { el.innerHTML = msg; el.hidden = false; }
+})();
+</script>
+<a class="sticky-cta" href="index.html#quiz">Trouver mon kit en 30 secondes</a>
 <div class="disclose">Certains liens sont affiliés : si tu achètes via ces liens, on touche une petite commission. Ça ne change pas le prix pour toi.</div><main>
 <div class="wrap hero">
 <div>
 <span class="pill">Fait pour les débutants</span>
-<h1>Le sport à la maison, <span class="o">même dans 2&nbsp;m²</span>.</h1>
-<p class="lead">Pas besoin d'une salle de sport ni d'une grande pièce. On t'aide à choisir le bon matériel pour commencer, sans te tromper.</p>
-<div class="actions"><a class="btn" href="#commencer">Je commence ici</a><a class="btn ghost" href="#materiel">Voir le matériel</a></div>
-<div class="reassure"><span>Sans abonnement</span><span>Petit budget</span><span>Tout se range</span></div>
+<h1>Ta salle de sport à la maison, <span class="o">même dans 2&nbsp;m²</span>.</h1>
+<p class="lead">Pas d'abonnement à payer chaque mois, pas de trajet, pas de regard des autres. Tu t'équipes une fois, et tu t'entraînes quand tu veux, pendant des années.</p>
+<div class="actions"><a class="btn" href="#quiz">Trouver mon kit en 30 secondes</a><a class="btn ghost" href="#materiel">Voir le matériel</a></div>
+<div class="reassure"><span>Sans abonnement</span><span>Dès un petit budget</span><span>Tout se range</span></div>
 </div>
 <figure class="hero-art" style="margin:0">
 <svg viewBox="0 0 440 300" role="img" aria-label="Un coin sport de 2 mètres sur 1 mètre avec un tapis, des haltères, des élastiques et un kettlebell">
@@ -51,6 +64,53 @@
 <figcaption>Tout ton matériel tient ici. Et se range en 2 minutes.</figcaption>
 </figure>
 </div>
+
+<section class="section alt" id="quiz"><div class="wrap">
+<div class="section-head"><span class="step">30 secondes, 3 questions</span><h2>Trouve ton kit idéal</h2><p>Réponds à 3 questions : on te dit exactement quoi acheter, et dans quel ordre.</p></div>
+<div class="quiz" id="quizbox">
+<div class="q" data-q="goal"><h3>1. Ton objectif ?</h3><div class="opts">
+<button data-v="forme">Me remettre en forme</button><button data-v="muscle">Me muscler</button><button data-v="poids">Perdre du poids</button></div></div>
+<div class="q" data-q="space"><h3>2. Ta place ?</h3><div class="opts">
+<button data-v="petit">Un petit coin</button><button data-v="moyen">Un bout de pièce</button><button data-v="grand">Une pièce libre</button></div></div>
+<div class="q" data-q="budget"><h3>3. Ton budget pour démarrer ?</h3><div class="opts">
+<button data-v="1">Le plus petit possible</button><button data-v="2">Raisonnable</button><button data-v="3">Je veux bien m'équiper</button></div></div>
+<div class="answer" id="answer" hidden></div>
+</div>
+<script>
+(() => {
+  const P = [{"icon": "tapis", "name": "Un tapis de sol", "why": "Ta base : plus confortable pour les genoux, et il protège le sol. C'est ton coin sport.", "query": "tapis de sol fitness épais 15 mm"}, {"icon": "elastiques", "name": "Des élastiques", "why": "Le meilleur achat pour commencer : pas cher, et ils servent pour tout le corps.", "query": "élastiques de résistance musculation lot"}, {"icon": "halteres", "name": "Des haltères réglables", "why": "Les petits poids qu'on règle selon sa force. Une seule paire suffit pour progresser des mois.", "query": "haltères réglables"}, {"icon": "barre", "name": "Une barre de traction", "why": "Pour muscler le dos et les bras. Elle tient sur un cadre de porte, sans percer.", "query": "barre de traction porte sans perçage"}, {"icon": "kettlebell", "name": "Un kettlebell", "why": "Un poids avec une poignée, pour les jambes, les fesses et le cardio en même temps.", "query": "kettlebell fonte"}, {"icon": "corde", "name": "Une corde à sauter", "why": "Le cardio le plus simple qui soit : 10 minutes et tu es essoufflé. Il faut un plafond assez haut.", "query": "corde à sauter roulements"}, {"icon": "rouleau", "name": "Un rouleau de massage", "why": "Pour détendre les muscles après la séance. Ça fait du bien, surtout au début.", "query": "rouleau de massage mousse"}, {"icon": "banc", "name": "Un banc pliable", "why": "Pour plus tard, quand tu as pris l'habitude. Il ajoute beaucoup d'exercices.", "query": "banc de musculation pliable"}], TAG = "VOTRE-TAG-21", pick = {};
+  const box = document.getElementById("quizbox"), out = document.getElementById("answer");
+  box.querySelectorAll(".q").forEach(q => q.querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
+    q.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    pick[q.dataset.q] = b.dataset.v; show();
+  })));
+  function show() {
+    if (!(pick.goal && pick.space && pick.budget)) return;
+    let ids = ["tapis", "elastiques"];
+    if (+pick.budget >= 2 || pick.goal === "muscle") ids.push("halteres");
+    if (pick.goal === "poids") ids.push("corde", "kettlebell");
+    if (pick.goal === "muscle") ids.push("barre");
+    if (pick.goal === "forme") ids.push("rouleau");
+    if (+pick.budget === 3) ids.push("barre", "kettlebell", "rouleau");
+    if (+pick.budget === 3 && pick.space === "grand") ids.push("banc");
+    if (pick.space === "petit") ids = ids.filter(i => i !== "banc");
+    ids = [...new Set(ids)];
+    const names = {forme: "te remettre en forme", muscle: "te muscler", poids: "perdre du poids"};
+    out.innerHTML = `<h3>Ton kit pour ${names[pick.goal]} : ${ids.length} objets</h3>
+      <p>Dans l'ordre où les acheter. Les prix changent souvent : compare-les sur la page du vendeur.</p>
+      <ol>${ids.map(id => { const p = P.find(x => x.icon === id); return `<li><span><b>${p.name}</b><small>${p.why}</small></span><a class="btn" href="https://www.amazon.fr/s?k=${encodeURIComponent(p.query)}&tag=${TAG}" rel="sponsored nofollow noopener" target="_blank">Voir le prix</a></li>`; }).join("")}</ol>
+      <p class="next">Ensuite : <a href="programme-musculation-maison-debutant.html">ton programme de 3 séances par semaine →</a></p>`;
+    out.hidden = false; out.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "nearest"});
+  }
+})();
+</script>
+</div></section>
+
+<section class="section" id="excuses"><div class="wrap">
+<div class="section-head"><span class="step">On se connaît</span><h2>Les 3 excuses qu'on se donne</h2><p>Et pourquoi, à la maison, elles ne tiennent plus.</p></div>
+<div class="steps"><div class="stepcard"><h3>« Je n&#x27;ai pas la place »</h3><p>Un coin de 2 m sur 1 m suffit, et tout se range sous un lit ou dans un tiroir. Le calculateur plus bas te le montre en un clic.</p></div><div class="stepcard"><h3>« Je n&#x27;ai pas le temps »</h3><p>Pas de trajet, pas de vestiaire : 30 à 40 minutes chez toi, quand tu veux, même tard le soir ou pendant la sieste des enfants.</p></div><div class="stepcard"><h3>« Je vais abandonner »</h3><p>Le matériel à la vue de tous est un rappel quotidien. Et un programme simple, déjà prêt, évite de se demander quoi faire.</p></div></div>
+<p class="oms">L'OMS recommande aux adultes au moins <b>deux séances de renforcement musculaire par semaine</b>, en plus de 150 à 300 minutes d'activité modérée. <a href="https://www.who.int/europe/fr/publications/i/item/9789240014886" rel="noopener" target="_blank">Source : OMS</a></p>
+</div></section>
 
 <section class="section alt" id="commencer"><div class="wrap">
 <div class="section-head"><span class="step">Par où commencer ?</span><h2>3 étapes, c'est tout</h2><p>Pas de jargon. Suis les étapes dans l'ordre, et ton coin sport grandit avec toi.</p></div>
@@ -151,7 +211,7 @@
 <h3>Un tapis de sol</h3>
 <p>Ta base : plus confortable pour les genoux, et il protège le sol. C&#x27;est ton coin sport.</p>
 <div class="facts"><span><b>Place :</b> un tapis de bain un peu long</span><span><b>Rangement :</b> roulé dans un coin</span><span><b>Prix :</b> petit budget</span></div>
-<a class="btn go" href="https://www.amazon.fr/s?k=tapis+de+sol+fitness+%C3%A9pais+15+mm&tag=VOTRE-TAG-21" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a>
+<a class="btn go" href="https://www.amazon.fr/s?k=tapis+de+sol+fitness+%C3%A9pais+15+mm&tag=VOTRE-TAG-21" rel="sponsored nofollow noopener" target="_blank">Voir le prix du jour</a>
 <p class="pair">Va bien avec : <a href="https://www.amazon.fr/s?k=rouleau+de+massage+mousse&tag=VOTRE-TAG-21" rel="sponsored nofollow noopener" target="_blank">un rouleau de massage</a></p>
 <a class="guide-link" href="salle-de-sport-petit-appartement.html">Comment bien le choisir</a>
 </article><article class="card start" id="p-elastiques"><span class="badge">Essentiel</span>
@@ -159,7 +219,7 @@
 <h3>Des élastiques</h3>
 <p>Le meilleur achat pour commencer : pas cher, et ils servent pour tout le corps.</p>
 <div class="facts"><span><b>Place :</b> une boîte à chaussures</span><span><b>Rangement :</b> dans un tiroir</span><span><b>Prix :</b> petit budget</span></div>
-<a class="btn go" href="https://www.amazon.fr/s?k=%C3%A9lastiques+de+r%C3%A9sistance+musculation+lot&tag=VOTRE-TAG-21" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a>
+<a class="btn go" href="https://www.amazon.fr/s?k=%C3%A9lastiques+de+r%C3%A9sistance+musculation+lot&tag=VOTRE-TAG-21" rel="sponsored nofollow noopener" target="_blank">Voir le prix du jour</a>
 <p class="pair">Va bien avec : <a href="https://www.amazon.fr/s?k=barre+de+traction+porte+sans+per%C3%A7age&tag=VOTRE-TAG-21" rel="sponsored nofollow noopener" target="_blank">une barre de traction</a></p>
 <a class="guide-link" href="elastiques-musculation.html">Comment bien le choisir</a>
 </article><article class="card start" id="p-halteres"><span class="badge">Essentiel</span>
@@ -167,7 +227,7 @@
 <h3>Des haltères réglables</h3>
 <p>Les petits poids qu&#x27;on règle selon sa force. Une seule paire suffit pour progresser des mois.</p>
 <div class="facts"><span><b>Place :</b> une petite valise</span><span><b>Rangement :</b> sous le lit</span><span><b>Prix :</b> budget moyen</span></div>
-<a class="btn go" href="https://www.amazon.fr/s?k=halt%C3%A8res+r%C3%A9glables&tag=VOTRE-TAG-21" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a>
+<a class="btn go" href="https://www.amazon.fr/s?k=halt%C3%A8res+r%C3%A9glables&tag=VOTRE-TAG-21" rel="sponsored nofollow noopener" target="_blank">Voir le prix du jour</a>
 <p class="pair">Va bien avec : <a href="https://www.amazon.fr/s?k=banc+de+musculation+pliable&tag=VOTRE-TAG-21" rel="sponsored nofollow noopener" target="_blank">un banc pliable</a></p>
 <a class="guide-link" href="halteres-reglables.html">Comment bien le choisir</a>
 </article><article class="card" id="p-barre"><span class="badge alt">Pour progresser</span>
@@ -175,7 +235,7 @@
 <h3>Une barre de traction</h3>
 <p>Pour muscler le dos et les bras. Elle tient sur un cadre de porte, sans percer.</p>
 <div class="facts"><span><b>Place :</b> rien : elle se pose sur une porte</span><span><b>Rangement :</b> reste sur la porte</span><span><b>Prix :</b> petit budget</span></div>
-<a class="btn go" href="https://www.amazon.fr/s?k=barre+de+traction+porte+sans+per%C3%A7age&tag=VOTRE-TAG-21" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a>
+<a class="btn go" href="https://www.amazon.fr/s?k=barre+de+traction+porte+sans+per%C3%A7age&tag=VOTRE-TAG-21" rel="sponsored nofollow noopener" target="_blank">Voir le prix du jour</a>
 <p class="pair">Va bien avec : <a href="https://www.amazon.fr/s?k=%C3%A9lastiques+de+r%C3%A9sistance+musculation+lot&tag=VOTRE-TAG-21" rel="sponsored nofollow noopener" target="_blank">des élastiques</a></p>
 <a class="guide-link" href="barre-traction-sans-percer.html">Comment bien le choisir</a>
 </article><article class="card" id="p-kettlebell"><span class="badge alt">Pour progresser</span>
@@ -183,7 +243,7 @@
 <h3>Un kettlebell</h3>
 <p>Un poids avec une poignée, pour les jambes, les fesses et le cardio en même temps.</p>
 <div class="facts"><span><b>Place :</b> un pot de fleurs</span><span><b>Rangement :</b> au pied d&#x27;un meuble</span><span><b>Prix :</b> petit budget</span></div>
-<a class="btn go" href="https://www.amazon.fr/s?k=kettlebell+fonte&tag=VOTRE-TAG-21" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a>
+<a class="btn go" href="https://www.amazon.fr/s?k=kettlebell+fonte&tag=VOTRE-TAG-21" rel="sponsored nofollow noopener" target="_blank">Voir le prix du jour</a>
 <p class="pair">Va bien avec : <a href="https://www.amazon.fr/s?k=tapis+de+sol+fitness+%C3%A9pais+15+mm&tag=VOTRE-TAG-21" rel="sponsored nofollow noopener" target="_blank">un tapis de sol</a></p>
 
 </article><article class="card" id="p-corde"><span class="badge alt">Pour progresser</span>
@@ -191,7 +251,7 @@
 <h3>Une corde à sauter</h3>
 <p>Le cardio le plus simple qui soit : 10 minutes et tu es essoufflé. Il faut un plafond assez haut.</p>
 <div class="facts"><span><b>Place :</b> rien : elle tient dans une poche</span><span><b>Rangement :</b> dans un tiroir</span><span><b>Prix :</b> petit budget</span></div>
-<a class="btn go" href="https://www.amazon.fr/s?k=corde+%C3%A0+sauter+roulements&tag=VOTRE-TAG-21" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a>
+<a class="btn go" href="https://www.amazon.fr/s?k=corde+%C3%A0+sauter+roulements&tag=VOTRE-TAG-21" rel="sponsored nofollow noopener" target="_blank">Voir le prix du jour</a>
 <p class="pair">Va bien avec : <a href="https://www.amazon.fr/s?k=tapis+de+sol+fitness+%C3%A9pais+15+mm&tag=VOTRE-TAG-21" rel="sponsored nofollow noopener" target="_blank">un tapis de sol</a></p>
 
 </article><article class="card" id="p-rouleau"><span class="badge alt">Pour récupérer</span>
@@ -199,7 +259,7 @@
 <h3>Un rouleau de massage</h3>
 <p>Pour détendre les muscles après la séance. Ça fait du bien, surtout au début.</p>
 <div class="facts"><span><b>Place :</b> une bouteille d&#x27;eau</span><span><b>Rangement :</b> sur une étagère</span><span><b>Prix :</b> petit budget</span></div>
-<a class="btn go" href="https://www.amazon.fr/s?k=rouleau+de+massage+mousse&tag=VOTRE-TAG-21" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a>
+<a class="btn go" href="https://www.amazon.fr/s?k=rouleau+de+massage+mousse&tag=VOTRE-TAG-21" rel="sponsored nofollow noopener" target="_blank">Voir le prix du jour</a>
 <p class="pair">Va bien avec : <a href="https://www.amazon.fr/s?k=tapis+de+sol+fitness+%C3%A9pais+15+mm&tag=VOTRE-TAG-21" rel="sponsored nofollow noopener" target="_blank">un tapis de sol</a></p>
 
 </article><article class="card" id="p-banc"><span class="badge alt">Pour aller plus loin</span>
@@ -207,7 +267,7 @@
 <h3>Un banc pliable</h3>
 <p>Pour plus tard, quand tu as pris l&#x27;habitude. Il ajoute beaucoup d&#x27;exercices.</p>
 <div class="facts"><span><b>Place :</b> une planche à repasser, une fois plié</span><span><b>Rangement :</b> plié contre un mur</span><span><b>Prix :</b> budget moyen</span></div>
-<a class="btn go" href="https://www.amazon.fr/s?k=banc+de+musculation+pliable&tag=VOTRE-TAG-21" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a>
+<a class="btn go" href="https://www.amazon.fr/s?k=banc+de+musculation+pliable&tag=VOTRE-TAG-21" rel="sponsored nofollow noopener" target="_blank">Voir le prix du jour</a>
 <p class="pair">Va bien avec : <a href="https://www.amazon.fr/s?k=halt%C3%A8res+r%C3%A9glables&tag=VOTRE-TAG-21" rel="sponsored nofollow noopener" target="_blank">des haltères réglables</a></p>
 
 </article></div>

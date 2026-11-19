@@ -131,6 +131,30 @@ h3 { font-size: 22px; }
 .kitcard .budget { margin-top: 8px; font-size: 15px; color: var(--muted); font-weight: 700; }
 @media (max-width: 900px) { .kits { grid-template-columns: 1fr; } }
 
+.season { background: var(--ink); color: var(--bg); text-align: center; font-weight: 700; font-size: 15px; padding: 10px 20px; }
+.season a { color: var(--orange); font-weight: 800; }
+.sticky-cta { display: none; }
+@media (max-width: 700px) {
+  .sticky-cta { display: block; position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 50; text-align: center; background: var(--orange); color: #fff; font-weight: 800; text-decoration: none; padding: 14px; border-radius: 999px; box-shadow: 0 10px 24px -8px rgba(0,0,0,.35); }
+  body { padding-bottom: 76px; }
+}
+.quiz { display: grid; gap: 22px; max-width: 860px; }
+.quiz .q h3 { margin-bottom: 10px; }
+.opts { display: flex; flex-wrap: wrap; gap: 10px; }
+.opts button { font: inherit; font-weight: 700; padding: 12px 18px; border-radius: 999px; border: 2px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
+.opts button:hover { border-color: var(--blue); }
+.opts button[aria-pressed="true"] { background: var(--blue); border-color: var(--blue); color: #fff; }
+.answer { background: var(--orange-soft); border: 2px solid var(--orange); border-radius: var(--radius); padding: 24px; }
+.answer h3 { font-size: 26px; }
+.answer > p { color: var(--muted); margin: 8px 0 14px; }
+.answer ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; counter-reset: k; }
+.answer li { display: flex; justify-content: space-between; align-items: center; gap: 14px; background: var(--card); border-radius: 14px; padding: 14px 16px; flex-wrap: wrap; }
+.answer li span { display: grid; flex: 1 1 260px; }
+.answer li small { color: var(--muted); font-size: 15px; }
+.answer li .btn { padding: 10px 18px; font-size: 15px; }
+.answer .next { margin: 16px 0 0; font-weight: 700; }
+.oms { margin: 28px 0 0; padding: 16px 20px; background: var(--green-soft); border-radius: 14px; max-width: 860px; }
+
 /* --- guides --- */
 .guides { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
 .guide { display: grid; gap: 8px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; text-decoration: none; color: var(--ink); }
