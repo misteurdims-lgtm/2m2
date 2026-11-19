@@ -22,7 +22,7 @@ def url(path):
 
 
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
-         '<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">')
+         '<link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">')
 
 
 def head(title, desc, path, jsonld, og_type="website"):
@@ -73,7 +73,7 @@ NAV = [("index.html", "Accueil"), ("index.html#commencer", "Par où commencer"),
 def header(current):
     links = "".join(f'<a href="{h}"{" aria-current=\"page\"" if h == current else ""}>{t}</a>' for h, t in NAV)
     return f"""<header class="top"><div class="wrap">
-<a class="brand" href="index.html"><span class="brand-mark">2m²</span><strong>{e(SITE['tagline'])}</strong></a>
+<a class="brand" href="index.html"><span class="brand-mark">2M<span class="sq">²</span></span><strong>{e(SITE['tagline'])}</strong></a>
 <nav aria-label="Navigation principale">{links}</nav>
 </div></header>
 {SEASON}
@@ -85,7 +85,7 @@ def header(current):
 def footer():
     guides = "".join(f'<li><a href="{g["slug"]}.html">{e(g["short"])}</a></li>' for g in GUIDES)
     return f"""<footer><div class="wrap">
-<div><span class="brand-mark">2m²</span><p>{e(SITE['description'])}</p>
+<div><span class="brand-mark">2M<span class="sq">²</span></span><p>{e(SITE['description'])}</p>
 <p>En tant que Partenaire Amazon, nous réalisons un bénéfice sur les achats remplissant les conditions requises.</p></div>
 <div><h3>Guides</h3><ul>{guides}</ul></div>
 <div><h3>Le site</h3><ul><li><a href="a-propos.html">À propos et méthode</a></li><li><a href="mentions-legales.html">Mentions légales</a></li><li><a href="mentions-legales.html#affiliation">Liens affiliés</a></li></ul>
@@ -155,9 +155,12 @@ def kits_html():
     return '<div class="kits">' + "".join(out) + "</div>"
 
 
+TICK = "".join(f"<span>{w}</span><em>✦</em>" for w in ["Sans abonnement", "Dès un petit budget", "Tout se range", "Pour débutants", "À ton rythme", "Sans trajet"])
+
+
 def hero_art():
     return f"""<div class="stage">{scene()}
-<div class="chip c1"><b>2&nbsp;m²</b> suffisent</div>
+<div class="chip c1"><b>2&nbsp;m²</b>suffisent</div>
 <div class="chip c2">✓ Tout se range en 2 min</div>
 </div>"""
 
@@ -205,7 +208,7 @@ CALC = """<div class="calc">
       ? `<li><span class="yes" aria-hidden="true">✓</span><a href="https://www.amazon.fr/s?k=${encodeURIComponent(it.q)}&tag=${TAG}" rel="sponsored nofollow noopener" target="_blank">${it.n}</a></li>`
       : `<li class="no"><span aria-hidden="true">✕</span>${it.n} <small>(il faut un peu plus de place)</small></li>`).join("");
     const s = Math.min(380 / W, 170 / D), rw = W * s, rd = D * s, x0 = (420 - rw) / 2, y0 = 30;
-    let svg = `<rect x="${x0}" y="${y0}" width="${rw}" height="${rd}" rx="10" fill="var(--blue-soft)" stroke="var(--blue)" stroke-width="2"/>`;
+    let svg = `<defs><clipPath id="roomclip"><rect x="${x0}" y="${y0}" width="${rw}" height="${rd}" rx="10"/></clipPath></defs><rect x="${x0}" y="${y0}" width="${rw}" height="${rd}" rx="10" fill="var(--blue-soft)" stroke="var(--blue)" stroke-width="2"/><g clip-path="url(#roomclip)">`;
     svg += `<text x="210" y="20" text-anchor="middle" font-size="14" font-weight="700" fill="var(--muted)" font-family="var(--body)">Ton espace : ${m(W)} × ${m(D)}</text>`;
     let cx = x0 + 10, cy = y0 + 10; const horiz = W >= D;
     if (ok.find(i => i.id === "tapis")) {
@@ -220,7 +223,7 @@ CALC = """<div class="calc">
       svg += `<rect x="${cx}" y="${cy}" width="${iw}" height="${id}" rx="5" fill="var(--orange)" opacity=".85"/>`;
       if (horiz) cx += iw + 10; else cy += id + 10;
     });
-    $("room").innerHTML = svg;
+    $("room").innerHTML = svg + "</g>";
   }
   document.querySelectorAll(".preset").forEach(b => b.addEventListener("click", () => {
     document.querySelectorAll(".preset").forEach(x => x.setAttribute("aria-pressed", x === b));
@@ -244,7 +247,7 @@ QUIZ = """<div class="quiz" id="quizbox">
 <div class="q" data-q="budget"><h3><span>3.</span>Ton budget pour démarrer ?</h3><div class="opts">
 <button data-v="1">Le plus petit possible</button><button data-v="2">Raisonnable</button><button data-v="3">Je veux bien m'équiper</button></div></div>
 </div>
-<div class="answer-slot"><div class="placeholder" id="ph"><b>Ton kit apparaît ici</b>Réponds aux 3 questions, ça prend 30 secondes.</div><div class="answer" id="answer" hidden></div></div>
+<div class="answer-slot"><div class="placeholder" id="ph"><b>Ton kit<br>apparaît ici.</b>Réponds aux 3 questions. Ça prend 30 secondes.</div><div class="answer" id="answer" hidden></div></div>
 </div>
 <script>
 (() => {
@@ -309,15 +312,18 @@ def build_index():
                 "", [org_ld(), itemlist, faq_ld])
     page += header("index.html")
     page += f"""<main>
+<div class="hero-band">
 <div class="wrap hero">
 <div>
-<span class="pill"><i>✓</i>Fait pour les débutants</span>
-<h1>Ta salle de sport à la maison, <span class="o">même dans 2&nbsp;m²</span>.</h1>
+<span class="pill"><i>—</i>Le sport à la maison, pour débutants</span>
+<h1>Ta salle de sport. <span class="o">Dans 2&nbsp;m².</span></h1>
 <p class="lead">Pas d'abonnement à payer chaque mois, pas de trajet, pas de regard des autres. Tu t'équipes une fois, et tu t'entraînes quand tu veux, pendant des années.</p>
 <div class="actions"><a class="btn" href="#quiz">Trouver mon kit en 30 secondes</a><a class="btn ghost" href="#materiel">Voir le matériel</a></div>
 <div class="reassure"><span>Sans abonnement</span><span>Dès un petit budget</span><span>Tout se range</span></div>
 </div>
 {hero_art()}
+</div>
+<div class="ticker" aria-hidden="true"><div>{TICK}{TICK}</div></div>
 </div>
 
 <section class="section dark" id="quiz"><div class="wrap">
