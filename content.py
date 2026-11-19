@@ -6,6 +6,7 @@ SITE = {
     "description": "Le guide du matériel pour s'entraîner chez soi dans un petit espace : emprise au sol, rangement, critères de choix et programmes.",
     "base_url": "https://deuxmetrescarres.fr",   # à remplacer par le vrai domaine
     "amazon_tag": "VOTRE-TAG-21",                # à remplacer par ton identifiant Amazon Partenaires
+    "goatcounter": "",                           # code GoatCounter (statistiques sans cookie), vide = désactivé
 }
 
 PRODUCTS = [
@@ -188,6 +189,7 @@ GUIDES = [
         "short": "Élastiques de musculation",
         "kicker": "Choisir son matériel",
         "title": "Élastiques de musculation : le guide pour bien débuter",
+        "seo_title": "Élastiques de musculation : guide débutant",
         "desc": "Mini-bandes, grandes boucles ou tubes à poignées : quels élastiques choisir, quelle résistance, et quels exercices faire avec.",
         "date": "2026-11-19", "minutes": 5,
         "toc": ["Les trois types d'élastiques", "Choisir la résistance", "5 exercices pour commencer", "Durée de vie et sécurité"],
@@ -269,6 +271,7 @@ GUIDES = [
         "short": "Créatine et protéines",
         "kicker": "Nutrition",
         "title": "Créatine et protéines : les 2 compléments validés par la science",
+        "seo_title": "Créatine et protéines : ce que dit la science",
         "desc": "Ce que disent vraiment les experts sur la créatine et les protéines en poudre, comment les prendre, et les compléments à éviter.",
         "date": "2026-11-19", "minutes": 6,
         "toc": ["La créatine", "Les protéines", "Les compléments à éviter", "Qui doit demander l'avis d'un médecin"],

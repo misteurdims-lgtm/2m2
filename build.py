@@ -10,6 +10,8 @@ from iso import scene
 OUT = os.path.join(os.path.dirname(__file__), "public")
 SRC = os.path.join(os.path.dirname(__file__), "src")
 TODAY = datetime.date.today().isoformat()
+import hashlib
+CSS_V = hashlib.md5(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "src", "style.css"), "rb").read()).hexdigest()[:8]
 e = html.escape
 
 
@@ -21,12 +23,25 @@ def url(path):
     return SITE["base_url"].rstrip("/") + "/" + path.lstrip("/")
 
 
+def _analytics():
+    code = SITE.get("goatcounter")
+    if not code:
+        return ""
+    return (f'<script data-goatcounter="https://{code}.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>'
+            '<script>document.addEventListener("click", e => { const a = e.target.closest("a[rel~=sponsored]"); '
+            'if (a && window.goatcounter && goatcounter.count) goatcounter.count({path: "clic-" + (a.textContent || "").trim().slice(0, 40), title: location.pathname, event: true}); });</script>')
+
+
+ANALYTICS = _analytics()
+
+
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
          '<link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">')
 
 
-def head(title, desc, path, jsonld, og_type="website"):
-    full_title = title if title.startswith(SITE["name"]) else f"{title} | {SITE['name']}"
+def head(title, desc, path, jsonld, og_type="website", seo_title=None):
+    title_tag = seo_title or title
+    full_title = title_tag if title_tag.startswith(SITE["name"]) else f"{title_tag} | {SITE['name']}"
     ld = "".join(f'<script type="application/ld+json">{json.dumps(j, ensure_ascii=False)}</script>' for j in jsonld)
     return f"""<!DOCTYPE html>
 <html lang="fr">
@@ -44,13 +59,16 @@ def head(title, desc, path, jsonld, og_type="website"):
 <meta property="og:image" content="{url('og.png')}">
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#1d4ed8">
+<meta name="theme-color" content="#0c0d10">
+<meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 {FONTS}
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v={CSS_V}">
+{ANALYTICS}
 {ld}
 </head>
-<body>"""
+<body>
+<a class="skip" href="#contenu">Aller au contenu</a>"""
 
 
 SEASON = r"""<div class="season" id="season" hidden></div>
@@ -67,7 +85,10 @@ SEASON = r"""<div class="season" id="season" hidden></div>
 </script>"""
 
 
-NAV = [("index.html", "Accueil"), ("index.html#commencer", "Par où commencer"), ("index.html#materiel", "Le matériel"), ("index.html#guides", "Les guides")]
+NAV = [("index.html", "Accueil"), ("index.html#quiz", "Mon kit"), ("index.html#materiel", "Matériel"), ("index.html#guides", "Guides")]
+
+
+DISCLOSE = '<p class="disclose">Liens affiliés : si tu achètes via nos liens, on touche une petite commission, sans surcoût pour toi. <a href="mentions-legales.html#affiliation">En savoir plus</a></p>'
 
 
 def header(current):
@@ -79,7 +100,7 @@ def header(current):
 {SEASON}
 <a class="sticky-cta" id="sticky" href="index.html#quiz">Trouver mon kit en 30 secondes</a>
 <script>(() => {{ const s = document.getElementById("sticky"); const f = () => s.classList.toggle("show", scrollY > 700); addEventListener("scroll", f, {{passive: true}}); f(); }})();</script>
-<div class="disclose">Certains liens sont affiliés : si tu achètes via ces liens, on touche une petite commission. Ça ne change pas le prix pour toi.</div>"""
+"""
 
 
 def footer():
@@ -167,10 +188,10 @@ def hero_art():
 
 CALC = """<div class="calc">
 <div class="presets" role="group" aria-label="Choisis ton espace">
-<button class="preset" data-w="200" data-d="100" aria-pressed="true"><span class="ico" aria-hidden="true">🛏</span><span><b>Un coin de chambre</b><small>environ 2 m × 1 m</small></span></button>
-<button class="preset" data-w="250" data-d="150" aria-pressed="false"><span class="ico" aria-hidden="true">🛋</span><span><b>Un bout de salon</b><small>environ 2,5 m × 1,5 m</small></span></button>
-<button class="preset" data-w="300" data-d="100" aria-pressed="false"><span class="ico" aria-hidden="true">🚪</span><span><b>Un couloir</b><small>environ 3 m × 1 m</small></span></button>
-<button class="preset" data-w="300" data-d="250" aria-pressed="false"><span class="ico" aria-hidden="true">🏠</span><span><b>Une petite pièce libre</b><small>environ 3 m × 2,5 m</small></span></button>
+<button type="button" class="preset" data-w="200" data-d="100" aria-pressed="true"><span class="ico" aria-hidden="true">🛏</span><span><b>Un coin de chambre</b><small>environ 2 m × 1 m</small></span></button>
+<button type="button" class="preset" data-w="250" data-d="150" aria-pressed="false"><span class="ico" aria-hidden="true">🛋</span><span><b>Un bout de salon</b><small>environ 2,5 m × 1,5 m</small></span></button>
+<button type="button" class="preset" data-w="300" data-d="100" aria-pressed="false"><span class="ico" aria-hidden="true">🚪</span><span><b>Un couloir</b><small>environ 3 m × 1 m</small></span></button>
+<button type="button" class="preset" data-w="300" data-d="250" aria-pressed="false"><span class="ico" aria-hidden="true">🏠</span><span><b>Une petite pièce libre</b><small>environ 3 m × 2,5 m</small></span></button>
 <details class="custom"><summary>Je préfère mesurer moi-même</summary>
 <label for="w">Longueur libre <span class="val" id="wv"></span></label><input type="range" id="w" min="80" max="400" step="10" value="200">
 <label for="d">Largeur libre <span class="val" id="dv"></span></label><input type="range" id="d" min="60" max="400" step="10" value="100">
@@ -239,13 +260,13 @@ CALC = """<div class="calc">
 
 
 QUIZ = """<div class="quiz" id="quizbox">
-<div class="questions">
+<div class="questions"><p class="qprog" id="qprog">0 / 3 réponses</p>
 <div class="q" data-q="goal"><h3><span>1.</span>Ton objectif ?</h3><div class="opts">
-<button data-v="forme">Me remettre en forme</button><button data-v="muscle">Me muscler</button><button data-v="poids">Perdre du poids</button></div></div>
+<button type="button" aria-pressed="false" data-v="forme">Me remettre en forme</button><button type="button" aria-pressed="false" data-v="muscle">Me muscler</button><button type="button" aria-pressed="false" data-v="poids">Perdre du poids</button></div></div>
 <div class="q" data-q="space"><h3><span>2.</span>Ta place ?</h3><div class="opts">
-<button data-v="petit">Un petit coin</button><button data-v="moyen">Un bout de pièce</button><button data-v="grand">Une pièce libre</button></div></div>
+<button type="button" aria-pressed="false" data-v="petit">Un petit coin</button><button type="button" aria-pressed="false" data-v="moyen">Un bout de pièce</button><button type="button" aria-pressed="false" data-v="grand">Une pièce libre</button></div></div>
 <div class="q" data-q="budget"><h3><span>3.</span>Ton budget pour démarrer ?</h3><div class="opts">
-<button data-v="1">Le plus petit possible</button><button data-v="2">Raisonnable</button><button data-v="3">Je veux bien m'équiper</button></div></div>
+<button type="button" aria-pressed="false" data-v="1">Le plus petit possible</button><button type="button" aria-pressed="false" data-v="2">Raisonnable</button><button type="button" aria-pressed="false" data-v="3">Je veux bien m'équiper</button></div></div>
 </div>
 <div class="answer-slot"><div class="placeholder" id="ph"><b>Ton kit<br>apparaît ici.</b>Réponds aux 3 questions. Ça prend 30 secondes.</div><div class="answer" id="answer" hidden></div></div>
 </div>
@@ -255,7 +276,7 @@ QUIZ = """<div class="quiz" id="quizbox">
   const box = document.getElementById("quizbox"), out = document.getElementById("answer");
   box.querySelectorAll(".q").forEach(q => q.querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
     q.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
-    pick[q.dataset.q] = b.dataset.v; show();
+    pick[q.dataset.q] = b.dataset.v; document.getElementById("qprog").textContent = Object.keys(pick).length + " / 3 réponses"; show();
   })));
   function show() {
     if (!(pick.goal && pick.space && pick.budget)) return;
@@ -273,8 +294,9 @@ QUIZ = """<div class="quiz" id="quizbox">
     out.innerHTML = `<h3>Ton kit pour ${names[pick.goal]} : ${ids.length} objets</h3>
       <p>Dans l'ordre où les acheter. Les prix changent souvent : compare-les sur la page du vendeur.</p>
       <ol>${ids.map(id => { const p = P.find(x => x.icon === id); return `<li><span><b>${p.name}</b><small>${p.why}</small></span><a class="btn" href="https://www.amazon.fr/s?k=${encodeURIComponent(p.query)}&tag=${TAG}" rel="sponsored nofollow noopener" target="_blank">Voir le prix</a></li>`; }).join("")}</ol>
-      <p class="next">Ensuite : <a href="programme-musculation-maison-debutant.html">ton programme de 3 séances par semaine →</a></p>${pick.goal === "muscle" ? '<p class="small">Compléments : réservés aux adultes en bonne santé. <a href="creatine-proteines-complements.html">Ce qu&apos;en disent les experts →</a></p>' : ""}`;
-    out.hidden = false; document.getElementById("ph").hidden = true; out.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "nearest"});
+      <p class="next"><button type="button" class="reset" id="reset">Recommencer</button> Ensuite : <a href="programme-musculation-maison-debutant.html">ton programme de 3 séances par semaine →</a></p>${pick.goal === "muscle" ? '<p class="small">Compléments : réservés aux adultes en bonne santé. <a href="creatine-proteines-complements.html">Ce qu&apos;en disent les experts →</a></p>' : ""}`;
+    out.hidden = false; document.getElementById("ph").hidden = true;
+    document.getElementById("reset").addEventListener("click", () => { for (const k in pick) delete pick[k]; box.querySelectorAll(".opts button").forEach(x => x.setAttribute("aria-pressed", "false")); out.hidden = true; document.getElementById("ph").hidden = false; document.getElementById("qprog").textContent = "0 / 3 réponses"; }); out.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "nearest"});
   }
 })();
 </script>"""
@@ -295,8 +317,10 @@ HOME_FAQ = [
 ]
 
 def org_ld():
-    return {"@context": "https://schema.org", "@type": "WebSite", "name": SITE["name"], "url": url(""),
-            "description": SITE["description"], "inLanguage": "fr-FR"}
+    return {"@context": "https://schema.org", "@graph": [
+        {"@type": "WebSite", "@id": url("#site"), "name": SITE["name"], "url": url(""), "description": SITE["description"], "inLanguage": "fr-FR",
+         "publisher": {"@id": url("#org")}},
+        {"@type": "Organization", "@id": url("#org"), "name": SITE["name"], "url": url(""), "logo": url("favicon.svg")}]}
 
 
 def build_index():
@@ -311,15 +335,15 @@ def build_index():
                 "Tu veux te mettre au sport à la maison ? Découvre ce qui tient chez toi, le matériel simple pour débuter et un programme facile à suivre.",
                 "", [org_ld(), itemlist, faq_ld])
     page += header("index.html")
-    page += f"""<main>
+    page += f"""<main id="contenu">
 <div class="hero-band">
 <div class="wrap hero">
 <div>
 <span class="pill"><i>—</i>Le sport à la maison, pour débutants</span>
-<h1>Ta salle de sport. <span class="o">Dans 2&nbsp;m².</span></h1>
+<h1>Ta salle de sport à la maison. <span class="o">Dans 2&nbsp;m².</span></h1>
 <p class="lead">Pas d'abonnement à payer chaque mois, pas de trajet, pas de regard des autres. Tu t'équipes une fois, et tu t'entraînes quand tu veux, pendant des années.</p>
 <div class="actions"><a class="btn" href="#quiz">Trouver mon kit en 30 secondes</a><a class="btn ghost" href="#materiel">Voir le matériel</a></div>
-<div class="reassure"><span>Sans abonnement</span><span>Dès un petit budget</span><span>Tout se range</span></div>
+{DISCLOSE}
 </div>
 {hero_art()}
 </div>
@@ -391,22 +415,23 @@ def build_guide(g):
     used = " ".join(g.get("links", {}).values())
     picks = [p for p in PRODUCTS if p["query"] not in used and p.get("guide") != g["slug"]][:3]
     upsell = "".join(f'<div class="buy"><div><strong>{e(p["name"])}</strong><span>{e(p["why"])}</span></div><a class="btn" href="{aff(p["query"])}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>' for p in picks)
-    page = head(g["title"], g["desc"], g["slug"] + ".html", [art_ld, faq_ld, crumb_ld], "article")
+    page = head(g["title"], g["desc"], g["slug"] + ".html", [art_ld, faq_ld, crumb_ld], "article", g.get("seo_title"))
     page += header("")
     page += f"""<div class="progress" id="progress"></div>
-<main>
+<main id="contenu">
 <div class="article-band"><div class="wrap">
 <div class="crumbs"><a href="index.html">Accueil</a> / {e(g['short'])}</div>
 <header class="article-head">
 <div><span class="tag">{e(g['kicker'])}</span>
 <h1>{e(g['title'])}</h1>
 <p class="lead">{e(g['desc'])}</p>
-<p class="meta">Mis à jour le {datetime.date.today().strftime('%d/%m/%Y')} · {g['minutes']} min de lecture</p></div>
+<p class="meta">Mis à jour le {datetime.date.today().strftime('%d/%m/%Y')} · {g['minutes']} min de lecture</p>{DISCLOSE}</div>
 <div class="big-ico">{icon(GICON.get(g['slug'], 'tapis'), 120)}</div>
 </header>
 </div></div>
 <div class="wrap article-body">
 <article class="prose">{body}
+{share(g)}
 <h2>Complète ton coin sport</h2>
 <p>Ces objets vont bien avec ce que tu viens de lire, et ajoutent de nouveaux exercices.</p>
 {upsell}
@@ -424,10 +449,22 @@ def build_guide(g):
     return page
 
 
+def share(g):
+    from urllib.parse import quote
+    u, t = quote(url(g["slug"] + ".html"), safe=""), quote(g["title"], safe="")
+    img = quote(url("og.png"), safe="")
+    return f"""<div class="share"><span>Partager ce guide</span>
+<a href="https://www.pinterest.com/pin/create/button/?url={u}&media={img}&description={t}" rel="noopener" target="_blank">Pinterest</a>
+<a href="https://www.facebook.com/sharer/sharer.php?u={u}" rel="noopener" target="_blank">Facebook</a>
+<a href="https://wa.me/?text={t}%20{u}" rel="noopener" target="_blank">WhatsApp</a>
+<button type="button" class="copy" data-url="{url(g['slug'] + '.html')}">Copier le lien</button></div>
+<script>document.querySelectorAll(".copy").forEach(b => b.addEventListener("click", async () => {{ try {{ await navigator.clipboard.writeText(b.dataset.url); b.textContent = "Lien copié"; }} catch (e) {{ b.textContent = b.dataset.url; }} }}));</script>"""
+
+
 def build_simple(slug, title, desc, inner):
     page = head(title, desc, slug + ".html", [org_ld()])
     page += header(slug + ".html")
-    page += f'<main><div class="article-band"><div class="wrap"><header class="article-head"><div><h1>{e(title)}</h1></div></header></div></div><div class="wrap"><div class="prose" style="padding:40px 0 80px;max-width:68ch">{inner}</div></div></main>'
+    page += f'<main id="contenu"><div class="article-band"><div class="wrap"><header class="article-head"><div><h1>{e(title)}</h1></div></header></div></div><div class="wrap"><div class="prose" style="padding:40px 0 80px;max-width:68ch">{inner}</div></div></main>'
     page += footer()
     return page
 
@@ -455,15 +492,20 @@ def build():
     for g in GUIDES:
         pages[g["slug"] + ".html"] = build_guide(g)
     pages["a-propos.html"] = build_simple("a-propos", "À propos de 2 m²", "Qui on est, comment on choisit le matériel et comment le site est financé.", ABOUT)
+    pages["404.html"] = build_simple("404", "Page introuvable", "Cette page n'existe pas ou a été déplacée.",
+        '<p>Cette page n\'existe pas ou a été déplacée.</p><p><a class="btn" href="index.html">Retour à l\'accueil</a></p>')
     pages["mentions-legales.html"] = build_simple("mentions-legales", "Mentions légales", "Mentions légales, liens affiliés et données personnelles du site 2 m².", LEGAL)
+    import re as _re
+    fix = lambda m: 'href="' + _re.sub(r"&(?!amp;|#\d+;|[a-zA-Z]+;)", "&amp;", m.group(1)) + '"'
     for name, content in pages.items():
+        content = _re.sub(r'href="([^"]*)"', fix, content)
         with open(os.path.join(OUT, name), "w", encoding="utf-8") as f:
             f.write(content)
     for name in ("style.css", "favicon.svg", "og.png"):
         if os.path.exists(os.path.join(SRC, name)):
             shutil.copy(os.path.join(SRC, name), OUT)
     sitemap = "".join(f"<url><loc>{url('' if n == 'index.html' else n)}</loc><lastmod>{TODAY}</lastmod></url>"
-                      for n in pages if n != "mentions-legales.html")
+                      for n in pages if n not in ("mentions-legales.html", "404.html"))
     with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
         f.write(f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{sitemap}</urlset>')
     with open(os.path.join(OUT, "robots.txt"), "w") as f:
