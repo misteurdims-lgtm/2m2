@@ -51,7 +51,7 @@ PRODUCTS = [
     {"icon": "shaker", "tier": "Nutrition (en option)", "pair": "pot", "name": "Des protéines en poudre", "budget": "€€", "compare": "un pot sur une étagère",
      "w": 0, "d": 0, "storage": "Dans un placard",
      "why": "Pratique pour atteindre ses besoins en protéines quand on se muscle, sans cuisiner plus.",
-     "query": "protéine whey", "asin": "B0057DVWYI", "label": "Notre préférée", "alt": {"asin": "B00HF63AYA", "pick": "Bulk Pure Whey", "label": "L'alternative, même format"}, "pick": "ESN Designer Whey", "guide": "creatine-proteines-complements"},
+     "query": "protéine whey", "asin": "B0057DVWYI", "cheap": 2, "label": "Notre préférée", "alt": {"asin": "B00HF63AYA", "pick": "Bulk Pure Whey", "label": "L'alternative, même format"}, "pick": "ESN Designer Whey", "guide": "creatine-proteines-complements"},
 ]
 
 GUIDES = [

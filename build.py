@@ -204,22 +204,50 @@ def product_card(i, p):
 </article>"""
 
 
+# Le budget ne change pas le nombre d'objets : il choisit des modèles moins chers ou plus haut de gamme.
+MID_PREMIUM = {"tapis", "elastiques", "corde"}   # en « équilibré », on monte en gamme là où ça coûte peu
+
+
+def opts(p):
+    a = {"asin": p["asin"], "pick": p["pick"]}
+    b = {"asin": p["alt"]["asin"], "pick": p["alt"]["pick"]} if p.get("alt") else a
+    return (b, a) if p.get("cheap") == 2 else (a, b)   # (moins cher, haut de gamme)
+
+
+def tier_pick(p, tier, small_space=False):
+    cheap, prem = opts(p)
+    if tier == 1:
+        m = cheap
+    elif tier == 3:
+        m = prem
+    else:
+        m = prem if p["icon"] in MID_PREMIUM else cheap
+    if p["icon"] == "barre" and small_space:   # la Power Tower se pose au sol
+        m = cheap
+    return m
+
+
+EQUIP = ["tapis", "elastiques", "halteres", "barre", "kettlebell", "corde", "rouleau", "banc"]
+
 KITS = [
-    ("Kit débutant", "Pour démarrer cette semaine", "Tout le corps, 3 fois par semaine.", ["tapis", "elastiques", "halteres"], "€"),
-    ("Kit progression", "Après 1 ou 2 mois", "Le kit débutant, plus de quoi muscler le dos et faire du cardio.", ["tapis", "elastiques", "halteres", "barre", "kettlebell", "corde"], "€€"),
-    ("Kit complet", "Ta vraie salle à la maison", "Tout le matériel, plus le banc et la récupération.", ["tapis", "elastiques", "halteres", "barre", "kettlebell", "corde", "rouleau", "banc"], "€€€"),
+    ("Kit petit budget", "Tout l'équipement, au meilleur prix", "Les modèles les moins chers, pour tout essayer sans se ruiner.", 1),
+    ("Kit équilibré", "Le meilleur rapport qualité-prix", "Petits prix sur le gros matériel, un cran au-dessus là où ça change tout.", 2),
+    ("Kit haut de gamme", "Ta vraie salle à la maison", "Les modèles les plus complets : réglage rapide, station de dips, pistolet de massage.", 3),
 ]
 
 
 def kits_html():
     out = []
-    for i, (name, when, what, ids, budget) in enumerate(KITS):
-        items = "".join(f'<li><a href="{link(p)}" rel="sponsored nofollow noopener" target="_blank">{e(p["name"])}</a><small class="kmus">{e(", ".join(MUSCLES.get(p["icon"], [])[:5]))}</small></li>'
-                        for p in PRODUCTS if p["icon"] in ids)
+    for i, (name, when, what, tier) in enumerate(KITS):
+        ps = [next(p for p in PRODUCTS if p["icon"] == ic) for ic in EQUIP]
+        picks = [(p, tier_pick(p, tier)) for p in ps]
+        items = "".join(f'<li><a href="https://www.amazon.fr/dp/{m["asin"]}?tag={SITE["amazon_tag"]}" rel="sponsored nofollow noopener" target="_blank">{e(m["pick"])}</a><small class="kmus">{e(", ".join(MUSCLES.get(p["icon"], [])[:5]))}</small></li>' for p, m in picks)
         out.append(f"""<div class="kitcard{' best' if i == 1 else ''}">{'<span class="badge">Notre conseil</span>' if i == 1 else ''}
 <span class="when">{e(when)}</span><h3>{e(name)}</h3><p>{e(what)}</p>
-<ul>{items}</ul><button type="button" class="btn add kit-add" data-add="{",".join(p["asin"] for p in PRODUCTS if p["icon"] in ids and p.get("asin"))}">Ajouter le kit au panier</button><span class="budget">{BUDGET[budget]}</span></div>""")
+<ul>{items}</ul><button type="button" class="btn add kit-add" data-add="{",".join(m["asin"] for _, m in picks)}">Ajouter les {len(picks)} objets au panier</button><span class="budget">{BUDGET["€" * tier]}</span></div>""")
     return '<div class="kits">' + "".join(out) + "</div>"
+
+
 
 
 TICK = "".join(f"<span>{w}</span><em>✦</em>" for w in ["Sans abonnement", "Dès un petit budget", "Tout se range", "Pour débutants", "À ton rythme", "Sans trajet"])
@@ -312,7 +340,7 @@ QUIZ = """<div class="quiz" id="quizbox">
 <div class="q" data-q="space"><h3><span>2.</span>Ta place ?</h3><div class="opts">
 <button type="button" aria-pressed="false" data-v="petit">Un petit coin</button><button type="button" aria-pressed="false" data-v="moyen">Un bout de pièce</button><button type="button" aria-pressed="false" data-v="grand">Une pièce libre</button></div></div>
 <div class="q" data-q="budget"><h3><span>3.</span>Ton budget pour démarrer ?</h3><div class="opts">
-<button type="button" aria-pressed="false" data-v="1">Le plus petit possible</button><button type="button" aria-pressed="false" data-v="2">Raisonnable</button><button type="button" aria-pressed="false" data-v="3">Je veux bien m'équiper</button></div></div>
+<button type="button" aria-pressed="false" data-v="1">Petit budget</button><button type="button" aria-pressed="false" data-v="2">Équilibré</button><button type="button" aria-pressed="false" data-v="3">Haut de gamme</button></div></div>
 </div>
 <div class="answer-slot"><div class="placeholder" id="ph"><b>Ton kit<br>apparaît ici.</b>Réponds aux 3 questions. Ça prend 30 secondes.</div><div class="answer" id="answer" hidden></div></div>
 </div>
@@ -326,25 +354,27 @@ QUIZ = """<div class="quiz" id="quizbox">
   })));
   function show() {
     if (!(pick.goal && pick.space && pick.budget)) return;
-    let ids = ["tapis", "elastiques"];
-    if (+pick.budget >= 2 || pick.goal === "muscle") ids.push("halteres");
-    if (pick.goal === "poids") ids.push("corde", "kettlebell");
-    if (pick.goal === "muscle") ids.push("barre");
-    if (pick.goal === "forme") ids.push("rouleau");
-    if (+pick.budget === 3) ids.push("barre", "kettlebell", "rouleau");
-    if (+pick.budget === 3 && pick.space === "grand") ids.push("banc");
-    if (pick.space === "petit") ids = ids.filter(i => i !== "banc");
-    if (pick.goal === "muscle") ids.push("pot", "shaker");
-    ids = [...new Set(ids)];
+    // Toujours l'équipement complet, dans l'ordre le plus utile pour l'objectif. Le budget choisit la gamme des modèles.
+    const ORDER = {
+      muscle: ["halteres", "barre", "elastiques", "tapis", "banc", "kettlebell", "corde", "rouleau", "pot", "shaker"],
+      poids: ["corde", "kettlebell", "tapis", "elastiques", "halteres", "barre", "rouleau", "banc"],
+      forme: ["tapis", "elastiques", "halteres", "kettlebell", "corde", "barre", "rouleau", "banc"]
+    };
+    const tier = +pick.budget;
+    let ids = ORDER[pick.goal].filter(i => !(pick.space === "petit" && i === "banc"));
+    const model = p => (pick.space === "petit" && p.icon === "barre") ? p.ts : p.t[tier];
     const names = {forme: "te remettre en forme", muscle: "te muscler", poids: "perdre du poids"};
     const body = ["Abdos", "Pectoraux", "Dos", "Épaules", "Biceps", "Triceps", "Cuisses", "Fessiers", "Mollets", "Cardio", "Souplesse"];
     const all = new Set(ids.flatMap(id => P.find(x => x.icon === id).mus));
     const covered = body.filter(m => [...all].some(x => x.toLowerCase().includes(m.toLowerCase())));
+    const tierTxt = {1: "Version petit budget : on a pris les modèles les moins chers.", 2: "Version équilibrée : petits prix sur le gros matériel, un cran au-dessus là où ça change tout.", 3: "Version haut de gamme : les modèles les plus complets."};
     out.innerHTML = `<h3>Ton kit pour ${names[pick.goal]} : ${ids.length} objets</h3>
+      <p class="tiernote">${tierTxt[tier]}${pick.space === "petit" ? " Sans banc, pour garder ton petit coin libre." : ""}</p>
       <div class="qsum"><b>Avec ce kit, tu fais travailler :</b> ${all.has("Tout le corps") ? "<i>Tout le corps</i>" : ""}${covered.map(m => `<i>${m}</i>`).join("")}</div>
       <p>Dans l'ordre où les acheter. Ajoute tout au panier en un clic : tu verras les prix exacts sur Amazon avant de valider.</p>
-      <ol>${ids.map(id => { const p = P.find(x => x.icon === id); return `<li><span><b>${p.name}</b><small>${p.pick}</small><span class="qmus"><em>${p.icon === "pot" || p.icon === "shaker" ? "Pour :" : "Tu travailles :"}</em> ${p.mus.map(m => `<i>${m}</i>`).join("")}</span></span><button type="button" class="btn add" data-add="${p.asin}">Ajouter</button></li>`; }).join("")}</ol>
-      <p><button type="button" class="btn add kit-add" data-add="${ids.map(id => P.find(x => x.icon === id).asin).join(",")}">Tout ajouter au panier</button></p>
+      <ol>${ids.map(id => { const p = P.find(x => x.icon === id); const m = model(p), o = (p.other[tier] || [])[0];
+        return `<li><span><b>${p.name}</b><small>${m.pick}</small><span class="qmus"><em>${p.icon === "pot" || p.icon === "shaker" ? "Pour :" : "Tu travailles :"}</em> ${p.mus.map(m => `<i>${m}</i>`).join("")}</span>${o && o.asin !== m.asin && !(pick.space === "petit" && p.icon === "barre") ? `<span class="qalt">ou ${o.asin === p.t[1].asin ? "moins cher" : "plus haut de gamme"} : ${o.pick} <button type="button" class="mini add" data-add="${o.asin}">+ panier</button></span>` : ""}</span><button type="button" class="btn add" data-add="${m.asin}">Ajouter</button></li>`; }).join("")}</ol>
+      <p><button type="button" class="btn add kit-add" data-add="${ids.map(id => model(P.find(x => x.icon === id)).asin).join(",")}">Tout ajouter au panier (${ids.length} objets)</button></p>
       <p class="next"><button type="button" class="reset" id="reset">Recommencer</button> Ensuite : <a href="programme-musculation-maison-debutant.html">ton programme de 3 séances par semaine →</a></p>${pick.goal === "muscle" ? '<p class="small">Compléments : réservés aux adultes en bonne santé. <a href="creatine-proteines-complements.html">Ce qu&apos;en disent les experts →</a></p>' : ""}`;
     out.hidden = false; document.getElementById("ph").hidden = true;
     document.getElementById("reset").addEventListener("click", () => { for (const k in pick) delete pick[k]; box.querySelectorAll(".opts button").forEach(x => x.setAttribute("aria-pressed", "false")); out.hidden = true; document.getElementById("ph").hidden = false; document.getElementById("qprog").textContent = "0 / 3 réponses"; }); out.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "nearest"});
@@ -403,7 +433,7 @@ def build_index():
 
 <section class="section dark" id="quiz"><div class="wrap">
 <div class="section-head"><span class="eyebrow">30 secondes, 3 questions</span><h2>Trouve ton kit idéal</h2><p>Réponds à 3 questions : on te dit exactement quoi acheter, et dans quel ordre.</p></div>
-{QUIZ.replace("__TAG__", SITE['amazon_tag']).replace("__PRODUCTS__", json.dumps([{**{k: p[k] for k in ("icon", "name", "why", "asin", "pick")}, "url": link(p), "mus": MUSCLES.get(p["icon"], [])} for p in PRODUCTS], ensure_ascii=False))}
+{QUIZ.replace("__TAG__", SITE['amazon_tag']).replace("__PRODUCTS__", json.dumps([{**{k: p[k] for k in ("icon", "name", "why")}, "mus": MUSCLES.get(p["icon"], []), "t": {t: tier_pick(p, t) for t in (1, 2, 3)}, "ts": tier_pick(p, 3, True), "other": {t: [o for o in opts(p) if o["asin"] != tier_pick(p, t)["asin"]][:1] for t in (1, 2, 3)}} for p in PRODUCTS], ensure_ascii=False))}
 </div></section>
 
 <section class="section" id="excuses"><div class="wrap">
