@@ -97,16 +97,37 @@ BUDGET = {"€": "Petit budget", "€€": "Budget moyen", "€€€": "Gros bu
 
 
 def product_card(i, p):
-    badge = '<span class="badge">Pour commencer</span>' if p.get("start") else ""
+    tier = p["tier"]
+    badge = f'<span class="badge{" alt" if tier != "Essentiel" else ""}">{e(tier)}</span>'
     guide = f'<a class="guide-link" href="{p["guide"]}.html">Comment bien le choisir</a>' if p.get("guide") else ""
-    return f"""<article class="card{' start' if p.get('start') else ''}">{badge}
+    mate = next(x for x in PRODUCTS if x["icon"] == p["pair"])
+    return f"""<article class="card{' start' if tier == 'Essentiel' else ''}" id="p-{p['icon']}">{badge}
 <div class="art">{icon(p['icon'])}</div>
 <h3>{e(p['name'])}</h3>
 <p>{e(p['why'])}</p>
 <div class="facts"><span><b>Place :</b> {e(p['compare'])}</span><span><b>Rangement :</b> {e(p['storage'].lower())}</span><span><b>Prix :</b> {BUDGET[p['budget']].lower()}</span></div>
 <a class="btn go" href="{aff(p['query'])}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a>
+<p class="pair">Va bien avec : <a href="{aff(mate['query'])}" rel="sponsored nofollow noopener" target="_blank">{e(mate['name'].lower())}</a></p>
 {guide}
 </article>"""
+
+
+KITS = [
+    ("Kit débutant", "Pour démarrer cette semaine", "Tout le corps, 3 fois par semaine.", ["tapis", "elastiques", "halteres"], "€"),
+    ("Kit progression", "Après 1 ou 2 mois", "Le kit débutant, plus de quoi muscler le dos et faire du cardio.", ["tapis", "elastiques", "halteres", "barre", "kettlebell", "corde"], "€€"),
+    ("Kit complet", "Ta vraie salle à la maison", "Tout le matériel, plus le banc et la récupération.", ["tapis", "elastiques", "halteres", "barre", "kettlebell", "corde", "rouleau", "banc"], "€€€"),
+]
+
+
+def kits_html():
+    out = []
+    for i, (name, when, what, ids, budget) in enumerate(KITS):
+        items = "".join(f'<li><a href="{aff(p["query"])}" rel="sponsored nofollow noopener" target="_blank">{e(p["name"])}</a></li>'
+                        for p in PRODUCTS if p["icon"] in ids)
+        out.append(f"""<div class="kitcard{' best' if i == 1 else ''}">{'<span class="badge">Notre conseil</span>' if i == 1 else ''}
+<span class="when">{e(when)}</span><h3>{e(name)}</h3><p>{e(what)}</p>
+<ul>{items}</ul><span class="budget">{BUDGET[budget]}</span></div>""")
+    return '<div class="kits">' + "".join(out) + "</div>"
 
 
 HERO_ART = """<figure class="hero-art" style="margin:0">
@@ -238,10 +259,10 @@ def build_index():
 </div>
 
 <section class="section alt" id="commencer"><div class="wrap">
-<div class="section-head"><span class="step">Par où commencer ?</span><h2>3 étapes, c'est tout</h2><p>Pas de jargon, pas de matériel inutile. Suis les étapes dans l'ordre.</p></div>
+<div class="section-head"><span class="step">Par où commencer ?</span><h2>3 étapes, c'est tout</h2><p>Pas de jargon. Suis les étapes dans l'ordre, et ton coin sport grandit avec toi.</p></div>
 <div class="steps">
 <a class="stepcard" href="#espace"><span class="n">1</span><h3>Regarde la place que tu as</h3><p>Choisis ta pièce : on te montre ce qui rentre chez toi.</p><span class="more">Voir ma place →</span></a>
-<a class="stepcard" href="#materiel"><span class="n">2</span><h3>Achète 3 choses, pas plus</h3><p>Un tapis, des élastiques, des haltères. Le reste viendra plus tard.</p><span class="more">Voir le matériel →</span></a>
+<a class="stepcard" href="#materiel"><span class="n">2</span><h3>Commence avec les essentiels</h3><p>Un tapis, des élastiques, des haltères pour démarrer. Puis complète au fil de tes progrès.</p><span class="more">Voir le matériel →</span></a>
 <a class="stepcard" href="programme-musculation-maison-debutant.html"><span class="n">3</span><h3>Suis un programme simple</h3><p>3 séances de 40 minutes par semaine, expliquées pas à pas.</p><span class="more">Voir le programme →</span></a>
 </div>
 </div></section>
@@ -252,7 +273,9 @@ def build_index():
 </div></section>
 
 <section class="section alt" id="materiel"><div class="wrap">
-<div class="section-head"><span class="step">Étape 2</span><h2>Le matériel, expliqué simplement</h2><p>Commence par les 3 objets marqués « Pour commencer ». Avec eux, tu peux déjà faire travailler tout ton corps.</p></div>
+<div class="section-head"><span class="step">Étape 2</span><h2>Le matériel, expliqué simplement</h2><p>Commence par les essentiels. Ensuite, chaque nouvel objet débloque de nouveaux exercices et te fait progresser plus vite.</p></div>
+{kits_html()}
+<h3 class="subhead">Chaque objet en détail</h3>
 <div class="kit">{cards}</div>
 </div></section>
 
@@ -286,6 +309,9 @@ def build_guide(g):
     faq = "".join(f"<details><summary>{e(q)}</summary><p>{e(a)}</p></details>" for q, a in g["faq"])
     others = "".join(f'<li><a href="{o["slug"]}.html">{e(o["short"])}</a></li>' for o in GUIDES if o["slug"] != g["slug"])
     toc = "".join(f"<li>{e(t)}</li>" for t in g["toc"])
+    used = " ".join(g.get("links", {}).values())
+    picks = [p for p in PRODUCTS if p["query"] not in used and p.get("guide") != g["slug"]][:3]
+    upsell = "".join(f'<div class="buy"><div><strong>{e(p["name"])}</strong><span>{e(p["why"])}</span></div><a class="btn" href="{aff(p["query"])}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>' for p in picks)
     page = head(g["title"], g["desc"], g["slug"] + ".html", [art_ld, faq_ld, crumb_ld], "article")
     page += header("")
     page += f"""<main class="wrap">
@@ -298,6 +324,9 @@ def build_guide(g):
 </header>
 <div class="article-body">
 <article class="prose">{body}
+<h2>Complète ton coin sport</h2>
+<p>Ces objets vont bien avec ce que tu viens de lire, et ajoutent de nouveaux exercices.</p>
+{upsell}
 <h2 id="faq">Questions fréquentes</h2><div class="faq">{faq}</div>
 </article>
 <aside class="aside">
