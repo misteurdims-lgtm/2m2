@@ -9,29 +9,37 @@ SITE = {
 }
 
 PRODUCTS = [
-    {"name": "Élastiques de résistance", "level": "Débutant", "w": 30, "d": 20, "storage": "Tiroir ou boîte à chaussures",
-     "why": "Le meilleur rapport utilité/place : dos, épaules, jambes, et l'aide idéale pour réussir ses premières tractions.",
-     "query": "élastiques de résistance musculation lot", "guide": "elastiques-musculation"},
-    {"name": "Haltères réglables", "level": "Tous niveaux", "w": 45, "d": 40, "storage": "Sous le lit ou un meuble bas",
-     "why": "Une seule paire remplace un rack entier. C'est le cœur du travail de force à la maison.",
-     "query": "haltères réglables", "guide": "halteres-reglables"},
-    {"name": "Barre de traction de porte", "level": "Tous niveaux", "w": 0, "d": 0, "storage": "Reste sur la porte ou se décroche",
-     "why": "Le meilleur exercice pour le dos et les bras, sans prendre un centimètre au sol et sans percer.",
-     "query": "barre de traction porte sans perçage", "guide": "barre-traction-sans-percer"},
-    {"name": "Tapis de sol épais", "level": "Indispensable", "w": 183, "d": 61, "storage": "Roulé debout dans un coin",
-     "why": "Délimite ta zone, protège le sol et tes genoux, et amortit le bruit pour les voisins.",
+    {"icon": "tapis", "name": "Un tapis de sol", "start": True, "budget": "€", "compare": "un tapis de bain un peu long",
+     "w": 183, "d": 61, "storage": "Roulé dans un coin",
+     "why": "Ta base : plus confortable pour les genoux, et il protège le sol. C'est ton coin sport.",
      "query": "tapis de sol fitness épais 15 mm", "guide": "salle-de-sport-petit-appartement"},
-    {"name": "Kettlebell", "level": "Débutant +", "w": 22, "d": 22, "storage": "Au pied d'un meuble",
-     "why": "Squats, swings, rowing : un seul poids pour un entraînement complet et cardio à la fois.",
+    {"icon": "elastiques", "name": "Des élastiques", "start": True, "budget": "€", "compare": "une boîte à chaussures",
+     "w": 30, "d": 20, "storage": "Dans un tiroir",
+     "why": "Le meilleur achat pour commencer : pas cher, et ils servent pour tout le corps.",
+     "query": "élastiques de résistance musculation lot", "guide": "elastiques-musculation"},
+    {"icon": "halteres", "name": "Des haltères réglables", "start": True, "budget": "€€", "compare": "une petite valise",
+     "w": 45, "d": 40, "storage": "Sous le lit",
+     "why": "Les petits poids qu'on règle selon sa force. Une seule paire suffit pour progresser des mois.",
+     "query": "haltères réglables", "guide": "halteres-reglables"},
+    {"icon": "barre", "name": "Une barre de traction", "budget": "€", "compare": "rien : elle se pose sur une porte",
+     "w": 0, "d": 0, "storage": "Reste sur la porte",
+     "why": "Pour muscler le dos et les bras. Elle tient sur un cadre de porte, sans percer.",
+     "query": "barre de traction porte sans perçage", "guide": "barre-traction-sans-percer"},
+    {"icon": "kettlebell", "name": "Un kettlebell", "budget": "€", "compare": "un pot de fleurs",
+     "w": 22, "d": 22, "storage": "Au pied d'un meuble",
+     "why": "Un poids avec une poignée, pour les jambes, les fesses et le cardio en même temps.",
      "query": "kettlebell fonte"},
-    {"name": "Corde à sauter", "level": "Cardio", "w": 0, "d": 0, "storage": "Dans un tiroir",
-     "why": "Le cardio le plus efficace pour la place : dix minutes suffisent. Demande un plafond assez haut.",
+    {"icon": "corde", "name": "Une corde à sauter", "budget": "€", "compare": "rien : elle tient dans une poche",
+     "w": 0, "d": 0, "storage": "Dans un tiroir",
+     "why": "Le cardio le plus simple qui soit : 10 minutes et tu es essoufflé. Il faut un plafond assez haut.",
      "query": "corde à sauter roulements"},
-    {"name": "Rouleau de massage", "level": "Récupération", "w": 33, "d": 14, "storage": "Sur une étagère",
-     "why": "Pour la récupération et la mobilité après la séance. Petit, léger et peu cher.",
+    {"icon": "rouleau", "name": "Un rouleau de massage", "budget": "€", "compare": "une bouteille d'eau",
+     "w": 33, "d": 14, "storage": "Sur une étagère",
+     "why": "Pour détendre les muscles après la séance. Ça fait du bien, surtout au début.",
      "query": "rouleau de massage mousse"},
-    {"name": "Banc de musculation pliable", "level": "Confirmé", "w": 125, "d": 50, "storage": "Plié debout contre un mur",
-     "why": "Ouvre le développé couché et des dizaines d'exercices. À ajouter quand le reste est maîtrisé.",
+    {"icon": "banc", "name": "Un banc pliable", "budget": "€€", "compare": "une planche à repasser, une fois plié",
+     "w": 125, "d": 50, "storage": "Plié contre un mur",
+     "why": "Pour plus tard, quand tu as pris l'habitude. Il ajoute beaucoup d'exercices.",
      "query": "banc de musculation pliable"},
 ]
 
@@ -39,7 +47,7 @@ GUIDES = [
     {
         "slug": "salle-de-sport-petit-appartement",
         "short": "Salle de sport en petit appartement",
-        "kicker": "PETIT ESPACE",
+        "kicker": "Bien s'installer",
         "title": "Aménager une salle de sport dans un petit appartement",
         "desc": "Comment s'équiper pour s'entraîner chez soi avec 2 m², sans gêner les voisins ni encombrer le salon : plan, matériel, rangement.",
         "date": "2026-11-19", "minutes": 6,
@@ -55,7 +63,7 @@ GUIDES = [
 <li><strong>une porte solide</strong> si tu veux ajouter une barre de traction (elle ne prend rien au sol) ;</li>
 <li><strong>environ 2,40 m sous plafond</strong> pour la corde à sauter. Sinon, remplace-la par des montées de genoux.</li>
 </ul>
-<div class="note"><span class="mono">ASTUCE</span>Le couloir est souvent le meilleur endroit : il est long, rarement encombré, et il y a toujours un cadre de porte pour la barre.</div>
+<div class="note"><span class="label">Astuce</span>Le couloir est souvent le meilleur endroit : il est long, rarement encombré, et il y a toujours un cadre de porte pour la barre.</div>
 <h2>Le matériel, dans l'ordre</h2>
 <p>Achète en trois temps. Chaque étape permet déjà de s'entraîner, et tu sauras si tu tiens le rythme avant de dépenser plus.</p>
 <div class="tbl"><table>
@@ -86,7 +94,7 @@ GUIDES = [
     {
         "slug": "halteres-reglables",
         "short": "Bien choisir ses haltères réglables",
-        "kicker": "FORCE",
+        "kicker": "Choisir son matériel",
         "title": "Haltères réglables : comment bien les choisir",
         "desc": "À disques ou à sélecteur, quelle plage de poids, quel encombrement : les critères pour choisir des haltères réglables qui dureront.",
         "date": "2026-11-19", "minutes": 5,
@@ -132,7 +140,7 @@ GUIDES = [
     {
         "slug": "barre-traction-sans-percer",
         "short": "Barre de traction sans percer",
-        "kicker": "DOS & BRAS",
+        "kicker": "Choisir son matériel",
         "title": "Barre de traction sans percer : laquelle choisir",
         "desc": "Télescopique ou en appui sur le cadre de porte : comment choisir une barre de traction qui tient sans vis ni trou, et l'installer en sécurité.",
         "date": "2026-11-19", "minutes": 5,
@@ -170,7 +178,7 @@ GUIDES = [
     {
         "slug": "elastiques-musculation",
         "short": "Élastiques de musculation",
-        "kicker": "DÉBUTANT",
+        "kicker": "Choisir son matériel",
         "title": "Élastiques de musculation : le guide pour bien débuter",
         "desc": "Mini-bandes, grandes boucles ou tubes à poignées : quels élastiques choisir, quelle résistance, et quels exercices faire avec.",
         "date": "2026-11-19", "minutes": 5,
@@ -210,7 +218,7 @@ GUIDES = [
     {
         "slug": "programme-musculation-maison-debutant",
         "short": "Programme musculation maison débutant",
-        "kicker": "PROGRAMME",
+        "kicker": "S'entraîner",
         "title": "Programme de musculation à la maison pour débutant",
         "desc": "Trois séances de 40 minutes par semaine avec un tapis, des élastiques et des haltères : le programme complet, et comment progresser.",
         "date": "2026-11-19", "minutes": 6,
@@ -231,7 +239,7 @@ GUIDES = [
 <h2>Comment progresser</h2>
 <p>Utilise la <strong>double progression</strong> : garde le même poids jusqu'à réussir le haut de la fourchette (par exemple 3 séries de 12) avec une bonne technique. À ce moment-là, augmente un peu la charge et repars du bas de la fourchette.</p>
 <p>Note tes charges et tes répétitions après chaque séance. Un simple carnet ou une appli suffit : c'est ce qui permet de voir les progrès et de rester motivé.</p>
-<div class="note"><span class="mono">BON À SAVOIR</span>La technique passe avant la charge. Si le mouvement se dégrade sur les dernières répétitions, garde le même poids à la séance suivante.</div>
+<div class="note"><span class="label">Bon à savoir</span>La technique passe avant la charge. Si le mouvement se dégrade sur les dernières répétitions, garde le même poids à la séance suivante.</div>
 <h2>Échauffement et récupération</h2>
 <p>Commence chaque séance par 5 minutes d'échauffement : rotations des épaules et des hanches, squats sans poids, une série légère du premier exercice. Termine par quelques minutes de mobilité ou de rouleau de massage.</p>
 <div class="buy"><div><strong>Lot d'élastiques</strong><span>Pour le tirage et l'échauffement des épaules.</span></div><a class="btn" href="{{elast}}" rel="sponsored nofollow noopener" target="_blank">Voir les modèles →</a></div>

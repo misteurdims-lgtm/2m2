@@ -21,7 +21,7 @@ def url(path):
 
 
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
-         '<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">')
+         '<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">')
 
 
 def head(title, desc, path, jsonld, og_type="website"):
@@ -52,22 +52,22 @@ def head(title, desc, path, jsonld, og_type="website"):
 <body>"""
 
 
-NAV = [("index.html", "Accueil"), ("index.html#calcul", "Calculer mon espace"), ("index.html#guides", "Guides"), ("a-propos.html", "À propos")]
+NAV = [("index.html", "Accueil"), ("index.html#commencer", "Par où commencer"), ("index.html#materiel", "Le matériel"), ("index.html#guides", "Les guides")]
 
 
 def header(current):
     links = "".join(f'<a href="{h}"{" aria-current=\"page\"" if h == current else ""}>{t}</a>' for h, t in NAV)
     return f"""<header class="top"><div class="wrap">
-<a class="brand" href="index.html"><span class="brand-mark">2&nbsp;m<sup>2</sup></span><span><strong>{e(SITE['tagline'])}</strong><small>Matériel · plans · programmes</small></span></a>
+<a class="brand" href="index.html"><span class="brand-mark">2m²</span><strong>{e(SITE['tagline'])}</strong></a>
 <nav aria-label="Navigation principale">{links}</nav>
 </div></header>
-<div class="disclose"><div class="wrap">Liens affiliés : si tu achètes via nos liens, on touche une petite commission, sans surcoût pour toi. Ça finance le site.</div></div>"""
+<div class="disclose">Certains liens sont affiliés : si tu achètes via ces liens, on touche une petite commission. Ça ne change pas le prix pour toi.</div>"""
 
 
 def footer():
     guides = "".join(f'<li><a href="{g["slug"]}.html">{e(g["short"])}</a></li>' for g in GUIDES)
     return f"""<footer><div class="wrap">
-<div><span class="brand-mark">2&nbsp;m<sup>2</sup></span><p>{e(SITE['description'])}</p>
+<div><span class="brand-mark">2m²</span><p>{e(SITE['description'])}</p>
 <p>En tant que Partenaire Amazon, nous réalisons un bénéfice sur les achats remplissant les conditions requises.</p></div>
 <div><h3>Guides</h3><ul>{guides}</ul></div>
 <div><h3>Le site</h3><ul><li><a href="a-propos.html">À propos et méthode</a></li><li><a href="mentions-legales.html">Mentions légales</a></li><li><a href="mentions-legales.html#affiliation">Liens affiliés</a></li></ul>
@@ -76,117 +76,137 @@ def footer():
 </body></html>"""
 
 
-def footprint_svg(w, d, size=64):
-    """Emprise au sol dessinée à l'échelle, façon plan coté."""
-    if not w or not d:
-        return (f'<svg width="{size}" height="{size}" viewBox="0 0 64 64" aria-hidden="true">'
-                f'<rect x="4" y="4" width="56" height="56" fill="none" stroke="var(--line)" stroke-dasharray="3 3"/>'
-                f'<text x="32" y="36" text-anchor="middle" font-size="9" fill="var(--blue)" font-family="var(--mono)">0 m²</text></svg>')
-    m = max(w, d)
-    rw, rd = 52 * w / m, 52 * d / m
-    x, y = (64 - rw) / 2, (64 - rd) / 2
-    return (f'<svg width="{size}" height="{size}" viewBox="0 0 64 64" aria-hidden="true">'
-            f'<rect x="{x:.1f}" y="{y:.1f}" width="{rw:.1f}" height="{rd:.1f}" fill="var(--blue-soft)" stroke="var(--blue)" stroke-width="1.5"/></svg>')
+ICONS = {
+    "tapis": '<rect x="10" y="30" width="78" height="26" rx="4"/><ellipse cx="88" cy="43" rx="10" ry="13"/><ellipse cx="88" cy="43" rx="4" ry="6"/>',
+    "elastiques": '<ellipse cx="38" cy="43" rx="26" ry="16"/><ellipse cx="62" cy="43" rx="26" ry="16"/>',
+    "halteres": '<rect x="12" y="26" width="12" height="34" rx="3"/><rect x="24" y="31" width="8" height="24" rx="2"/><line x1="32" y1="43" x2="68" y2="43" stroke-width="6"/><rect x="68" y="31" width="8" height="24" rx="2"/><rect x="76" y="26" width="12" height="34" rx="3"/>',
+    "barre": '<path d="M22 80 V16 H78 V80"/><line x1="12" y1="24" x2="88" y2="24" stroke-width="6"/><rect x="34" y="18" width="8" height="12" rx="2"/><rect x="58" y="18" width="8" height="12" rx="2"/>',
+    "kettlebell": '<path d="M36 34 C36 14 64 14 64 34"/><circle cx="50" cy="55" r="22"/>',
+    "corde": '<rect x="14" y="14" width="10" height="24" rx="5"/><rect x="76" y="14" width="10" height="24" rx="5"/><path d="M19 38 C19 90 81 90 81 38"/>',
+    "rouleau": '<rect x="18" y="32" width="64" height="24" rx="4"/><ellipse cx="18" cy="44" rx="6" ry="12"/><line x1="34" y1="32" x2="34" y2="56"/><line x1="50" y1="32" x2="50" y2="56"/><line x1="66" y1="32" x2="66" y2="56"/>',
+    "banc": '<rect x="12" y="34" width="76" height="12" rx="4"/><line x1="24" y1="46" x2="24" y2="72"/><line x1="76" y1="46" x2="76" y2="72"/><line x1="16" y1="72" x2="32" y2="72"/><line x1="68" y1="72" x2="84" y2="72"/>',
+}
+
+
+def icon(name, size=88):
+    return (f'<svg width="{size}" height="{size}" viewBox="0 0 100 86" fill="none" stroke="currentColor" stroke-width="4" '
+            f'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{ICONS[name]}</svg>')
+
+
+BUDGET = {"€": "Petit budget", "€€": "Budget moyen", "€€€": "Gros budget"}
 
 
 def product_card(i, p):
-    area = f"≈ {p['w']} × {p['d']} cm au sol" if p["w"] else "0 cm² au sol"
-    return f"""<article class="card">
-<div class="num"><span>RÉF. {i:02d}</span><b>{e(p['level'])}</b></div>
+    badge = '<span class="badge">Pour commencer</span>' if p.get("start") else ""
+    guide = f'<a class="guide-link" href="{p["guide"]}.html">Comment bien le choisir</a>' if p.get("guide") else ""
+    return f"""<article class="card{' start' if p.get('start') else ''}">{badge}
+<div class="art">{icon(p['icon'])}</div>
 <h3>{e(p['name'])}</h3>
 <p>{e(p['why'])}</p>
-<div>
-<div class="foot">{footprint_svg(p['w'], p['d'])}<span class="mono">{area}<br>{e(p['storage'])}</span></div>
-<p style="margin-top:12px"><a class="go" href="{aff(p['query'])}" rel="sponsored nofollow noopener" target="_blank">Voir les modèles →</a>{' · <a href="' + p['guide'] + '.html">Notre guide</a>' if p.get('guide') else ''}</p>
-</div>
+<div class="facts"><span><b>Place :</b> {e(p['compare'])}</span><span><b>Rangement :</b> {e(p['storage'].lower())}</span><span><b>Prix :</b> {BUDGET[p['budget']].lower()}</span></div>
+<a class="btn go" href="{aff(p['query'])}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a>
+{guide}
 </article>"""
 
 
-HERO_PLAN = """<svg viewBox="0 0 420 300" role="img" aria-label="Plan coté d'un coin d'entraînement de 2 mètres sur 1 mètre : tapis, haltères, kettlebell, élastiques">
-<rect class="draw" x="40" y="40" width="340" height="170" fill="none" stroke="var(--ink)" stroke-width="2.5"/>
-<rect class="draw d2" x="60" y="60" width="311" height="104" fill="var(--blue-soft)" stroke="var(--blue)" stroke-width="1.5"/>
-<text x="215" y="117" text-anchor="middle" font-size="12" fill="var(--blue)">TAPIS 183 × 61</text>
-<rect class="draw d3" x="60" y="174" width="68" height="28" fill="none" stroke="var(--orange)" stroke-width="2"/>
-<text x="94" y="192" text-anchor="middle" font-size="10" fill="var(--orange)">HALTÈRES</text>
-<circle class="draw d4" cx="160" cy="188" r="15" fill="none" stroke="var(--orange)" stroke-width="2"/>
-<text x="160" y="192" text-anchor="middle" font-size="9" fill="var(--orange)">KB</text>
-<rect class="draw d5" x="190" y="176" width="44" height="26" fill="none" stroke="var(--orange)" stroke-width="2"/>
-<text x="212" y="193" text-anchor="middle" font-size="9" fill="var(--orange)">ÉLAST.</text>
-<line x1="40" y1="245" x2="380" y2="245" stroke="var(--ink)"/><line x1="40" y1="238" x2="40" y2="252" stroke="var(--ink)"/><line x1="380" y1="238" x2="380" y2="252" stroke="var(--ink)"/>
-<text x="210" y="268" text-anchor="middle" font-size="13" fill="var(--ink)">200 cm</text>
-<line x1="400" y1="40" x2="400" y2="210" stroke="var(--ink)"/><line x1="393" y1="40" x2="407" y2="40" stroke="var(--ink)"/><line x1="393" y1="210" x2="407" y2="210" stroke="var(--ink)"/>
-<text x="412" y="130" font-size="13" fill="var(--ink)" transform="rotate(90 412 130)" text-anchor="middle">100 cm</text>
-<text x="40" y="28" font-size="11" fill="var(--muted)">ÉCH. 1:10 · SALON / CHAMBRE / COULOIR</text>
-</svg>"""
+HERO_ART = """<figure class="hero-art" style="margin:0">
+<svg viewBox="0 0 440 300" role="img" aria-label="Un coin sport de 2 mètres sur 1 mètre avec un tapis, des haltères, des élastiques et un kettlebell">
+<rect x="20" y="40" width="400" height="200" rx="18" fill="var(--blue-soft)"/>
+<rect x="50" y="70" width="250" height="84" rx="10" fill="var(--blue)" opacity=".85"/>
+<text x="175" y="118" text-anchor="middle" font-size="20" font-weight="800" fill="#fff" font-family="var(--display)">Ton tapis</text>
+<g fill="none" stroke="var(--orange)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+<rect x="70" y="175" width="12" height="36" rx="3"/><line x1="82" y1="193" x2="122" y2="193" stroke-width="7"/><rect x="122" y="175" width="12" height="36" rx="3"/>
+<path d="M176 182 C176 166 200 166 200 182"/><circle cx="188" cy="198" r="16"/>
+<ellipse cx="250" cy="194" rx="22" ry="13"/><ellipse cx="268" cy="194" rx="22" ry="13"/>
+</g>
+<g fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"><path d="M330 220 V60 H400 V220"/><line x1="320" y1="72" x2="410" y2="72" stroke-width="6"/></g>
+<text x="365" y="250" text-anchor="middle" font-size="14" fill="var(--muted)" font-family="var(--body)">ta porte</text>
+<text x="220" y="28" text-anchor="middle" font-size="18" font-weight="800" fill="var(--ink)" font-family="var(--display)">2 mètres</text>
+<text x="220" y="285" text-anchor="middle" font-size="15" fill="var(--muted)" font-family="var(--body)">La place d'un tapis de couloir suffit.</text>
+</svg>
+<figcaption>Tout ton matériel tient ici. Et se range en 2 minutes.</figcaption>
+</figure>"""
 
 
 CALC = """<div class="calc">
-<div class="controls">
-<div><label for="w">Largeur dispo <span class="val" id="wv">200 cm</span></label><input type="range" id="w" min="80" max="400" step="10" value="200"></div>
-<div><label for="d">Profondeur dispo <span class="val" id="dv">120 cm</span></label><input type="range" id="d" min="60" max="400" step="10" value="120"></div>
-<div><label for="h">Hauteur sous plafond <span class="val" id="hv">250 cm</span></label><input type="range" id="h" min="200" max="300" step="5" value="250"></div>
-<p class="mono" style="margin:0;color:var(--muted)">Mesure l'espace libre au sol, meubles déplacés. Les emprises sont des moyennes.</p>
+<div class="presets" role="group" aria-label="Choisis ton espace">
+<button class="preset" data-w="200" data-d="100" aria-pressed="true"><span class="ico" aria-hidden="true">🛏</span><span><b>Un coin de chambre</b><small>environ 2 m × 1 m</small></span></button>
+<button class="preset" data-w="250" data-d="150" aria-pressed="false"><span class="ico" aria-hidden="true">🛋</span><span><b>Un bout de salon</b><small>environ 2,5 m × 1,5 m</small></span></button>
+<button class="preset" data-w="300" data-d="100" aria-pressed="false"><span class="ico" aria-hidden="true">🚪</span><span><b>Un couloir</b><small>environ 3 m × 1 m</small></span></button>
+<button class="preset" data-w="300" data-d="250" aria-pressed="false"><span class="ico" aria-hidden="true">🏠</span><span><b>Une petite pièce libre</b><small>environ 3 m × 2,5 m</small></span></button>
+<details class="custom"><summary>Je préfère mesurer moi-même</summary>
+<label for="w">Longueur libre <span class="val" id="wv"></span></label><input type="range" id="w" min="80" max="400" step="10" value="200">
+<label for="d">Largeur libre <span class="val" id="dv"></span></label><input type="range" id="d" min="60" max="400" step="10" value="100">
+</details>
 </div>
-<div class="result">
+<div class="result" aria-live="polite">
 <div class="verdict" id="verdict"></div>
-<svg class="canvas" id="room" viewBox="0 0 420 260" role="img" aria-label="Plan de ton espace à l'échelle"></svg>
+<svg id="room" viewBox="0 0 420 220" role="img" aria-label="Ton espace dessiné avec le matériel qui rentre"></svg>
 <ul id="fits"></ul>
 </div>
 </div>
 <script>
 (() => {
   const items = [
-    {id:"tapis", n:"Tapis de sol", w:183, d:61, need:[190,70], q:"tapis de sol fitness épais"},
-    {id:"elast", n:"Élastiques de résistance", w:30, d:20, need:[150,80], q:"élastiques de résistance musculation lot"},
-    {id:"barre", n:"Barre de traction de porte", w:0, d:0, need:[0,0], q:"barre de traction porte sans perçage"},
-    {id:"halt", n:"Haltères réglables", w:45, d:40, need:[180,100], q:"haltères réglables"},
-    {id:"kb", n:"Kettlebell", w:22, d:22, need:[180,150], q:"kettlebell fonte"},
-    {id:"corde", n:"Corde à sauter", w:0, d:0, need:[200,120], h:240, q:"corde à sauter roulements"},
-    {id:"banc", n:"Banc pliable", w:125, d:50, need:[200,140], q:"banc de musculation pliable"}
+    {id:"tapis", n:"Un tapis de sol", w:183, d:61, need:[190,70], q:"tapis de sol fitness épais"},
+    {id:"elast", n:"Des élastiques", w:30, d:20, need:[150,80], q:"élastiques de résistance musculation lot"},
+    {id:"halt", n:"Des haltères réglables", w:45, d:40, need:[180,90], q:"haltères réglables"},
+    {id:"barre", n:"Une barre de traction (sur une porte)", w:0, d:0, need:[0,0], q:"barre de traction porte sans perçage"},
+    {id:"kb", n:"Un kettlebell", w:22, d:22, need:[180,140], q:"kettlebell fonte"},
+    {id:"corde", n:"Une corde à sauter", w:0, d:0, need:[200,120], q:"corde à sauter roulements"},
+    {id:"banc", n:"Un banc pliable", w:125, d:50, need:[200,140], q:"banc de musculation pliable"}
   ];
   const TAG = "__TAG__";
   const $ = id => document.getElementById(id);
-  const fits = (it, W, D, H) => {
-    const [a,b] = it.need; if (it.h && H < it.h) return false;
-    return (W >= a && D >= b) || (D >= a && W >= b);
-  };
-  function render() {
-    const W = +$("w").value, D = +$("d").value, H = +$("h").value;
-    $("wv").textContent = W + " cm"; $("dv").textContent = D + " cm"; $("hv").textContent = H + " cm";
-    const ok = items.filter(it => fits(it, W, D, H));
-    const m2 = (W * D / 10000).toLocaleString("fr-FR", {maximumFractionDigits: 1});
-    const level = ok.length >= 7 ? "le kit complet" : ok.length >= 5 ? "le kit 2 m²" : ok.length >= 3 ? "le kit mini" : "le kit de poche";
-    $("verdict").innerHTML = `${m2} m² : tu peux installer <span>${level}</span>, ${ok.length} équipements sur ${items.length}.`;
-    $("fits").innerHTML = items.map(it => {
-      const y = fits(it, W, D, H);
-      const why = !y ? (it.h && H < it.h ? "plafond trop bas" : `il faut ${it.need[0]} × ${it.need[1]} cm`) : (it.w ? `${it.w} × ${it.d} cm au sol` : "0 cm² au sol");
-      return `<li class="${y ? "" : "no"}">${y ? "✓" : "✕"} <a href="https://www.amazon.fr/s?k=${encodeURIComponent(it.q)}&tag=${TAG}" rel="sponsored nofollow noopener" target="_blank">${it.n}</a> <span class="mono">${why}</span></li>`;
-    }).join("");
-    const s = Math.min(380 / W, 220 / D), rw = W * s, rd = D * s, x0 = (420 - rw) / 2, y0 = (260 - rd) / 2;
-    let svg = `<rect x="${x0}" y="${y0}" width="${rw}" height="${rd}" fill="none" stroke="var(--ink)" stroke-width="2"/>`;
-    svg += `<text x="${x0 + rw/2}" y="${y0 - 6}" text-anchor="middle" font-size="11" fill="var(--ink)" font-family="var(--mono)">${W} cm</text>`;
-    let cx = x0 + 8, cy = y0 + 8;
-    const horiz = W >= D;
+  const fits = (it, W, D) => { const [a,b] = it.need; return (W >= a && D >= b) || (D >= a && W >= b); };
+  const m = v => (v / 100).toLocaleString("fr-FR") + " m";
+  function render(W, D) {
+    $("w").value = W; $("d").value = D; $("wv").textContent = m(W); $("dv").textContent = m(D);
+    const ok = items.filter(it => fits(it, W, D));
+    const msg = ok.length === items.length ? "Parfait : <span>tout le matériel rentre</span> !" :
+                ok.length >= 4 ? `Bonne nouvelle : <span>${ok.length} équipements sur ${items.length}</span> rentrent chez toi.` :
+                `C'est un peu juste, mais <span>${ok.length} équipements</span> rentrent déjà.`;
+    $("verdict").innerHTML = msg;
+    $("fits").innerHTML = items.map(it => fits(it, W, D)
+      ? `<li><span class="yes" aria-hidden="true">✓</span><a href="https://www.amazon.fr/s?k=${encodeURIComponent(it.q)}&tag=${TAG}" rel="sponsored nofollow noopener" target="_blank">${it.n}</a></li>`
+      : `<li class="no"><span aria-hidden="true">✕</span>${it.n} <small>(il faut un peu plus de place)</small></li>`).join("");
+    const s = Math.min(380 / W, 170 / D), rw = W * s, rd = D * s, x0 = (420 - rw) / 2, y0 = 30;
+    let svg = `<rect x="${x0}" y="${y0}" width="${rw}" height="${rd}" rx="10" fill="var(--blue-soft)" stroke="var(--blue)" stroke-width="2"/>`;
+    svg += `<text x="210" y="20" text-anchor="middle" font-size="14" font-weight="700" fill="var(--muted)" font-family="var(--body)">Ton espace : ${m(W)} × ${m(D)}</text>`;
+    let cx = x0 + 10, cy = y0 + 10; const horiz = W >= D;
     if (ok.find(i => i.id === "tapis")) {
       const tw = (horiz ? 183 : 61) * s, td = (horiz ? 61 : 183) * s;
-      svg += `<rect x="${cx}" y="${cy}" width="${tw}" height="${td}" fill="var(--blue-soft)" stroke="var(--blue)"/><text x="${cx + tw/2}" y="${cy + td/2 + 4}" text-anchor="middle" font-size="10" fill="var(--blue)" font-family="var(--mono)">TAPIS</text>`;
-      if (horiz) cy += td + 8; else cx += tw + 8;
+      svg += `<rect x="${cx}" y="${cy}" width="${tw}" height="${td}" rx="6" fill="var(--blue)" opacity=".85"/><text x="${cx + tw/2}" y="${cy + td/2 + 5}" text-anchor="middle" font-size="13" font-weight="800" fill="#fff" font-family="var(--body)">Tapis</text>`;
+      if (horiz) cy += td + 10; else cx += tw + 10;
     }
     ok.filter(i => i.w && i.id !== "tapis").forEach(it => {
       const iw = it.w * s, id = it.d * s;
-      if (horiz && cx + iw > x0 + rw) { cx = x0 + 8; cy += id + 8; }
-      if (!horiz && cy + id > y0 + rd) { cy = y0 + 8; cx += iw + 8; }
-      svg += `<rect x="${cx}" y="${cy}" width="${iw}" height="${id}" fill="none" stroke="var(--orange)" stroke-width="1.5"/>`;
-      if (iw > 34) svg += `<text x="${cx + iw/2}" y="${cy + id/2 + 3}" text-anchor="middle" font-size="8" fill="var(--orange)" font-family="var(--mono)">${it.n.split(" ")[0].toUpperCase()}</text>`;
-      if (horiz) cx += iw + 8; else cy += id + 8;
+      if (horiz && cx + iw > x0 + rw) { cx = x0 + 10; cy += id + 10; }
+      if (!horiz && cy + id > y0 + rd) { cy = y0 + 10; cx += iw + 10; }
+      svg += `<rect x="${cx}" y="${cy}" width="${iw}" height="${id}" rx="5" fill="var(--orange)" opacity=".85"/>`;
+      if (horiz) cx += iw + 10; else cy += id + 10;
     });
     $("room").innerHTML = svg;
   }
-  ["w","d","h"].forEach(id => $(id).addEventListener("input", render));
-  render();
+  document.querySelectorAll(".preset").forEach(b => b.addEventListener("click", () => {
+    document.querySelectorAll(".preset").forEach(x => x.setAttribute("aria-pressed", x === b));
+    render(+b.dataset.w, +b.dataset.d);
+  }));
+  ["w","d"].forEach(id => $(id).addEventListener("input", () => {
+    document.querySelectorAll(".preset").forEach(x => x.setAttribute("aria-pressed", "false"));
+    render(+$("w").value, +$("d").value);
+  }));
+  render(200, 100);
 })();
 </script>"""
 
+
+HOME_FAQ = [
+    ("Je n'ai jamais fait de sport. Je peux commencer à la maison ?", "Oui, c'est même l'endroit idéal pour débuter : pas de regard des autres, pas de trajet, et tu vas à ton rythme. Commence par 2 ou 3 séances courtes par semaine."),
+    ("Combien ça coûte pour s'équiper ?", "Pour commencer, un tapis et un lot d'élastiques suffisent : c'est un petit budget. Les haltères réglables viennent ensuite, quand tu as pris l'habitude."),
+    ("J'ai très peu de place, c'est possible ?", "Oui. Un espace de 2 mètres sur 1 mètre suffit, et tout le matériel du début se range sous un lit ou dans un tiroir."),
+    ("Combien de temps par séance ?", "30 à 40 minutes suffisent, trois fois par semaine. Mieux vaut des séances courtes et régulières que longues et rares."),
+]
 
 def org_ld():
     return {"@context": "https://schema.org", "@type": "WebSite", "name": SITE["name"], "url": url(""),
@@ -195,37 +215,55 @@ def org_ld():
 
 def build_index():
     cards = "".join(product_card(i + 1, p) for i, p in enumerate(PRODUCTS))
-    guides = "".join(f'<a class="guide" href="{g["slug"]}.html"><span class="mono">GUIDE · {e(g["kicker"])}</span><h3>{e(g["title"])}</h3><p>{e(g["desc"])}</p></a>' for g in GUIDES)
-    itemlist = {"@context": "https://schema.org", "@type": "ItemList", "name": "Le kit pour s'entraîner dans 2 m²",
+    guides = "".join(f'<a class="guide" href="{g["slug"]}.html"><span class="tag">{e(g["kicker"])}</span><h3>{e(g["title"])}</h3><p>{e(g["desc"])}</p></a>' for g in GUIDES)
+    faq = "".join(f"<details><summary>{e(q)}</summary><p>{e(a)}</p></details>" for q, a in HOME_FAQ)
+    itemlist = {"@context": "https://schema.org", "@type": "ItemList", "name": "Le matériel pour s'entraîner chez soi",
                 "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": p["name"]} for i, p in enumerate(PRODUCTS)]}
-    page = head(f"{SITE['name']} : la salle de sport qui tient dans 2 m²",
-                "Tout pour s'entraîner chez soi dans un petit espace : calcule ce qui tient chez toi, choisis le bon matériel et suis un programme simple.",
-                "", [org_ld(), itemlist])
+    faq_ld = {"@context": "https://schema.org", "@type": "FAQPage",
+              "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in HOME_FAQ]}
+    page = head(f"{SITE['name']} : faire du sport à la maison, même dans un petit espace",
+                "Tu veux te mettre au sport à la maison ? Découvre ce qui tient chez toi, le matériel simple pour débuter et un programme facile à suivre.",
+                "", [org_ld(), itemlist, faq_ld])
     page += header("index.html")
     page += f"""<main>
 <div class="wrap hero">
 <div>
-<span class="kicker">Plan n° 01 · Salle de sport d'appartement</span>
-<h1>La salle de sport qui tient dans <span class="o">2&nbsp;m²</span>.</h1>
-<p class="lead">On mesure, on dessine, on choisit. Tout le matériel pour t'entraîner chez toi, avec la place exacte que chaque objet prend au sol.</p>
-<div class="actions"><a class="btn" href="#calcul">Calculer mon espace →</a><a class="btn ghost" href="#kit">Voir le kit</a></div>
+<span class="pill">Fait pour les débutants</span>
+<h1>Le sport à la maison, <span class="o">même dans 2&nbsp;m²</span>.</h1>
+<p class="lead">Pas besoin d'une salle de sport ni d'une grande pièce. On t'aide à choisir le bon matériel pour commencer, sans te tromper.</p>
+<div class="actions"><a class="btn" href="#commencer">Je commence ici</a><a class="btn ghost" href="#materiel">Voir le matériel</a></div>
+<div class="reassure"><span>Sans abonnement</span><span>Petit budget</span><span>Tout se range</span></div>
 </div>
-<div class="plan"><span class="tag">FIG. 1 · LE KIT 2 m²</span>{HERO_PLAN}</div>
+{HERO_ART}
 </div>
 
-<section class="section" id="calcul"><div class="wrap">
-<div class="section-head"><span class="ref">§ 01 · CALCUL</span><div><h2>Qu'est-ce qui tient chez toi ?</h2><p>Règle la taille de ton espace libre. Le plan se redessine à l'échelle et te dit quel matériel rentre, et ce qu'il te faudrait pour le reste.</p></div></div>
+<section class="section alt" id="commencer"><div class="wrap">
+<div class="section-head"><span class="step">Par où commencer ?</span><h2>3 étapes, c'est tout</h2><p>Pas de jargon, pas de matériel inutile. Suis les étapes dans l'ordre.</p></div>
+<div class="steps">
+<a class="stepcard" href="#espace"><span class="n">1</span><h3>Regarde la place que tu as</h3><p>Choisis ta pièce : on te montre ce qui rentre chez toi.</p><span class="more">Voir ma place →</span></a>
+<a class="stepcard" href="#materiel"><span class="n">2</span><h3>Achète 3 choses, pas plus</h3><p>Un tapis, des élastiques, des haltères. Le reste viendra plus tard.</p><span class="more">Voir le matériel →</span></a>
+<a class="stepcard" href="programme-musculation-maison-debutant.html"><span class="n">3</span><h3>Suis un programme simple</h3><p>3 séances de 40 minutes par semaine, expliquées pas à pas.</p><span class="more">Voir le programme →</span></a>
+</div>
+</div></section>
+
+<section class="section" id="espace"><div class="wrap">
+<div class="section-head"><span class="step">Étape 1</span><h2>Qu'est-ce qui rentre chez toi ?</h2><p>Clique sur l'endroit où tu veux t'entraîner. On dessine ton espace avec le matériel qui rentre.</p></div>
 {CALC.replace("__TAG__", SITE['amazon_tag'])}
 </div></section>
 
-<section class="section" id="kit"><div class="wrap">
-<div class="section-head"><span class="ref">§ 02 · KIT</span><div><h2>Le kit, pièce par pièce</h2><p>Chaque fiche indique l'emprise au sol, où le ranger, et pour quel niveau. Commence par les deux premières : tu peux déjà travailler tout le corps.</p></div></div>
+<section class="section alt" id="materiel"><div class="wrap">
+<div class="section-head"><span class="step">Étape 2</span><h2>Le matériel, expliqué simplement</h2><p>Commence par les 3 objets marqués « Pour commencer ». Avec eux, tu peux déjà faire travailler tout ton corps.</p></div>
 <div class="kit">{cards}</div>
 </div></section>
 
 <section class="section" id="guides"><div class="wrap">
-<div class="section-head"><span class="ref">§ 03 · GUIDES</span><div><h2>Les guides pour bien choisir</h2><p>Ce qu'on regarde vraiment avant d'acheter, et les erreurs à éviter.</p></div></div>
+<div class="section-head"><span class="step">Pour aller plus loin</span><h2>Nos guides</h2><p>Pour bien choisir ton matériel et t'entraîner sans te blesser.</p></div>
 <div class="guides">{guides}</div>
+</div></section>
+
+<section class="section alt" id="questions"><div class="wrap">
+<div class="section-head"><span class="step">Tu te poses la question ?</span><h2>Les questions des débutants</h2></div>
+<div class="faq" style="max-width:780px">{faq}</div>
 </div></section>
 </main>"""
     page += footer()
@@ -253,7 +291,7 @@ def build_guide(g):
     page += f"""<main class="wrap">
 <div class="crumbs"><a href="index.html">Accueil</a> / {e(g['short'])}</div>
 <header class="article-head">
-<span class="mono" style="color:var(--blue)">GUIDE · {e(g['kicker'])}</span>
+<span class="tag">{e(g['kicker'])}</span>
 <h1>{e(g['title'])}</h1>
 <p class="lead">{e(g['desc'])}</p>
 <p class="meta">Mis à jour le {datetime.date.today().strftime('%d/%m/%Y')} · {g['minutes']} min de lecture</p>
@@ -264,8 +302,8 @@ def build_guide(g):
 </article>
 <aside class="aside">
 <div class="box"><h3>Dans ce guide</h3><ol>{toc}</ol></div>
-<div class="box"><h3>Combien de place as-tu ?</h3><p style="margin:0 0 10px;font-size:15px;color:var(--muted)">Le calculateur dessine ton espace et te dit ce qui rentre.</p><a class="btn" href="index.html#calcul">Calculer →</a></div>
-<div class="box"><h3>Autres guides</h3><ul style="margin:0;padding-left:18px;font-size:15px">{others}</ul></div>
+<div class="box"><h3>Tu débutes ?</h3><p style="margin:0 0 12px;font-size:16px;color:var(--muted)">Regarde ce qui rentre chez toi en un clic.</p><a class="btn" href="index.html#espace">Voir ma place</a></div>
+<div class="box"><h3>Autres guides</h3><ul>{others}</ul></div>
 </aside>
 </div>
 </main>"""
