@@ -45,8 +45,8 @@ def _analytics():
 ANALYTICS = _analytics()
 
 
-FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
-         '<link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">')
+FONTS = ('<link rel="preload" href="fonts/anton-400.woff2" as="font" type="font/woff2" crossorigin>'
+         '<link rel="preload" href="fonts/instrument-sans-400.woff2" as="font" type="font/woff2" crossorigin>')
 
 
 GV = (f'<meta name="google-site-verification" content="{SITE["google_verif"]}">' if SITE.get("google_verif") else "") + (f'<meta name="msvalidate.01" content="{SITE["bing_verif"]}">' if SITE.get("bing_verif") else "")
@@ -626,6 +626,7 @@ def build():
         content = _re.sub(r'href="([^"]*)"', fix, content)
         with open(os.path.join(OUT, name), "w", encoding="utf-8") as f:
             f.write(content)
+    shutil.copytree(os.path.join(SRC, "fonts"), os.path.join(OUT, "fonts"))   # polices hébergées sur le site
     for name in ("style.css", "favicon.svg", "og.png"):
         if os.path.exists(os.path.join(SRC, name)):
             shutil.copy(os.path.join(SRC, name), OUT)
