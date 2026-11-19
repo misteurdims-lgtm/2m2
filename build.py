@@ -214,7 +214,7 @@ KITS = [
 def kits_html():
     out = []
     for i, (name, when, what, ids, budget) in enumerate(KITS):
-        items = "".join(f'<li><a href="{link(p)}" rel="sponsored nofollow noopener" target="_blank">{e(p["name"])}</a></li>'
+        items = "".join(f'<li><a href="{link(p)}" rel="sponsored nofollow noopener" target="_blank">{e(p["name"])}</a><small class="kmus">{e(", ".join(MUSCLES.get(p["icon"], [])[:5]))}</small></li>'
                         for p in PRODUCTS if p["icon"] in ids)
         out.append(f"""<div class="kitcard{' best' if i == 1 else ''}">{'<span class="badge">Notre conseil</span>' if i == 1 else ''}
 <span class="when">{e(when)}</span><h3>{e(name)}</h3><p>{e(what)}</p>

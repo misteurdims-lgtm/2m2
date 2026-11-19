@@ -262,6 +262,7 @@ button.btn { border: 0; cursor: pointer; font-family: inherit; }
 .card .pair, .card .guide-link { display: none; }
 .card { grid-template-areas: "num art title facts cta" "num art text facts cta" "num exos exos exos exos"; }
 .works { margin-bottom: 6px; }
+.kmus { display: block; font-size: 13px; color: #b9b6ae; font-weight: 400; margin-top: 2px; }
 .qmus { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; margin-top: 6px; }
 .qmus em { font-style: normal; font-size: 12px; font-weight: 700; color: var(--ink); margin-right: 2px; }
 .qmus i, .qsum i { font-style: normal; font-size: 12px; font-weight: 600; color: var(--ink); background: rgba(255, 90, 31, .1); border: 1px solid rgba(194, 65, 12, .25); padding: 1px 7px; border-radius: 12px; }
