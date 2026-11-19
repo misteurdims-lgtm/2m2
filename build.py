@@ -622,6 +622,8 @@ def build():
     with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
         f.write(f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{sitemap}</urlset>')
     open(os.path.join(OUT, ".nojekyll"), "w").close()
+    # nom de domaine personnalisé pour GitHub Pages (ne pas supprimer)
+    open(os.path.join(OUT, "CNAME"), "w").write("2m2sport.fr\n")
     shutil.copytree(os.path.join(SRC, "pins"), os.path.join(OUT, "pins"))
     # page technique listant les épingles (source pour Pinterest, non indexée)
     import pins as P

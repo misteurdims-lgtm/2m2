@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://misteurdims-lgtm.github.io/2m2/sitemap.xml
+Sitemap: https://2m2sport.fr/sitemap.xml
