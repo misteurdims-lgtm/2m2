@@ -175,7 +175,7 @@ def icon(name, size=88):
 
 
 GICON = {"salle-de-sport-petit-appartement": "tapis", "halteres-reglables": "halteres", "barre-traction-sans-percer": "barre",
-         "elastiques-musculation": "elastiques", "programme-musculation-maison-debutant": "kettlebell", "creatine-proteines-complements": "pot", "programme-abdos-maison": "tapis", "kettlebell-debutant": "kettlebell", "meilleur-tapis-de-sport": "tapis", "meilleures-halteres-reglables": "halteres", "meilleure-barre-de-traction": "barre", "meilleur-kettlebell": "kettlebell", "black-friday-sport-maison": "elastiques"}
+         "elastiques-musculation": "elastiques", "programme-musculation-maison-debutant": "kettlebell", "creatine-proteines-complements": "pot", "programme-abdos-maison": "tapis", "kettlebell-debutant": "kettlebell", "meilleur-tapis-de-sport": "tapis", "meilleures-halteres-reglables": "halteres", "meilleure-barre-de-traction": "barre", "meilleur-kettlebell": "kettlebell", "black-friday-sport-maison": "elastiques", "exercices-elastiques-dos": "elastiques"}
 
 
 BUDGET = {"€": "Petit budget", "€€": "Budget moyen", "€€€": "Gros budget"}

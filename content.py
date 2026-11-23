@@ -589,6 +589,60 @@ GUIDES = [
             ("Quel matériel de sport acheter pendant le Black Friday ?", "En priorité un tapis, des élastiques et des haltères réglables, puis selon ta place une barre de traction ou un kettlebell."),
         ],
     },
+    {
+        "slug": "exercices-elastiques-dos",
+        "short": "Exercices élastiques pour le dos",
+        "kicker": "S'entraîner",
+        "title": "Exercices avec élastiques pour le dos : la séance débutant",
+        "seo_title": "Exercices élastiques dos : séance débutant",
+        "desc": "6 exercices simples avec des élastiques pour renforcer le dos à la maison, une séance de 20 minutes et les erreurs à éviter.",
+        "date": "2026-11-23", "minutes": 5,
+        "toc": ["Pourquoi les élastiques pour le dos", "Le matériel", "6 exercices pour le dos", "La séance type", "Les erreurs à éviter"],
+        "links": {"elast": "élastiques de résistance musculation lot", "kit": "dp:B0D1DV9NHZ", "tapis": "tapis de sol fitness épais 15 mm"},
+        "body": """
+<p>Le dos travaille toute la journée, mais on l'oublie souvent à l'entraînement. Bonne nouvelle : avec quelques élastiques et une porte, tu peux le renforcer chez toi, sur 2 m², sans machine.</p>
+<h2>Pourquoi les élastiques pour le dos</h2>
+<p>Les exercices de dos consistent surtout à <strong>tirer</strong> : vers toi, vers le bas, ou en écartant les bras. Sans barre de traction ni machine, c'est difficile à faire avec le seul poids du corps. L'élastique règle ce problème : on l'accroche à une porte ou on le tient sous les pieds, et on tire. La résistance augmente doucement au fil du mouvement, ce qui permet de rester contrôlé.</p>
+<h2>Le matériel</h2>
+<p>Un lot de plusieurs résistances suffit. Un ancrage de porte est très pratique pour les tirages horizontaux et vers le bas. Un tapis rend les exercices au sol plus confortables.</p>
+<div class="buy"><div><strong>Lot d'élastiques de résistance</strong><span>Plusieurs niveaux pour adapter chaque exercice.</span></div><a class="btn" href="{{elast}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
+<div class="buy"><div><strong>Kit avec poignées et ancrage de porte</strong><span>Pour les tirages, comme sur une machine de salle.</span></div><a class="btn" href="{{kit}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
+<h2>6 exercices pour le dos</h2>
+<ol>
+<li><strong>Rowing assis</strong> : assis jambes tendues, élastique autour des pieds. Tire les mains vers le ventre en serrant les omoplates, puis reviens lentement.</li>
+<li><strong>Tirage vertical</strong> : élastique accroché en haut de la porte. À genoux, tire les mains vers le haut de la poitrine, coudes vers le bas.</li>
+<li><strong>Écartés arrière</strong> : debout, bras tendus devant toi, élastique dans les mains. Écarte les bras en ouvrant la poitrine.</li>
+<li><strong>Rowing debout à un bras</strong> : élastique accroché à hauteur du ventre. Tire avec un bras, le buste reste face à la porte.</li>
+<li><strong>Face pull</strong> : élastique à hauteur des yeux. Tire vers le visage en écartant les mains, coudes hauts.</li>
+<li><strong>Superman au sol</strong> : allongé sur le ventre, sans élastique. Décolle doucement bras et jambes, puis repose.</li>
+</ol>
+<h2>La séance type</h2>
+<p>Environ 20 minutes, deux à trois fois par semaine, avec un jour de repos entre deux séances. Repos de 45 à 60 secondes entre les séries.</p>
+<div class="tbl"><table>
+<tr><th>Exercice</th><th>Séries × répétitions</th></tr>
+<tr><td>Rowing assis</td><td>3 × 12 à 15</td></tr>
+<tr><td>Tirage vertical</td><td>3 × 10 à 12</td></tr>
+<tr><td>Écartés arrière</td><td>3 × 12 à 15</td></tr>
+<tr><td>Face pull</td><td>2 × 12 à 15</td></tr>
+<tr><td>Superman au sol</td><td>2 × 8 à 10, lentement</td></tr>
+</table></div>
+<p>Quand tu réussis toutes les répétitions facilement, passe à l'élastique suivant ou recule d'un pas pour l'étirer davantage. Commence par 5 minutes d'échauffement : rotations des épaules, quelques tirages très légers.</p>
+<div class="buy"><div><strong>Un tapis de sol épais</strong><span>Pour le rowing assis et le superman, sans avoir mal aux genoux.</span></div><a class="btn" href="{{tapis}}" rel="sponsored nofollow noopener" target="_blank">Voir les prix</a></div>
+<h2>Les erreurs à éviter</h2>
+<ul>
+<li><strong>Tirer avec les bras seulement</strong> : pense à rapprocher les omoplates.</li>
+<li><strong>Relâcher d'un coup</strong> : le retour doit être aussi contrôlé que l'aller.</li>
+<li><strong>Cambrer le bas du dos</strong> : garde le ventre gainé et le buste stable.</li>
+<li><strong>Utiliser un élastique abîmé</strong> : vérifie-le avant chaque séance, et vérifie que la porte est bien fermée.</li>
+</ul>
+<p>Ces conseils sont généraux. En cas de douleur au dos, de blessure ou de problème de santé, demande l'avis d'un médecin ou d'un kinésithérapeute avant de commencer.</p>
+""",
+        "faq": [
+            ("Quel élastique choisir pour muscler le dos ?", "Un lot de plusieurs résistances, idéalement avec un ancrage de porte pour les tirages. Tu pourras ainsi adapter chaque exercice."),
+            ("Combien de fois par semaine travailler le dos avec des élastiques ?", "Deux à trois séances par semaine suffisent pour débuter, avec un jour de repos entre deux séances."),
+            ("Les élastiques peuvent-ils soulager le mal de dos ?", "Ce guide vise le renforcement général, pas le soin. En cas de douleur, demande d'abord l'avis d'un médecin ou d'un kinésithérapeute."),
+        ],
+    },
 ]
 
 # 3 exercices montrés sur chaque fiche matériel (nom, muscles, comment faire)
